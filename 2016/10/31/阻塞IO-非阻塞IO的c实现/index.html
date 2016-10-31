@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>dashen&#39;s blog</title>
+  <title>阻塞IO，非阻塞IO的c实现 | dashen&#39;s blog</title>
 
   
   <meta name="author" content="Da Shen">
@@ -14,12 +14,15 @@
   
 
   
+  
+  <meta name="keywords" content="">
+  
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="阻塞IO，非阻塞IO的c实现"/>
 
   <meta property="og:site_name" content="dashen&#39;s blog"/>
 
@@ -58,12 +61,11 @@
 </header>
 
     <main class="site-main posts-loop">
-    
-  <article>
+    <article>
 
   
     
-    <h3 class="article-title"><a href="/2016/10/31/阻塞IO-非阻塞IO的c实现/"><span>阻塞IO，非阻塞IO的c实现</span></a></h3>
+    <h3 class="article-title"><span>阻塞IO，非阻塞IO的c实现</span></h3>
     
   
 
@@ -114,121 +116,10 @@
   </div>
 </article>
 
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/10/22/解决flask-restful无法使用-app-errorhandler/"><span>解决flask_restful无法使用@app.errorhandler</span></a></h3>
-    
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/10/22/解决flask-restful无法使用-app-errorhandler/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-10-22T06:01:08.000Z">
-          2016-10-22
-        </time>
-      </a>
-    </span>
-  </div>
 
 
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>在使用<code>flask_restful</code>插件开发RESTfulAPI的时候，会发现无法在非debug模式下使用flask的<code>@app.errorhandler</code>装饰器来捕获处理自己定义自己的异常，这是一件比较让人头痛的事情。经过对restful插件的源码阅读之后，想到了一种解决这个问题的办法。便是定义一个装饰器，用于捕获处理自定义异常，然后在每一个<code>get/post</code>等方法上注册这个装饰器。<br>先放上部分异常声明代码：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASError</span><span class="params">(Exception)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, status, code, message)</span>:</span></div><div class="line">        self._status = status</div><div class="line">        self._code = code</div><div class="line">        self._message = message</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">status</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._status</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">code</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._code</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._message</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASBadRequest</span><span class="params">(ASError)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, code, message)</span>:</span></div><div class="line">        super(ASBadRequest, self).__init__(<span class="number">400</span>, code, message)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgMissing</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgMissing, self).__init__(_ARG_MISSING, msg)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgFormat</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgFormat, self).__init__(_ARG_FORMART, msg)</div><div class="line">...</div></pre></td></tr></table></figure>
-<p>然后是异常处理的装饰器代码:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">errorhandler</span><span class="params">(func)</span>:</span></div><div class="line"><span class="meta">    @wraps(func)</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            resp = func(*args, **kwargs)</div><div class="line">            <span class="keyword">return</span> resp</div><div class="line">        <span class="keyword">except</span> ASError <span class="keyword">as</span> err:</div><div class="line">            status = err.status()</div><div class="line">            respMsg = jsonify(&#123;<span class="string">'status'</span>: err.code(), <span class="string">'message'</span>: err.message()&#125;)</div><div class="line">            <span class="keyword">return</span> make_response(respMsg, status)</div><div class="line">    <span class="keyword">return</span> wrapper</div></pre></td></tr></table></figure>
-<p>然后是在<code>get/post</code>等方法上注册这个装饰器，这里当然不会在每一个方法上使用@errohandler,这样子太丑了。比较好的做法是这样子, 向api的decorators属性传入一个装饰器的列表，列表中的所有装饰器会作用到每一个<code>get/post</code>等方法上去。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app = Flask(__name__)</div><div class="line">api = Api(app, decorators=[errorhandler])</div></pre></td></tr></table></figure>
-<p>这样就可以避免使用<code>@app.errorhandler</code>,而导致在非debug模式下，异常无法被捕获。最后附上<a href="https://github.com/DashShen/flask-restful-template" target="_blank" rel="external">github</a>地址。</p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/10/21/理解同步-异步-阻塞-非阻塞/"><span>理解同步,异步,阻塞,非阻塞</span></a></h3>
-    
-  
-
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/10/21/理解同步-异步-阻塞-非阻塞/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-10-21T15:05:28.000Z">
-          2016-10-21
-        </time>
-      </a>
-    </span>
-  </div>
-
-
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <p>同步与异步，阻塞与非阻塞的概念经常让人混淆不清。其实在理解这这两组概念上，主要还是区分他们是用来形容什么的。</p>
-<h1 id="同步与异步"><a href="#同步与异步" class="headerlink" title="同步与异步"></a>同步与异步</h1><p>同步和异步通常是用来形容一次<code>方法调用</code>的。同步方法调用一旦开始，调用者必须等到被调用的方法返回之后才能继续执行后续的任务。而异步方法调用,更像是一种消息传递，调用者调用了调用的方法后，可以立即继续执行后续的任务，不用等被调用方法返回结果后再往下执行。举一个实际的例子：</p>
-<blockquote>
-<p>比如你现在出门购物，要买一台电视机，你跑到家电市场，看中一台电视机，你就想售货员下单。但是这个时候，售货员告诉你，这款电视机现在没有，必须去仓库里拿。这个时候你就不得不在市场李候着他们，催着他们赶紧把电视机送过来，直到把你商家把你和电视机一起送回家。这就是<strong>同步调用</strong>, 你今天的买电视机的后续事情，都必须等到电视机买到之后才可以继续完成。</p>
-<p>不过，现在都是网购了，你还是想要一台电视机，你看中型号和款式，便在网上支付。此时买电视机这件事情对你来说已经结束了，之后你想做什么就做什么。因为你知道商家正在加紧安排送货，届时会联系你，你只需要回家收电视机就好了.这就是<strong>异步调用</strong></p>
-</blockquote>
-<h1 id="临界区"><a href="#临界区" class="headerlink" title="临界区"></a>临界区</h1><p>为什么要在这里解释一下临界区的概念呢，因为这对于理解阻塞与非阻塞的概念是十分必要的。临界区是用来表示一种<code>公共资源</code>或者说是<code>共享数据</code>,可以被多个线程使用，但是每一次，只能有一个线程可以使用它。也就是说<code>临界区资源</code>被占用，其他线程想使用，就必须等待。比如：</p>
-<blockquote>
-<p>办公室中的一台打印机，就是公共资源，但是打印机一个时间只能有一个人可以使用,其他人使用就必须等到这个人打印结束之后才可以使用。</p>
-</blockquote>
-<h1 id="阻塞与非阻塞"><a href="#阻塞与非阻塞" class="headerlink" title="阻塞与非阻塞"></a>阻塞与非阻塞</h1><p>在理解临界区的概念之后，便可以来讲一下阻塞与非阻塞的概念了。阻塞与非阻塞通常用来形容<code>多线程间的相互影响</code>。比如一个线程占用了临界区资源，那么其他所有需要这个资源线程就必须在这个临界去中等待，等待会导致线程挂起，这就是<code>阻塞</code>。而<code>非阻塞</code>正好相反，它强调没有一个线程可以妨碍其他线程的执行，所有的线程都会尝试不断向前执行。</p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-</nav>
     </main>
 
     <footer class="site-footer">

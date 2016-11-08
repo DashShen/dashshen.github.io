@@ -47,9 +47,9 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">Home</a></li>
+        <li><a href="/">主页</a></li>
       
-        <li><a href="/archives">Archives</a></li>
+        <li><a href="/archives">归档</a></li>
       
         <li><a href="https://github.com/DashShen/">Github</a></li>
       
@@ -59,6 +59,75 @@
 
     <main class="site-main posts-loop">
     
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2016/11/8/解决ubuntu无法使用http进行docker push/"><span>解决ubuntu中docker无法使用http进行push</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/8/解决ubuntu无法使用http进行docker push/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-08T13:24:08.000Z">
+          2016-11-08
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>默认情况下docker是使用https进行push的，当我们配置了自己的docker registry且使用http来上传镜像的时候，就需要配置我们ubuntu环境下的docker配置文件。</p>
+<ul>
+<li>在 <code>/etc/default/docker</code> 文件中添加一行</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=&quot;--insecure-registry YOUR_REGISTRY_DOMAIN&quot;</div></pre></td></tr></table></figure>
+<p>然后保存退出，根据<a href="https://docs.docker.com/registry/insecure/" target="_blank" rel="external">官网的文档</a>,我们只需要重启我们的docker守护进程就可以了。但是再尝试之后一直发现无效，最后才发现原来是docker在ubuntu环境下有坑，不会加载<code>/etc/default/docker</code>这个配置文件，下面就是解决办法。</p>
+<ul>
+<li><p>修改 <code>/lib/systemd/system/docker.service</code><br>  1.增加一行，用于指定配置文件在什么地方</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EnvironmentFile=-/etc/default/docker</div></pre></td></tr></table></figure>
+<p>  2.然后将</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd://</div></pre></td></tr></table></figure>
+<p>  修改为</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd:// $DOCKER_OPTS</div></pre></td></tr></table></figure>
+<p>  注意<code>fd://</code>之后又一个空格</p>
+</li>
+<li><p>重启docker服务<br>  1.执行</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl daemon-reload</div></pre></td></tr></table></figure>
+<p>  2.重启docker</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart docker</div></pre></td></tr></table></figure>
+<p>  3.这个时候，通过这个命令就可以看到docker的配置文件了</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl show docker | grep EnvironmentFile</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>最后再次尝试<code>docker push</code>就可以成功上传镜像了。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
   <article>
 
   

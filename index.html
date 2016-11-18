@@ -63,6 +63,66 @@
 
   
     
+    <h3 class="article-title"><a href="/2016/11/18/乱谈python中的函数/"><span>乱谈python中的函数属性</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/18/乱谈python中的函数/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-18T13:36:35.000Z">
+          2016-11-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>在python中一切都是对象，包括函数。今天就来随便聊聊这个函数，聊聊这个函数的属性的问题。</p>
+<p>首先，我们来先定义一个函数，然后调用<code>dir()</code>方法看看这个函数里面有什么属性和方法。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></div><div class="line"><span class="meta">... </span>    <span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(func)</div><div class="line">[<span class="string">'__call__'</span>, <span class="string">'__class__'</span>, <span class="string">'__closure__'</span>, <span class="string">'__code__'</span>, <span class="string">'__defaults__'</span>,<span class="string">'__delattr__'</span>, <span class="string">'__dict__'</span>, <span class="string">'__doc__'</span>, <span class="string">'__format__'</span>, <span class="string">'__get__'</span>, <span class="string">'__getattribute__'</span>, <span class="string">'__globals__'</span>, <span class="string">'__hash__'</span>, <span class="string">'__init__'</span>, <span class="string">'__module__'</span>, <span class="string">'__name__'</span>, <span class="string">'__new__'</span>, <span class="string">'__reduce__'</span>, <span class="string">'__reduce_ex__'</span>, <span class="string">'__repr__'</span>, <span class="string">'__setattr__'</span>, <span class="string">'__sizeof__'</span>, <span class="string">'__str__'</span>, <span class="string">'__subclasshook__'</span>, <span class="string">'func_closure'</span>, <span class="string">'func_code'</span>, <span class="string">'func_defaults'</span>, <span class="string">'func_dict'</span>, <span class="string">'func_doc'</span>, <span class="string">'func_globals'</span>, <span class="string">'func_name'</span>]</div><div class="line">&gt;&gt;&gt;</div></pre></td></tr></table></figure>
+<p>咦，我怎么发现了两个大大的<code>__setattr__</code>和<code>__getattribute__</code>魔术方法呢(⊙o⊙)?。也就是说我可以这样子玩，<code>func.foo = bar</code>, 然后再这样子 <code>print func.foo</code>,打印出<code>bar</code>。我的天，感觉我好像在写<code>js</code>哇，既然这样子，那我这样子玩玩看´ψ(｀∇´)ψ`。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> functools</div><div class="line"></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">set_foo</span><span class="params">(func)</span>:</span></div><div class="line"><span class="meta">    @functools.wraps(func)</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        func.foo = <span class="string">'bar'</span></div><div class="line">        func(*args, **kwargs)</div><div class="line">    <span class="keyword">return</span> decorator</div><div class="line"></div><div class="line"><span class="meta">@set_foo</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> func.foo</div><div class="line"></div><div class="line">func()</div></pre></td></tr></table></figure>
+<p>照理来说我们应该会看到<code>bar</code>, 但是这是什么鬼，为什么没有<code>foo</code>属性呢, 我都已经在装饰器里面给这个<code>func</code>加了<code>foo</code>的属性了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ python test.py                                                                                                         </div><div class="line">Traceback (most recent call last):                                                                                       </div><div class="line">  File &quot;test.py&quot;, line 16, in &lt;module&gt;                                                                                   </div><div class="line">    func()                                                                                                               </div><div class="line">  File &quot;test.py&quot;, line 14, in func                                                                                       </div><div class="line">    print func.foo                                                                                                       </div><div class="line">AttributeError: &apos;function&apos; object has no attribute &apos;foo&apos;</div></pre></td></tr></table></figure>
+<p>我怀疑这个在<code>def decorator(*args, **kwargs)</code>中的<code>func</code>，和在<code>def func()</code>中的<code>func</code>不会不是同一个本体吧。于是，我拿出<code>print id(func)</code>大法，看看这个两货本体究竟是谁 (`皿´)。 </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">    <span class="keyword">print</span> id(func)</div><div class="line">...</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">()</span>:</span></div><div class="line">    <span class="keyword">print</span> id(func)</div></pre></td></tr></table></figure>
+<p>OMG, 这两货居然真的不是同一个本体。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ python test.py</div><div class="line">4538443128</div><div class="line">4538443248</div></pre></td></tr></table></figure></p>
+<p>也就是说，我在装饰器中给<code>func</code>加的<code>foo</code>属性，并不是加在真正本体上了，那么真正的本体在去哪里了。最后我发现了，其实代码应该这么写。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">decorator</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">    decorator.foo = <span class="string">'bar'</span></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>然后我再执行，就发现没有问题了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ python test.py</div><div class="line">bar</div></pre></td></tr></table></figure>
+<p>原来如此呀，原来<code>decorator</code>才是本体呀( ⊙ o ⊙ )！。至于为什么是这样解决这个问题的，我们可以去看一下python的<strong>装饰器</strong>, <strong>闭包</strong>等这些概念,然后去看一下解释器在解释执行的为什么会生成两个不同的函数对象。最后强烈建议，开发python的开发者，可以出一个方法，用于在函数内部表示函数的自身调用。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
     <h3 class="article-title"><a href="/2016/11/8/解决ubuntu无法使用http进行docker push/"><span>解决ubuntu中docker无法使用http进行push</span></a></h3>
     
   

@@ -47,9 +47,9 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">主页</a></li>
+        <li><a href="/">Home</a></li>
       
-        <li><a href="/archives">归档</a></li>
+        <li><a href="/archives">Archives</a></li>
       
         <li><a href="https://github.com/DashShen/">Github</a></li>
       
@@ -59,6 +59,63 @@
 
     <main class="site-main posts-loop">
     
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2016/11/28/python闭包中的作用域/"><span>python闭包中的作用域</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2016/11/28/python闭包中的作用域/" rel="bookmark">
+        <time class="entry-date published" datetime="2016-11-28T11:43:06.000Z">
+          2016-11-28
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>python的闭包带来许多让人十分畅快的特性，但在使用闭包的时候也有许多要注意的地方，尤其是闭包的<strong>作用域</strong>，下面就来谈谈Python闭包中的作用域。看下面一段代码，试想一下最后打印的是什么值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></div><div class="line">    flag = <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></div><div class="line">        flag = <span class="keyword">True</span></div><div class="line">    inner()</div><div class="line">    <span class="keyword">return</span> flag</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    print(outer())</div></pre></td></tr></table></figure>
+<p>如果你的答案是<code>True</code>那就说明你进坑了，为了说明为什么答案是<code>False</code>我们先来看看python是如何来判断变量的作用域的。python解释器会按照下面的顺序来，来解析变量的引用：</p>
+<blockquote>
+<ol>
+<li>当前函数的作用域</li>
+<li>任何外围的作用域（如包含当前函数的其他函数）</li>
+<li>包含当前代码的那个模块的作用域（也叫全局作用域，global scope)</li>
+<li>内置作用域</li>
+</ol>
+</blockquote>
+<p>也就是说在<code>inner()</code>方法中的<code>flag = True</code>,并不是将<code>False</code>赋值给了外层的<code>flag</code>变量。而是这个<code>flag</code>是一个新的变量，因为符合第一条规则，就不会按照后面的方式去解析了，所以这个变量只在当前的函数作用域生效,最后打印出的值也就是是<code>False</code>。<br>当然，介绍你一定希望在内层函数中改变外层的变量，你可以加上<code>nonlocal</code>关键字，将这个变量作用域作用到外层函数上。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
   <article>
 
   

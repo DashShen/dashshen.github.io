@@ -51,9 +51,9 @@
   <nav class="site-navigation">
     <ul>
       
-        <li><a href="/">Home</a></li>
+        <li><a href="/">主页</a></li>
       
-        <li><a href="/archives">Archives</a></li>
+        <li><a href="/archives">归档</a></li>
       
         <li><a href="https://github.com/DashShen/">Github</a></li>
       
@@ -99,6 +99,8 @@
 </li>
 </ul>
 <ol>
+<li><p>原子性<br>一个操作要么全部执行，要么不执行。也就是说一段操作，只会在下一段之前完成，或者在前一段完成后执行，不会交替执行。这里和数据库中<code>ACID</code>性质的中原子性的概念是一致的</p>
+</li>
 <li><p>竞态条件<br>竞态条件就是说，程序执行的正确结果是依赖于某种运气条件，比如依赖于一个没有同步机制的共享状态变量。常见的会产生竞态情况有</p>
 <ul>
 <li>Check-Then-Act(懒加载)</li>

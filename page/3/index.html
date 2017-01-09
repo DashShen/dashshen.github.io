@@ -84,16 +84,15 @@
 
 
 
-<meta name="description" content="&amp;#x540C;&amp;#x6B65;&amp;#x4E0E;&amp;#x5F02;&amp;#x6B65;&amp;#xFF0C;&amp;#x963B;&amp;#x585E;&amp;#x4E0E;&amp;#x975E;&amp;#x963B;&amp;#x585E;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BA9;&amp;#x4EBA;&amp;#x6DF7;&amp;#x6DC6;&amp;#x4E0D;&amp;#x6E05;&amp;#x3002;&amp;#x5176;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="理解同步,异步,阻塞,非阻塞">
-<meta property="og:url" content="http://www.dashen.im/2016/10/21/理解同步-异步-阻塞-非阻塞/index.html">
+<meta name="description" content="Da Shen&apos;s blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="dashen's blog">
+<meta property="og:url" content="http://www.dashen.im/page/3/index.html">
 <meta property="og:site_name" content="dashen's blog">
-<meta property="og:description" content="&amp;#x540C;&amp;#x6B65;&amp;#x4E0E;&amp;#x5F02;&amp;#x6B65;&amp;#xFF0C;&amp;#x963B;&amp;#x585E;&amp;#x4E0E;&amp;#x975E;&amp;#x963B;&amp;#x585E;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BA9;&amp;#x4EBA;&amp;#x6DF7;&amp;#x6DC6;&amp;#x4E0D;&amp;#x6E05;&amp;#x3002;&amp;#x5176;">
-<meta property="og:updated_time" content="2016-10-22T05:53:30.000Z">
+<meta property="og:description" content="Da Shen&apos;s blog">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解同步,异步,阻塞,非阻塞">
-<meta name="twitter:description" content="&amp;#x540C;&amp;#x6B65;&amp;#x4E0E;&amp;#x5F02;&amp;#x6B65;&amp;#xFF0C;&amp;#x963B;&amp;#x585E;&amp;#x4E0E;&amp;#x975E;&amp;#x963B;&amp;#x585E;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#x7ECF;&amp;#x5E38;&amp;#x8BA9;&amp;#x4EBA;&amp;#x6DF7;&amp;#x6DC6;&amp;#x4E0D;&amp;#x6E05;&amp;#x3002;&amp;#x5176;">
+<meta name="twitter:title" content="dashen's blog">
+<meta name="twitter:description" content="Da Shen&apos;s blog">
 
 
 
@@ -111,7 +110,7 @@
   };
 </script>
 
-  <title> 理解同步,异步,阻塞,非阻塞 | dashen's blog </title>
+  <title> dashen's blog </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -142,7 +141,9 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container one-collumn sidebar-position-left 
+   page-home 
+ ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -209,9 +210,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
   
@@ -231,7 +232,110 @@
             
             
               
-                理解同步,异步,阻塞,非阻塞
+                
+                <a class="post-title-link" href="/2016/10/22/解决flask-restful无法使用-app-errorhandler/" itemprop="url">
+                  解决flask_restful无法使用@app.errorhandler
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-22T14:01:08+08:00" content="2016-10-22">
+              2016-10-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x5728;&#x4F7F;&#x7528;<code>flask_restful</code>&#x63D2;&#x4EF6;&#x5F00;&#x53D1;RESTfulAPI&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x65E0;&#x6CD5;&#x5728;&#x975E;debug&#x6A21;&#x5F0F;&#x4E0B;&#x4F7F;&#x7528;flask&#x7684;<code>@app.errorhandler</code>&#x88C5;&#x9970;&#x5668;&#x6765;&#x6355;&#x83B7;&#x5904;&#x7406;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x81EA;&#x5DF1;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4EF6;&#x6BD4;&#x8F83;&#x8BA9;&#x4EBA;&#x5934;&#x75DB;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x7ECF;&#x8FC7;&#x5BF9;restful&#x63D2;&#x4EF6;&#x7684;&#x6E90;&#x7801;&#x9605;&#x8BFB;&#x4E4B;&#x540E;&#xFF0C;&#x60F3;&#x5230;&#x4E86;&#x4E00;&#x79CD;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x529E;&#x6CD5;&#x3002;&#x4FBF;&#x662F;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x6355;&#x83B7;&#x5904;&#x7406;&#x81EA;&#x5B9A;&#x4E49;&#x5F02;&#x5E38;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#x3002;<br>&#x5148;&#x653E;&#x4E0A;&#x90E8;&#x5206;&#x5F02;&#x5E38;&#x58F0;&#x660E;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASError</span><span class="params">(Exception)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, status, code, message)</span>:</span></div><div class="line">        self._status = status</div><div class="line">        self._code = code</div><div class="line">        self._message = message</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">status</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._status</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">code</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._code</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._message</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASBadRequest</span><span class="params">(ASError)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, code, message)</span>:</span></div><div class="line">        super(ASBadRequest, self).__init__(<span class="number">400</span>, code, message)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgMissing</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgMissing, self).__init__(_ARG_MISSING, msg)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgFormat</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgFormat, self).__init__(_ARG_FORMART, msg)</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x662F;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7684;&#x88C5;&#x9970;&#x5668;&#x4EE3;&#x7801;:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">errorhandler</span><span class="params">(func)</span>:</span></div><div class="line"><span class="meta">    @wraps(func)</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            resp = func(*args, **kwargs)</div><div class="line">            <span class="keyword">return</span> resp</div><div class="line">        <span class="keyword">except</span> ASError <span class="keyword">as</span> err:</div><div class="line">            status = err.status()</div><div class="line">            respMsg = jsonify({<span class="string">&apos;status&apos;</span>: err.code(), <span class="string">&apos;message&apos;</span>: err.message()})</div><div class="line">            <span class="keyword">return</span> make_response(respMsg, status)</div><div class="line">    <span class="keyword">return</span> wrapper</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x662F;&#x5728;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x8FD9;&#x91CC;&#x5F53;&#x7136;&#x4E0D;&#x4F1A;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528;@errohandler,&#x8FD9;&#x6837;&#x5B50;&#x592A;&#x4E11;&#x4E86;&#x3002;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x8FD9;&#x6837;&#x5B50;, &#x5411;api&#x7684;decorators&#x5C5E;&#x6027;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#x7684;&#x5217;&#x8868;&#xFF0C;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x88C5;&#x9970;&#x5668;&#x4F1A;&#x4F5C;&#x7528;&#x5230;&#x6BCF;&#x4E00;&#x4E2A;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x53BB;&#x3002;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app = Flask(__name__)</div><div class="line">api = Api(app, decorators=[errorhandler])</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x4F7F;&#x7528;<code>@app.errorhandler</code>,&#x800C;&#x5BFC;&#x81F4;&#x5728;&#x975E;debug&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5F02;&#x5E38;&#x65E0;&#x6CD5;&#x88AB;&#x6355;&#x83B7;&#x3002;&#x6700;&#x540E;&#x9644;&#x4E0A;<a href="https://github.com/DashShen/flask-restful-template" target="_blank" rel="external">github</a>&#x5730;&#x5740;&#x3002;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/21/理解同步-异步-阻塞-非阻塞/" itemprop="url">
+                  理解同步,异步,阻塞,非阻塞
+                </a>
               
             
           </h1>
@@ -271,7 +375,9 @@
       
 
       
-        <p>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#xFF0C;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x7ECF;&#x5E38;&#x8BA9;&#x4EBA;&#x6DF7;&#x6DC6;&#x4E0D;&#x6E05;&#x3002;&#x5176;&#x5B9E;&#x5728;&#x7406;&#x89E3;&#x8FD9;&#x8FD9;&#x4E24;&#x7EC4;&#x6982;&#x5FF5;&#x4E0A;&#xFF0C;&#x4E3B;&#x8981;&#x8FD8;&#x662F;&#x533A;&#x5206;&#x4ED6;&#x4EEC;&#x662F;&#x7528;&#x6765;&#x5F62;&#x5BB9;&#x4EC0;&#x4E48;&#x7684;&#x3002;</p>
+        
+          
+            <p>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#xFF0C;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x7ECF;&#x5E38;&#x8BA9;&#x4EBA;&#x6DF7;&#x6DC6;&#x4E0D;&#x6E05;&#x3002;&#x5176;&#x5B9E;&#x5728;&#x7406;&#x89E3;&#x8FD9;&#x8FD9;&#x4E24;&#x7EC4;&#x6982;&#x5FF5;&#x4E0A;&#xFF0C;&#x4E3B;&#x8981;&#x8FD8;&#x662F;&#x533A;&#x5206;&#x4ED6;&#x4EEC;&#x662F;&#x7528;&#x6765;&#x5F62;&#x5BB9;&#x4EC0;&#x4E48;&#x7684;&#x3002;</p>
 <h1 id="&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;"><a href="#&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;" class="headerlink" title="&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;"></a>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;</h1><p>&#x540C;&#x6B65;&#x548C;&#x5F02;&#x6B65;&#x901A;&#x5E38;&#x662F;&#x7528;&#x6765;&#x5F62;&#x5BB9;&#x4E00;&#x6B21;<code>&#x65B9;&#x6CD5;&#x8C03;&#x7528;</code>&#x7684;&#x3002;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E00;&#x65E6;&#x5F00;&#x59CB;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x540E;&#x7EED;&#x7684;&#x4EFB;&#x52A1;&#x3002;&#x800C;&#x5F02;&#x6B65;&#x65B9;&#x6CD5;&#x8C03;&#x7528;,&#x66F4;&#x50CF;&#x662F;&#x4E00;&#x79CD;&#x6D88;&#x606F;&#x4F20;&#x9012;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x8C03;&#x7528;&#x4E86;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x7ACB;&#x5373;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x540E;&#x7EED;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x4E0D;&#x7528;&#x7B49;&#x88AB;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x540E;&#x518D;&#x5F80;&#x4E0B;&#x6267;&#x884C;&#x3002;&#x4E3E;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
 <blockquote>
 <p>&#x6BD4;&#x5982;&#x4F60;&#x73B0;&#x5728;&#x51FA;&#x95E8;&#x8D2D;&#x7269;&#xFF0C;&#x8981;&#x4E70;&#x4E00;&#x53F0;&#x7535;&#x89C6;&#x673A;&#xFF0C;&#x4F60;&#x8DD1;&#x5230;&#x5BB6;&#x7535;&#x5E02;&#x573A;&#xFF0C;&#x770B;&#x4E2D;&#x4E00;&#x53F0;&#x7535;&#x89C6;&#x673A;&#xFF0C;&#x4F60;&#x5C31;&#x60F3;&#x552E;&#x8D27;&#x5458;&#x4E0B;&#x5355;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x552E;&#x8D27;&#x5458;&#x544A;&#x8BC9;&#x4F60;&#xFF0C;&#x8FD9;&#x6B3E;&#x7535;&#x89C6;&#x673A;&#x73B0;&#x5728;&#x6CA1;&#x6709;&#xFF0C;&#x5FC5;&#x987B;&#x53BB;&#x4ED3;&#x5E93;&#x91CC;&#x62FF;&#x3002;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x4F60;&#x5C31;&#x4E0D;&#x5F97;&#x4E0D;&#x5728;&#x5E02;&#x573A;&#x674E;&#x5019;&#x7740;&#x4ED6;&#x4EEC;&#xFF0C;&#x50AC;&#x7740;&#x4ED6;&#x4EEC;&#x8D76;&#x7D27;&#x628A;&#x7535;&#x89C6;&#x673A;&#x9001;&#x8FC7;&#x6765;&#xFF0C;&#x76F4;&#x5230;&#x628A;&#x4F60;&#x5546;&#x5BB6;&#x628A;&#x4F60;&#x548C;&#x7535;&#x89C6;&#x673A;&#x4E00;&#x8D77;&#x9001;&#x56DE;&#x5BB6;&#x3002;&#x8FD9;&#x5C31;&#x662F;<strong>&#x540C;&#x6B65;&#x8C03;&#x7528;</strong>, &#x4F60;&#x4ECA;&#x5929;&#x7684;&#x4E70;&#x7535;&#x89C6;&#x673A;&#x7684;&#x540E;&#x7EED;&#x4E8B;&#x60C5;&#xFF0C;&#x90FD;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x7535;&#x89C6;&#x673A;&#x4E70;&#x5230;&#x4E4B;&#x540E;&#x624D;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#x3002;</p>
@@ -283,19 +389,16 @@
 </blockquote>
 <h1 id="&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;"><a href="#&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;" class="headerlink" title="&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;"></a>&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;</h1><p>&#x5728;&#x7406;&#x89E3;&#x4E34;&#x754C;&#x533A;&#x7684;&#x6982;&#x5FF5;&#x4E4B;&#x540E;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x6765;&#x8BB2;&#x4E00;&#x4E0B;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x4E86;&#x3002;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x901A;&#x5E38;&#x7528;&#x6765;&#x5F62;&#x5BB9;<code>&#x591A;&#x7EBF;&#x7A0B;&#x95F4;&#x7684;&#x76F8;&#x4E92;&#x5F71;&#x54CD;</code>&#x3002;&#x6BD4;&#x5982;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5360;&#x7528;&#x4E86;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4ED6;&#x6240;&#x6709;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#x8D44;&#x6E90;&#x7EBF;&#x7A0B;&#x5C31;&#x5FC5;&#x987B;&#x5728;&#x8FD9;&#x4E2A;&#x4E34;&#x754C;&#x53BB;&#x4E2D;&#x7B49;&#x5F85;&#xFF0C;&#x7B49;&#x5F85;&#x4F1A;&#x5BFC;&#x81F4;&#x7EBF;&#x7A0B;&#x6302;&#x8D77;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;<code>&#x963B;&#x585E;</code>&#x3002;&#x800C;<code>&#x975E;&#x963B;&#x585E;</code>&#x6B63;&#x597D;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x5F3A;&#x8C03;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x59A8;&#x788D;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x4F1A;&#x5C1D;&#x8BD5;&#x4E0D;&#x65AD;&#x5411;&#x524D;&#x6267;&#x884C;&#x3002;</p>
 
-      
-    </div>
-
-    <div>
-      
+          
         
       
     </div>
 
     <div>
       
-        
+    </div>
 
+    <div>
       
     </div>
 
@@ -303,32 +406,23 @@
       
 
       
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-          </div>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/10/22/解决flask-restful无法使用-app-errorhandler/" rel="prev" title="解决flask_restful无法使用@app.errorhandler">
-                解决flask_restful无法使用@app.errorhandler <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
 
       
+      
+        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -336,10 +430,6 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
-
 
         </div>
         
@@ -359,17 +449,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel ">
+      <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -416,17 +497,6 @@
 
       </section>
 
-      
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-            
-              
-            
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#同步与异步"><span class="nav-number">1.</span> <span class="nav-text">同步与异步</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#临界区"><span class="nav-number">2.</span> <span class="nav-text">临界区</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#阻塞与非阻塞"><span class="nav-number">3.</span> <span class="nav-text">阻塞与非阻塞</span></a></li></ol></div>
-            
-          </div>
-        </section>
       
 
     </div>
@@ -523,10 +593,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
-
-
 
   
 

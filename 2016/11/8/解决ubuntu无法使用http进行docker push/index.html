@@ -84,31 +84,16 @@
 
 
 
-<meta name="description" content="默认情况下docker是使用https进行push的，当我们配置了自己的docker registry且使用http来上传镜像的时候，就需要配置我们ubuntu环境下的docker配置文件。
-
-在 /etc/default/docker 文件中添加一行
-
-1DOCKER_OPTS=&amp;quot;--insecure-registry YOUR_REGISTRY_DOMAIN&amp;quot;
-然后保存退出">
+<meta name="description" content="&amp;#x9ED8;&amp;#x8BA4;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;docker&amp;#x662F;&amp;#x4F7F;&amp;#x7528;https&amp;#x8FDB;&amp;#x884C;push&amp;#x7684;&amp;#xFF0C;&amp;#x5F53;&amp;#x6211;&amp;#x4EEC;&amp;#x914D;&amp;#x7F6E;&amp;#x4E86;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;docker registry&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决ubuntu中docker无法使用http进行push">
 <meta property="og:url" content="http://www.dashen.im/2016/11/8/解决ubuntu无法使用http进行docker push/index.html">
 <meta property="og:site_name" content="dashen's blog">
-<meta property="og:description" content="默认情况下docker是使用https进行push的，当我们配置了自己的docker registry且使用http来上传镜像的时候，就需要配置我们ubuntu环境下的docker配置文件。
-
-在 /etc/default/docker 文件中添加一行
-
-1DOCKER_OPTS=&amp;quot;--insecure-registry YOUR_REGISTRY_DOMAIN&amp;quot;
-然后保存退出">
+<meta property="og:description" content="&amp;#x9ED8;&amp;#x8BA4;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;docker&amp;#x662F;&amp;#x4F7F;&amp;#x7528;https&amp;#x8FDB;&amp;#x884C;push&amp;#x7684;&amp;#xFF0C;&amp;#x5F53;&amp;#x6211;&amp;#x4EEC;&amp;#x914D;&amp;#x7F6E;&amp;#x4E86;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;docker registry&amp;#">
 <meta property="og:updated_time" content="2016-11-08T13:41:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决ubuntu中docker无法使用http进行push">
-<meta name="twitter:description" content="默认情况下docker是使用https进行push的，当我们配置了自己的docker registry且使用http来上传镜像的时候，就需要配置我们ubuntu环境下的docker配置文件。
-
-在 /etc/default/docker 文件中添加一行
-
-1DOCKER_OPTS=&amp;quot;--insecure-registry YOUR_REGISTRY_DOMAIN&amp;quot;
-然后保存退出">
+<meta name="twitter:description" content="&amp;#x9ED8;&amp;#x8BA4;&amp;#x60C5;&amp;#x51B5;&amp;#x4E0B;docker&amp;#x662F;&amp;#x4F7F;&amp;#x7528;https&amp;#x8FDB;&amp;#x884C;push&amp;#x7684;&amp;#xFF0C;&amp;#x5F53;&amp;#x6211;&amp;#x4EEC;&amp;#x914D;&amp;#x7F6E;&amp;#x4E86;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;docker registry&amp;#">
 
 
 
@@ -276,30 +261,30 @@
       
 
       
-        <p>默认情况下docker是使用https进行push的，当我们配置了自己的docker registry且使用http来上传镜像的时候，就需要配置我们ubuntu环境下的docker配置文件。</p>
+        <p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;docker&#x662F;&#x4F7F;&#x7528;https&#x8FDB;&#x884C;push&#x7684;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x4E86;&#x81EA;&#x5DF1;&#x7684;docker registry&#x4E14;&#x4F7F;&#x7528;http&#x6765;&#x4E0A;&#x4F20;&#x955C;&#x50CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x914D;&#x7F6E;&#x6211;&#x4EEC;ubuntu&#x73AF;&#x5883;&#x4E0B;&#x7684;docker&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
 <ul>
-<li>在 <code>/etc/default/docker</code> 文件中添加一行</li>
+<li>&#x5728; <code>/etc/default/docker</code> &#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x884C;</li>
 </ul>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=&quot;--insecure-registry YOUR_REGISTRY_DOMAIN&quot;</div></pre></td></tr></table></figure>
-<p>然后保存退出，根据<a href="https://docs.docker.com/registry/insecure/" target="_blank" rel="external">官网的文档</a>,我们只需要重启我们的docker守护进程就可以了。但是再尝试之后一直发现无效，最后才发现原来是docker在ubuntu环境下有坑，不会加载<code>/etc/default/docker</code>这个配置文件，下面就是解决办法。</p>
+<p>&#x7136;&#x540E;&#x4FDD;&#x5B58;&#x9000;&#x51FA;&#xFF0C;&#x6839;&#x636E;<a href="https://docs.docker.com/registry/insecure/" target="_blank" rel="external">&#x5B98;&#x7F51;&#x7684;&#x6587;&#x6863;</a>,&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x91CD;&#x542F;&#x6211;&#x4EEC;&#x7684;docker&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x4F46;&#x662F;&#x518D;&#x5C1D;&#x8BD5;&#x4E4B;&#x540E;&#x4E00;&#x76F4;&#x53D1;&#x73B0;&#x65E0;&#x6548;&#xFF0C;&#x6700;&#x540E;&#x624D;&#x53D1;&#x73B0;&#x539F;&#x6765;&#x662F;docker&#x5728;ubuntu&#x73AF;&#x5883;&#x4E0B;&#x6709;&#x5751;&#xFF0C;&#x4E0D;&#x4F1A;&#x52A0;&#x8F7D;<code>/etc/default/docker</code>&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x662F;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x3002;</p>
 <ul>
-<li><p>修改 <code>/lib/systemd/system/docker.service</code><br>  1.增加一行，用于指定配置文件在什么地方</p>
+<li><p>&#x4FEE;&#x6539; <code>/lib/systemd/system/docker.service</code><br>  1.&#x589E;&#x52A0;&#x4E00;&#x884C;&#xFF0C;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5728;&#x4EC0;&#x4E48;&#x5730;&#x65B9;</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EnvironmentFile=-/etc/default/docker</div></pre></td></tr></table></figure>
-<p>  2.然后将</p>
+<p>  2.&#x7136;&#x540E;&#x5C06;</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd://</div></pre></td></tr></table></figure>
-<p>  修改为</p>
+<p>  &#x4FEE;&#x6539;&#x4E3A;</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd:// $DOCKER_OPTS</div></pre></td></tr></table></figure>
-<p>  注意<code>fd://</code>之后又一个空格</p>
+<p>  &#x6CE8;&#x610F;<code>fd://</code>&#x4E4B;&#x540E;&#x53C8;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;</p>
 </li>
-<li><p>重启docker服务<br>  1.执行</p>
+<li><p>&#x91CD;&#x542F;docker&#x670D;&#x52A1;<br>  1.&#x6267;&#x884C;</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl daemon-reload</div></pre></td></tr></table></figure>
-<p>  2.重启docker</p>
+<p>  2.&#x91CD;&#x542F;docker</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart docker</div></pre></td></tr></table></figure>
-<p>  3.这个时候，通过这个命令就可以看到docker的配置文件了</p>
+<p>  3.&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;docker&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E86;</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl show docker | grep EnvironmentFile</div></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>最后再次尝试<code>docker push</code>就可以成功上传镜像了。</p>
+<p>&#x6700;&#x540E;&#x518D;&#x6B21;&#x5C1D;&#x8BD5;<code>docker push</code>&#x5C31;&#x53EF;&#x4EE5;&#x6210;&#x529F;&#x4E0A;&#x4F20;&#x955C;&#x50CF;&#x4E86;&#x3002;</p>
 
       
     </div>

@@ -84,19 +84,16 @@
 
 
 
-<meta name="description" content="python的闭包带来许多让人十分畅快的特性，但在使用闭包的时候也有许多要注意的地方，尤其是闭包的作用域，下面就来谈谈Python闭包中的作用域。看下面一段代码，试想一下最后打印的是什么值。
-12345678910def outer():    flag = False    def inner():        flag = True    inner()    return flagif _">
+<meta name="description" content="python&amp;#x7684;&amp;#x95ED;&amp;#x5305;&amp;#x5E26;&amp;#x6765;&amp;#x8BB8;&amp;#x591A;&amp;#x8BA9;&amp;#x4EBA;&amp;#x5341;&amp;#x5206;&amp;#x7545;&amp;#x5FEB;&amp;#x7684;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x4F46;&amp;#x5728;&amp;#x4F7F;&amp;#x7528;&amp;#x95ED;&amp;#x5305;&amp;#x7684;&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="python闭包中的作用域">
 <meta property="og:url" content="http://www.dashen.im/2016/11/28/python闭包中的作用域/index.html">
 <meta property="og:site_name" content="dashen's blog">
-<meta property="og:description" content="python的闭包带来许多让人十分畅快的特性，但在使用闭包的时候也有许多要注意的地方，尤其是闭包的作用域，下面就来谈谈Python闭包中的作用域。看下面一段代码，试想一下最后打印的是什么值。
-12345678910def outer():    flag = False    def inner():        flag = True    inner()    return flagif _">
+<meta property="og:description" content="python&amp;#x7684;&amp;#x95ED;&amp;#x5305;&amp;#x5E26;&amp;#x6765;&amp;#x8BB8;&amp;#x591A;&amp;#x8BA9;&amp;#x4EBA;&amp;#x5341;&amp;#x5206;&amp;#x7545;&amp;#x5FEB;&amp;#x7684;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x4F46;&amp;#x5728;&amp;#x4F7F;&amp;#x7528;&amp;#x95ED;&amp;#x5305;&amp;#x7684;&amp;#">
 <meta property="og:updated_time" content="2016-11-28T12:03:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python闭包中的作用域">
-<meta name="twitter:description" content="python的闭包带来许多让人十分畅快的特性，但在使用闭包的时候也有许多要注意的地方，尤其是闭包的作用域，下面就来谈谈Python闭包中的作用域。看下面一段代码，试想一下最后打印的是什么值。
-12345678910def outer():    flag = False    def inner():        flag = True    inner()    return flagif _">
+<meta name="twitter:description" content="python&amp;#x7684;&amp;#x95ED;&amp;#x5305;&amp;#x5E26;&amp;#x6765;&amp;#x8BB8;&amp;#x591A;&amp;#x8BA9;&amp;#x4EBA;&amp;#x5341;&amp;#x5206;&amp;#x7545;&amp;#x5FEB;&amp;#x7684;&amp;#x7279;&amp;#x6027;&amp;#xFF0C;&amp;#x4F46;&amp;#x5728;&amp;#x4F7F;&amp;#x7528;&amp;#x95ED;&amp;#x5305;&amp;#x7684;&amp;#">
 
 
 
@@ -264,18 +261,18 @@
       
 
       
-        <p>python的闭包带来许多让人十分畅快的特性，但在使用闭包的时候也有许多要注意的地方，尤其是闭包的<strong>作用域</strong>，下面就来谈谈Python闭包中的作用域。看下面一段代码，试想一下最后打印的是什么值。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></div><div class="line">    flag = <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></div><div class="line">        flag = <span class="keyword">True</span></div><div class="line">    inner()</div><div class="line">    <span class="keyword">return</span> flag</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</div><div class="line">    print(outer())</div></pre></td></tr></table></figure>
-<p>如果你的答案是<code>True</code>那就说明你进坑了，为了说明为什么答案是<code>False</code>我们先来看看python是如何来判断变量的作用域的。python解释器会按照下面的顺序来，来解析变量的引用：</p>
+        <p>python&#x7684;&#x95ED;&#x5305;&#x5E26;&#x6765;&#x8BB8;&#x591A;&#x8BA9;&#x4EBA;&#x5341;&#x5206;&#x7545;&#x5FEB;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x4F46;&#x5728;&#x4F7F;&#x7528;&#x95ED;&#x5305;&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x6709;&#x8BB8;&#x591A;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x95ED;&#x5305;&#x7684;<strong>&#x4F5C;&#x7528;&#x57DF;</strong>&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x6765;&#x8C08;&#x8C08;Python&#x95ED;&#x5305;&#x4E2D;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x3002;&#x770B;&#x4E0B;&#x9762;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BD5;&#x60F3;&#x4E00;&#x4E0B;&#x6700;&#x540E;&#x6253;&#x5370;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x503C;&#x3002;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></div><div class="line">    flag = <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></div><div class="line">        flag = <span class="keyword">True</span></div><div class="line">    inner()</div><div class="line">    <span class="keyword">return</span> flag</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">&apos;__main__&apos;</span>:</div><div class="line">    print(outer())</div></pre></td></tr></table></figure>
+<p>&#x5982;&#x679C;&#x4F60;&#x7684;&#x7B54;&#x6848;&#x662F;<code>True</code>&#x90A3;&#x5C31;&#x8BF4;&#x660E;&#x4F60;&#x8FDB;&#x5751;&#x4E86;&#xFF0C;&#x4E3A;&#x4E86;&#x8BF4;&#x660E;&#x4E3A;&#x4EC0;&#x4E48;&#x7B54;&#x6848;&#x662F;<code>False</code>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x770B;python&#x662F;&#x5982;&#x4F55;&#x6765;&#x5224;&#x65AD;&#x53D8;&#x91CF;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x3002;python&#x89E3;&#x91CA;&#x5668;&#x4F1A;&#x6309;&#x7167;&#x4E0B;&#x9762;&#x7684;&#x987A;&#x5E8F;&#x6765;&#xFF0C;&#x6765;&#x89E3;&#x6790;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#xFF1A;</p>
 <blockquote>
 <ol>
-<li>当前函数的作用域</li>
-<li>任何外围的作用域（如包含当前函数的其他函数）</li>
-<li>包含当前代码的那个模块的作用域（也叫全局作用域，global scope)</li>
-<li>内置作用域</li>
+<li>&#x5F53;&#x524D;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF;</li>
+<li>&#x4EFB;&#x4F55;&#x5916;&#x56F4;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x5982;&#x5305;&#x542B;&#x5F53;&#x524D;&#x51FD;&#x6570;&#x7684;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#xFF09;</li>
+<li>&#x5305;&#x542B;&#x5F53;&#x524D;&#x4EE3;&#x7801;&#x7684;&#x90A3;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x4E5F;&#x53EB;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;global scope)</li>
+<li>&#x5185;&#x7F6E;&#x4F5C;&#x7528;&#x57DF;</li>
 </ol>
 </blockquote>
-<p>也就是说在<code>inner()</code>方法中的<code>flag = True</code>,并不是将<code>False</code>赋值给了外层的<code>flag</code>变量。而是这个<code>flag</code>是一个新的变量，因为符合第一条规则，就不会按照后面的方式去解析了，所以这个变量只在当前的函数作用域生效,最后打印出的值也就是是<code>False</code>。<br>当然，介绍你一定希望在内层函数中改变外层的变量，你可以加上<code>nonlocal</code>关键字，将这个变量作用域作用到外层函数上。</p>
+<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5728;<code>inner()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x7684;<code>flag = True</code>,&#x5E76;&#x4E0D;&#x662F;&#x5C06;<code>False</code>&#x8D4B;&#x503C;&#x7ED9;&#x4E86;&#x5916;&#x5C42;&#x7684;<code>flag</code>&#x53D8;&#x91CF;&#x3002;&#x800C;&#x662F;&#x8FD9;&#x4E2A;<code>flag</code>&#x662F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x56E0;&#x4E3A;&#x7B26;&#x5408;&#x7B2C;&#x4E00;&#x6761;&#x89C4;&#x5219;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x6309;&#x7167;&#x540E;&#x9762;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x89E3;&#x6790;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x53EA;&#x5728;&#x5F53;&#x524D;&#x7684;&#x51FD;&#x6570;&#x4F5C;&#x7528;&#x57DF;&#x751F;&#x6548;,&#x6700;&#x540E;&#x6253;&#x5370;&#x51FA;&#x7684;&#x503C;&#x4E5F;&#x5C31;&#x662F;&#x662F;<code>False</code>&#x3002;<br>&#x5F53;&#x7136;&#xFF0C;&#x4ECB;&#x7ECD;&#x4F60;&#x4E00;&#x5B9A;&#x5E0C;&#x671B;&#x5728;&#x5185;&#x5C42;&#x51FD;&#x6570;&#x4E2D;&#x6539;&#x53D8;&#x5916;&#x5C42;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x52A0;&#x4E0A;<code>nonlocal</code>&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5C06;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4F5C;&#x7528;&#x57DF;&#x4F5C;&#x7528;&#x5230;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x4E0A;&#x3002;</p>
 
       
     </div>

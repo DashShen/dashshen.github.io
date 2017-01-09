@@ -267,23 +267,23 @@
       
         
           
-            <h1 id="Flume介绍"><a href="#Flume介绍" class="headerlink" title="Flume介绍"></a>Flume介绍</h1><p>Flume是一个Apache旗下的一个分布式的日志收集，聚合以及数据转移的日志收集处理的框架。Flume提供了很多灵活的组件，供各种情况的使用，因此Flume的应用场景很灵活，比如</p>
+            <h1 id="Flume&#x4ECB;&#x7ECD;"><a href="#Flume&#x4ECB;&#x7ECD;" class="headerlink" title="Flume&#x4ECB;&#x7ECD;"></a>Flume&#x4ECB;&#x7ECD;</h1><p>Flume&#x662F;&#x4E00;&#x4E2A;Apache&#x65D7;&#x4E0B;&#x7684;&#x4E00;&#x4E2A;&#x5206;&#x5E03;&#x5F0F;&#x7684;&#x65E5;&#x5FD7;&#x6536;&#x96C6;&#xFF0C;&#x805A;&#x5408;&#x4EE5;&#x53CA;&#x6570;&#x636E;&#x8F6C;&#x79FB;&#x7684;&#x65E5;&#x5FD7;&#x6536;&#x96C6;&#x5904;&#x7406;&#x7684;&#x6846;&#x67B6;&#x3002;Flume&#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x591A;&#x7075;&#x6D3B;&#x7684;&#x7EC4;&#x4EF6;&#xFF0C;&#x4F9B;&#x5404;&#x79CD;&#x60C5;&#x51B5;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x56E0;&#x6B64;Flume&#x7684;&#x5E94;&#x7528;&#x573A;&#x666F;&#x5F88;&#x7075;&#x6D3B;&#xFF0C;&#x6BD4;&#x5982;</p>
 <ul>
-<li><p>使用Flume进行实时计算<br><img src="flume整体架构/2.png" alt=""></p>
+<li><p>&#x4F7F;&#x7528;Flume&#x8FDB;&#x884C;&#x5B9E;&#x65F6;&#x8BA1;&#x7B97;<br><img src="/2017/1/9/flume&#x6574;&#x4F53;&#x67B6;&#x6784;/2.png" alt=""></p>
 </li>
-<li><p>使用Flume进行离线计算<br><img src="flume整体架构/3.png" alt=""></p>
+<li><p>&#x4F7F;&#x7528;Flume&#x8FDB;&#x884C;&#x79BB;&#x7EBF;&#x8BA1;&#x7B97;<br><img src="/2017/1/9/flume&#x6574;&#x4F53;&#x67B6;&#x6784;/3.png" alt=""></p>
 </li>
-<li><p>使用Flume作为数据出口<br><img src="flume整体架构/1.png" alt=""></p>
+<li><p>&#x4F7F;&#x7528;Flume&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#x51FA;&#x53E3;<br><img src="/2017/1/9/flume&#x6574;&#x4F53;&#x67B6;&#x6784;/1.png" alt=""></p>
 </li>
 </ul>
-<p>此外，Flume不仅仅可以作为日志的收集源，将日志汇入。也可以作为出口，然后进行<code>elk</code>之后再转移至<code>hdfs</code>或者<code>storm</code>中。</p>
-<h1 id="三大组件"><a href="#三大组件" class="headerlink" title="三大组件"></a>三大组件</h1><p><img src="flume整体架构/4.png" alt=""><br>Flume的组件主要分为三大块</p>
+<p>&#x6B64;&#x5916;&#xFF0C;Flume&#x4E0D;&#x4EC5;&#x4EC5;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x65E5;&#x5FD7;&#x7684;&#x6536;&#x96C6;&#x6E90;&#xFF0C;&#x5C06;&#x65E5;&#x5FD7;&#x6C47;&#x5165;&#x3002;&#x4E5F;&#x53EF;&#x4EE5;&#x4F5C;&#x4E3A;&#x51FA;&#x53E3;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x884C;<code>elk</code>&#x4E4B;&#x540E;&#x518D;&#x8F6C;&#x79FB;&#x81F3;<code>hdfs</code>&#x6216;&#x8005;<code>storm</code>&#x4E2D;&#x3002;</p>
+<h1 id="&#x4E09;&#x5927;&#x7EC4;&#x4EF6;"><a href="#&#x4E09;&#x5927;&#x7EC4;&#x4EF6;" class="headerlink" title="&#x4E09;&#x5927;&#x7EC4;&#x4EF6;"></a>&#x4E09;&#x5927;&#x7EC4;&#x4EF6;</h1><p><img src="/2017/1/9/flume&#x6574;&#x4F53;&#x67B6;&#x6784;/4.png" alt=""><br>Flume&#x7684;&#x7EC4;&#x4EF6;&#x4E3B;&#x8981;&#x5206;&#x4E3A;&#x4E09;&#x5927;&#x5757;</p>
 <ul>
-<li>Source 消费数据，例如从一个具体<code>webserver</code>获得具体的数据。</li>
-<li>Channel 缓存数据，知道数据被它的一个或者多个<code>Sink</code>消费之后，数据才会总<code>Channel</code>中删除。</li>
-<li>Sink 消费<code>Channel</code>中的数据，并且数据存储到外部的存储中，例如<code>hdfs</code>中。</li>
+<li>Source &#x6D41;&#x5165;&#x6570;&#x636E;&#xFF0C;&#x4F8B;&#x5982;&#x4ECE;&#x4E00;&#x4E2A;&#x5177;&#x4F53;<code>webserver</code>,<code>kafka</code>&#x7B49;&#x83B7;&#x5F97;&#x5177;&#x4F53;&#x7684;&#x6570;&#x636E;&#x3002;</li>
+<li>Channel &#x7F13;&#x5B58;&#x6570;&#x636E;&#xFF0C;&#x76F4;&#x5230;&#x6570;&#x636E;&#x88AB;&#x5B83;&#x7684;&#x4E00;&#x4E2A;&#x6216;&#x8005;&#x591A;&#x4E2A;<code>Sink</code>&#x6D88;&#x8D39;&#x4E4B;&#x540E;&#xFF0C;&#x6570;&#x636E;&#x624D;&#x4F1A;&#x603B;<code>Channel</code>&#x4E2D;&#x5220;&#x9664;&#x3002;</li>
+<li>Sink &#x6D88;&#x8D39;<code>Channel</code>&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x5E76;&#x4E14;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x5230;&#x5916;&#x90E8;&#x7684;&#x5B58;&#x50A8;&#x4E2D;&#xFF0C;&#x4F8B;&#x5982;<code>hdfs</code>&#x4E2D;&#x3002;</li>
 </ul>
-<h2 id="Source"><a href="#Source" class="headerlink" title="Source"></a>Source</h2><h2 id="Channel"><a href="#Channel" class="headerlink" title="Channel"></a>Channel</h2><h2 id="Sink"><a href="#Sink" class="headerlink" title="Sink"></a>Sink</h2>
+
           
         
       

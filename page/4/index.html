@@ -242,6 +242,106 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/22/解决flask-restful无法使用-app-errorhandler/" itemprop="url">
+                  解决flask_restful无法使用@app.errorhandler
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-22T14:01:08+08:00" content="2016-10-22">
+              2016-10-22
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x5728;&#x4F7F;&#x7528;<code>flask_restful</code>&#x63D2;&#x4EF6;&#x5F00;&#x53D1;RESTfulAPI&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x53D1;&#x73B0;&#x65E0;&#x6CD5;&#x5728;&#x975E;debug&#x6A21;&#x5F0F;&#x4E0B;&#x4F7F;&#x7528;flask&#x7684;<code>@app.errorhandler</code>&#x88C5;&#x9970;&#x5668;&#x6765;&#x6355;&#x83B7;&#x5904;&#x7406;&#x81EA;&#x5DF1;&#x5B9A;&#x4E49;&#x81EA;&#x5DF1;&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x662F;&#x4E00;&#x4EF6;&#x6BD4;&#x8F83;&#x8BA9;&#x4EBA;&#x5934;&#x75DB;&#x7684;&#x4E8B;&#x60C5;&#x3002;&#x7ECF;&#x8FC7;&#x5BF9;restful&#x63D2;&#x4EF6;&#x7684;&#x6E90;&#x7801;&#x9605;&#x8BFB;&#x4E4B;&#x540E;&#xFF0C;&#x60F3;&#x5230;&#x4E86;&#x4E00;&#x79CD;&#x89E3;&#x51B3;&#x8FD9;&#x4E2A;&#x95EE;&#x9898;&#x7684;&#x529E;&#x6CD5;&#x3002;&#x4FBF;&#x662F;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x7528;&#x4E8E;&#x6355;&#x83B7;&#x5904;&#x7406;&#x81EA;&#x5B9A;&#x4E49;&#x5F02;&#x5E38;&#xFF0C;&#x7136;&#x540E;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#x3002;<br>&#x5148;&#x653E;&#x4E0A;&#x90E8;&#x5206;&#x5F02;&#x5E38;&#x58F0;&#x660E;&#x4EE3;&#x7801;&#xFF1A;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASError</span><span class="params">(Exception)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, status, code, message)</span>:</span></div><div class="line">        self._status = status</div><div class="line">        self._code = code</div><div class="line">        self._message = message</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">status</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._status</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">code</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._code</div><div class="line"></div><div class="line"><span class="meta">    @property</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">message</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> self._message</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASBadRequest</span><span class="params">(ASError)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, code, message)</span>:</span></div><div class="line">        super(ASBadRequest, self).__init__(<span class="number">400</span>, code, message)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgMissing</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgMissing, self).__init__(_ARG_MISSING, msg)</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ASArgFormat</span><span class="params">(ASBadRequest)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, msg)</span>:</span></div><div class="line">        super(ASArgFormat, self).__init__(_ARG_FORMART, msg)</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x662F;&#x5F02;&#x5E38;&#x5904;&#x7406;&#x7684;&#x88C5;&#x9970;&#x5668;&#x4EE3;&#x7801;:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">errorhandler</span><span class="params">(func)</span>:</span></div><div class="line"><span class="meta">    @wraps(func)</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">wrapper</span><span class="params">(*args, **kwargs)</span>:</span></div><div class="line">        <span class="keyword">try</span>:</div><div class="line">            resp = func(*args, **kwargs)</div><div class="line">            <span class="keyword">return</span> resp</div><div class="line">        <span class="keyword">except</span> ASError <span class="keyword">as</span> err:</div><div class="line">            status = err.status()</div><div class="line">            respMsg = jsonify({<span class="string">&apos;status&apos;</span>: err.code(), <span class="string">&apos;message&apos;</span>: err.message()})</div><div class="line">            <span class="keyword">return</span> make_response(respMsg, status)</div><div class="line">    <span class="keyword">return</span> wrapper</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x662F;&#x5728;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x6CE8;&#x518C;&#x8FD9;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#xFF0C;&#x8FD9;&#x91CC;&#x5F53;&#x7136;&#x4E0D;&#x4F1A;&#x5728;&#x6BCF;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x4E0A;&#x4F7F;&#x7528;@errohandler,&#x8FD9;&#x6837;&#x5B50;&#x592A;&#x4E11;&#x4E86;&#x3002;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x505A;&#x6CD5;&#x662F;&#x8FD9;&#x6837;&#x5B50;, &#x5411;api&#x7684;decorators&#x5C5E;&#x6027;&#x4F20;&#x5165;&#x4E00;&#x4E2A;&#x88C5;&#x9970;&#x5668;&#x7684;&#x5217;&#x8868;&#xFF0C;&#x5217;&#x8868;&#x4E2D;&#x7684;&#x6240;&#x6709;&#x88C5;&#x9970;&#x5668;&#x4F1A;&#x4F5C;&#x7528;&#x5230;&#x6BCF;&#x4E00;&#x4E2A;<code>get/post</code>&#x7B49;&#x65B9;&#x6CD5;&#x4E0A;&#x53BB;&#x3002;</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">app = Flask(__name__)</div><div class="line">api = Api(app, decorators=[errorhandler])</div></pre></td></tr></table></figure>
+<p>&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x907F;&#x514D;&#x4F7F;&#x7528;<code>@app.errorhandler</code>,&#x800C;&#x5BFC;&#x81F4;&#x5728;&#x975E;debug&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;&#x5F02;&#x5E38;&#x65E0;&#x6CD5;&#x88AB;&#x6355;&#x83B7;&#x3002;&#x6700;&#x540E;&#x9644;&#x4E0A;<a href="https://github.com/DashShen/flask-restful-template" target="_blank" rel="external">github</a>&#x5730;&#x5740;&#x3002;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/21/理解同步-异步-阻塞-非阻塞/" itemprop="url">
                   理解同步,异步,阻塞,非阻塞
                 </a>
@@ -370,7 +470,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-count">11</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -380,7 +480,7 @@
           
             <div class="site-state-item site-state-tags">
               
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">1</span>
                 <span class="site-state-item-name">标签</span>
               
             </div>

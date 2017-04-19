@@ -1,0 +1,616 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;#x4E0B;&amp;#x8F7D;ambari,hdp,hdp-utils&amp;#x7684;rpm tarball
+&amp;#x4E0B;&amp;#x8F7D;hdp
+
+1wget http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3/HDP-2.6.0.3-centos7-rpm.tar.gz
+
+&amp;#x4E0B;&amp;#x8F7D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建私有hdp全家桶yum源及ambari安装部署">
+<meta property="og:url" content="http://www.dashen.im/2017/4/19/搭建私有hdp全家桶yum源及ambari安装部署/index.html">
+<meta property="og:site_name" content="dashen's blog">
+<meta property="og:description" content="&amp;#x4E0B;&amp;#x8F7D;ambari,hdp,hdp-utils&amp;#x7684;rpm tarball
+&amp;#x4E0B;&amp;#x8F7D;hdp
+
+1wget http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3/HDP-2.6.0.3-centos7-rpm.tar.gz
+
+&amp;#x4E0B;&amp;#x8F7D;">
+<meta property="og:updated_time" content="2017-04-19T12:44:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="搭建私有hdp全家桶yum源及ambari安装部署">
+<meta name="twitter:description" content="&amp;#x4E0B;&amp;#x8F7D;ambari,hdp,hdp-utils&amp;#x7684;rpm tarball
+&amp;#x4E0B;&amp;#x8F7D;hdp
+
+1wget http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3/HDP-2.6.0.3-centos7-rpm.tar.gz
+
+&amp;#x4E0B;&amp;#x8F7D;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 搭建私有hdp全家桶yum源及ambari安装部署 | dashen's blog </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '86696667-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?e790ef7f784af876fb3d08be50d7e79d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">dashen's blog</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                搭建私有hdp全家桶yum源及ambari安装部署
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-19T20:35:29+08:00" content="2017-04-19">
+              2017-04-19
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="&#x4E0B;&#x8F7D;ambari-hdp-hdp-utils&#x7684;rpm-tarball"><a href="#&#x4E0B;&#x8F7D;ambari-hdp-hdp-utils&#x7684;rpm-tarball" class="headerlink" title="&#x4E0B;&#x8F7D;ambari,hdp,hdp-utils&#x7684;rpm tarball"></a>&#x4E0B;&#x8F7D;ambari,hdp,hdp-utils&#x7684;rpm tarball</h1><ul>
+<li>&#x4E0B;&#x8F7D;hdp</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3/HDP-2.6.0.3-centos7-rpm.tar.gz</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x4E0B;&#x8F7D;hdp-utils</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7/HDP-UTILS-1.1.0.21-centos7.tar.gz</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x4E0B;&#x8F7D;ambari</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.0.3/ambari-2.5.0.3-centos7.tar.gz</div></pre></td></tr></table></figure>
+<h1 id="&#x5728;-var-www-html-&#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;"><a href="#&#x5728;-var-www-html-&#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;" class="headerlink" title="&#x5728; /var/www/html &#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;"></a>&#x5728; /var/www/html &#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">cd /var/www/html</div><div class="line"></div><div class="line">tar -zxvf ambari-2.5.0.3-centos7.tar.gz</div><div class="line"></div><div class="line">mkdir hdp</div><div class="line"></div><div class="line">cd hdp</div><div class="line"></div><div class="line">tar -zxvf  HDP-2.6.0.3-centos7-rpm.tar.gz</div><div class="line"></div><div class="line">tar -zxvf  HDP-UTILS-1.1.0.21-centos7.tar.gz</div><div class="line">``` </div><div class="line"></div><div class="line"># &#x786E;&#x8BA4;&#x65B0;&#x5EFA;&#x7684;&#x4ED3;&#x5E93;</div><div class="line"></div><div class="line">* **Ambari Base URL**</div><div class="line">    * http://&lt;web.server&gt;/Ambari-2.5.0.3/&lt;OS&gt;</div><div class="line"></div><div class="line">* **HDP Base URL**</div><div class="line">    * http://&lt;web.server&gt;/hdp/HDP/&lt;OS&gt;/2.x/updates/&lt;latest.version&gt;</div><div class="line"></div><div class="line">* **HDP-UTILS Base URL**</div><div class="line">    * http://&lt;web.server&gt;/hdp/HDP-UTILS-&lt;version&gt;/repos/&lt;OS&gt;</div><div class="line"></div><div class="line"># &#x51C6;&#x5907;ambari&#x7684;repo&#x6587;&#x4EF6;</div><div class="line"></div><div class="line">* &#x4E0B;&#x8F7D;ambari.repo&#x6A21;&#x677F;</div><div class="line"></div><div class="line">```shell</div><div class="line">wget http://public-repo-1.hortonworks.com/ambari/&lt;OS&gt;/2.x/updates/2.5.0.3/ambari.repo</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x4FEE;&#x6539;ambari.repo&#x6587;&#x4EF6;&#xFF0C;&#x66FF;&#x6362;<code>baseurl</code>&#x4E3A;&#x81EA;&#x5EFA;&#x4ED3;&#x5E93;&#xFF0C;gpgkey&#x53EF;&#x4EE5;&#x6307;&#x5411;&#x81EA;&#x5EFA;&#x4ED3;&#x5E93;GPG-KEY</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[Updates-Ambari-2.5.0.3]</div><div class="line"></div><div class="line">name=Ambari-2.5.0.3-Updates</div><div class="line"></div><div class="line">baseurl=INSERT-BASE-URL</div><div class="line"></div><div class="line">gpgcheck=1</div><div class="line"></div><div class="line">gpgkey=http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins</div><div class="line"></div><div class="line">enabled=1</div><div class="line"></div><div class="line"></div><div class="line">priority=1</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x628A;ambari.repo&#x6587;&#x4EF6;&#x653E;&#x5728;&#x6BCF;&#x53F0;&#x8282;&#x70B9;&#x4E0A;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp ambari.repo /etc/yum.repos.d/ambari.repo</div></pre></td></tr></table></figure>
+<h1 id="&#x4E0B;&#x8F7D;repo"><a href="#&#x4E0B;&#x8F7D;repo" class="headerlink" title="&#x4E0B;&#x8F7D;repo"></a>&#x4E0B;&#x8F7D;repo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://&lt;web.server&gt;/ambari.repo</div><div class="line"></div><div class="line">cp ambari.repo /etc/yum.repos.d</div><div class="line"></div><div class="line">sudo yum update</div></pre></td></tr></table></figure>
+<h1 id="&#x5B89;&#x88C5;ambari-server"><a href="#&#x5B89;&#x88C5;ambari-server" class="headerlink" title="&#x5B89;&#x88C5;ambari-server"></a>&#x5B89;&#x88C5;ambari-server</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install ambari-server</div></pre></td></tr></table></figure>
+<h2 id="&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql"><a href="#&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql" class="headerlink" title="&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql"></a>&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql</h2><ul>
+<li>&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE ambari;</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x5728;mysql&#x4E2D;&#x521B;&#x5EFA;&#x7528;&#x6237;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE USER &apos;ambari&apos;@&apos;%&apos; IDENTIFIED BY &apos;ambari&apos;;</div><div class="line"></div><div class="line">GRANT ALL ON ambari.* TO &apos;ambari&apos;@&apos;%&apos;;</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x6267;&#x884C;&#x521D;&#x59CB;&#x5316;sql</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /var/lib/ambari-server/resources/</div><div class="line"></div><div class="line"># &#x5728;myusql&#x4E2D;&#x6267;&#x884C;</div><div class="line">source Ambari-DDL-MySQL-CREATE.sql;</div></pre></td></tr></table></figure>
+<h1 id="&#x5B89;&#x88C5;ambari-agent"><a href="#&#x5B89;&#x88C5;ambari-agent" class="headerlink" title="&#x5B89;&#x88C5;ambari-agent"></a>&#x5B89;&#x88C5;ambari-agent</h1><ul>
+<li>&#x53EF;&#x4EE5;&#x5728;server&#x4E0A;,&#x8BA9;ambari&#x81EA;&#x52A8;&#x5B89;&#x88C5;&#xFF08;&#x63A8;&#x8350;&#xFF09;</li>
+<li>&#x624B;&#x52A8;&#x5B89;&#x88C5;&#x7684;&#x65B9;&#x5F0F;<br>&#x4E0B;&#x8F7D;&#x5B89;&#x88C5;ambari-agent,&#x540C;&#x65F6;&#x4FEE;&#x6539;agent&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5C06;hostname&#x6307;&#x5411;ambari-server&#x6240;&#x5728;&#x8282;&#x70B9;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install ambari-agent</div></pre></td></tr></table></figure>
+<h1 id="&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;"><a href="#&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;" class="headerlink" title="&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;"></a>&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/etc/ambari-agent/conf</div><div class="line">...</div><div class="line">[server]</div><div class="line">hostname=&lt;SERVER_ADDRESS&gt;</div><div class="line">...</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/2/26/Airflow飞行指南（二）/" rel="next" title="Airflow飞行指南（二）">
+                <i class="fa fa-chevron-left"></i> Airflow飞行指南（二）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="Da Shen" />
+          <p class="site-author-name" itemprop="name">Da Shen</p>
+          <p class="site-description motion-element" itemprop="description">Da Shen's blog</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">标签</span>
+              
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/DashShen" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#下载ambari-hdp-hdp-utils的rpm-tarball"><span class="nav-number">1.</span> <span class="nav-text">下载ambari,hdp,hdp-utils的rpm tarball</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在-var-www-html-目录，解压tar包"><span class="nav-number">2.</span> <span class="nav-text">在 /var/www/html 目录，解压tar包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下载repo"><span class="nav-number">3.</span> <span class="nav-text">下载repo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装ambari-server"><span class="nav-number">4.</span> <span class="nav-text">安装ambari-server</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置使用ambari-server使用mysql"><span class="nav-number">4.1.</span> <span class="nav-text">配置使用ambari-server使用mysql</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装ambari-agent"><span class="nav-number">5.</span> <span class="nav-text">安装ambari-agent</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#修改agent配置的hostname为server的地址"><span class="nav-number">6.</span> <span class="nav-text">修改agent配置的hostname为server的地址</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Da Shen</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+
+</body>
+</html>

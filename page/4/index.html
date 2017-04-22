@@ -242,6 +242,123 @@
             
               
                 
+                <a class="post-title-link" href="/2016/11/8/解决ubuntu无法使用http进行docker push/" itemprop="url">
+                  解决ubuntu中docker无法使用http进行push
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-08T21:24:08+08:00" content="2016-11-08">
+              2016-11-08
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x9ED8;&#x8BA4;&#x60C5;&#x51B5;&#x4E0B;docker&#x662F;&#x4F7F;&#x7528;https&#x8FDB;&#x884C;push&#x7684;&#xFF0C;&#x5F53;&#x6211;&#x4EEC;&#x914D;&#x7F6E;&#x4E86;&#x81EA;&#x5DF1;&#x7684;docker registry&#x4E14;&#x4F7F;&#x7528;http&#x6765;&#x4E0A;&#x4F20;&#x955C;&#x50CF;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x914D;&#x7F6E;&#x6211;&#x4EEC;ubuntu&#x73AF;&#x5883;&#x4E0B;&#x7684;docker&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x5728; <code>/etc/default/docker</code> &#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x4E00;&#x884C;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DOCKER_OPTS=&quot;--insecure-registry YOUR_REGISTRY_DOMAIN&quot;</div></pre></td></tr></table></figure>
+<p>&#x7136;&#x540E;&#x4FDD;&#x5B58;&#x9000;&#x51FA;&#xFF0C;&#x6839;&#x636E;<a href="https://docs.docker.com/registry/insecure/" target="_blank" rel="external">&#x5B98;&#x7F51;&#x7684;&#x6587;&#x6863;</a>,&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x91CD;&#x542F;&#x6211;&#x4EEC;&#x7684;docker&#x5B88;&#x62A4;&#x8FDB;&#x7A0B;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002;&#x4F46;&#x662F;&#x518D;&#x5C1D;&#x8BD5;&#x4E4B;&#x540E;&#x4E00;&#x76F4;&#x53D1;&#x73B0;&#x65E0;&#x6548;&#xFF0C;&#x6700;&#x540E;&#x624D;&#x53D1;&#x73B0;&#x539F;&#x6765;&#x662F;docker&#x5728;ubuntu&#x73AF;&#x5883;&#x4E0B;&#x6709;&#x5751;&#xFF0C;&#x4E0D;&#x4F1A;&#x52A0;&#x8F7D;<code>/etc/default/docker</code>&#x8FD9;&#x4E2A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x662F;&#x89E3;&#x51B3;&#x529E;&#x6CD5;&#x3002;</p>
+<ul>
+<li><p>&#x4FEE;&#x6539; <code>/lib/systemd/system/docker.service</code><br>  1.&#x589E;&#x52A0;&#x4E00;&#x884C;&#xFF0C;&#x7528;&#x4E8E;&#x6307;&#x5B9A;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x5728;&#x4EC0;&#x4E48;&#x5730;&#x65B9;</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">EnvironmentFile=-/etc/default/docker</div></pre></td></tr></table></figure>
+<p>  2.&#x7136;&#x540E;&#x5C06;</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd://</div></pre></td></tr></table></figure>
+<p>  &#x4FEE;&#x6539;&#x4E3A;</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ExecStart=/usr/bin/docker daemon -H fd:// $DOCKER_OPTS</div></pre></td></tr></table></figure>
+<p>  &#x6CE8;&#x610F;<code>fd://</code>&#x4E4B;&#x540E;&#x53C8;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;</p>
+</li>
+<li><p>&#x91CD;&#x542F;docker&#x670D;&#x52A1;<br>  1.&#x6267;&#x884C;</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl daemon-reload</div></pre></td></tr></table></figure>
+<p>  2.&#x91CD;&#x542F;docker</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl restart docker</div></pre></td></tr></table></figure>
+<p>  3.&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E2A;&#x547D;&#x4EE4;&#x5C31;&#x53EF;&#x4EE5;&#x770B;&#x5230;docker&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x4E86;</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo systemctl show docker | grep EnvironmentFile</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>&#x6700;&#x540E;&#x518D;&#x6B21;&#x5C1D;&#x8BD5;<code>docker push</code>&#x5C31;&#x53EF;&#x4EE5;&#x6210;&#x529F;&#x4E0A;&#x4F20;&#x955C;&#x50CF;&#x4E86;&#x3002;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/31/阻塞IO-非阻塞IO的c实现/" itemprop="url">
                   阻塞IO，非阻塞IO的c实现
                 </a>
@@ -426,115 +543,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/21/理解同步-异步-阻塞-非阻塞/" itemprop="url">
-                  理解同步,异步,阻塞,非阻塞
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-21T23:05:28+08:00" content="2016-10-21">
-              2016-10-21
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;&#xFF0C;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x7ECF;&#x5E38;&#x8BA9;&#x4EBA;&#x6DF7;&#x6DC6;&#x4E0D;&#x6E05;&#x3002;&#x5176;&#x5B9E;&#x5728;&#x7406;&#x89E3;&#x8FD9;&#x8FD9;&#x4E24;&#x7EC4;&#x6982;&#x5FF5;&#x4E0A;&#xFF0C;&#x4E3B;&#x8981;&#x8FD8;&#x662F;&#x533A;&#x5206;&#x4ED6;&#x4EEC;&#x662F;&#x7528;&#x6765;&#x5F62;&#x5BB9;&#x4EC0;&#x4E48;&#x7684;&#x3002;</p>
-<h1 id="&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;"><a href="#&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;" class="headerlink" title="&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;"></a>&#x540C;&#x6B65;&#x4E0E;&#x5F02;&#x6B65;</h1><p>&#x540C;&#x6B65;&#x548C;&#x5F02;&#x6B65;&#x901A;&#x5E38;&#x662F;&#x7528;&#x6765;&#x5F62;&#x5BB9;&#x4E00;&#x6B21;<code>&#x65B9;&#x6CD5;&#x8C03;&#x7528;</code>&#x7684;&#x3002;&#x540C;&#x6B65;&#x65B9;&#x6CD5;&#x8C03;&#x7528;&#x4E00;&#x65E6;&#x5F00;&#x59CB;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x88AB;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x4E4B;&#x540E;&#x624D;&#x80FD;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x540E;&#x7EED;&#x7684;&#x4EFB;&#x52A1;&#x3002;&#x800C;&#x5F02;&#x6B65;&#x65B9;&#x6CD5;&#x8C03;&#x7528;,&#x66F4;&#x50CF;&#x662F;&#x4E00;&#x79CD;&#x6D88;&#x606F;&#x4F20;&#x9012;&#xFF0C;&#x8C03;&#x7528;&#x8005;&#x8C03;&#x7528;&#x4E86;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x540E;&#xFF0C;&#x53EF;&#x4EE5;&#x7ACB;&#x5373;&#x7EE7;&#x7EED;&#x6267;&#x884C;&#x540E;&#x7EED;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x4E0D;&#x7528;&#x7B49;&#x88AB;&#x8C03;&#x7528;&#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x540E;&#x518D;&#x5F80;&#x4E0B;&#x6267;&#x884C;&#x3002;&#x4E3E;&#x4E00;&#x4E2A;&#x5B9E;&#x9645;&#x7684;&#x4F8B;&#x5B50;&#xFF1A;</p>
-<blockquote>
-<p>&#x6BD4;&#x5982;&#x4F60;&#x73B0;&#x5728;&#x51FA;&#x95E8;&#x8D2D;&#x7269;&#xFF0C;&#x8981;&#x4E70;&#x4E00;&#x53F0;&#x7535;&#x89C6;&#x673A;&#xFF0C;&#x4F60;&#x8DD1;&#x5230;&#x5BB6;&#x7535;&#x5E02;&#x573A;&#xFF0C;&#x770B;&#x4E2D;&#x4E00;&#x53F0;&#x7535;&#x89C6;&#x673A;&#xFF0C;&#x4F60;&#x5C31;&#x60F3;&#x552E;&#x8D27;&#x5458;&#x4E0B;&#x5355;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x552E;&#x8D27;&#x5458;&#x544A;&#x8BC9;&#x4F60;&#xFF0C;&#x8FD9;&#x6B3E;&#x7535;&#x89C6;&#x673A;&#x73B0;&#x5728;&#x6CA1;&#x6709;&#xFF0C;&#x5FC5;&#x987B;&#x53BB;&#x4ED3;&#x5E93;&#x91CC;&#x62FF;&#x3002;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x4F60;&#x5C31;&#x4E0D;&#x5F97;&#x4E0D;&#x5728;&#x5E02;&#x573A;&#x674E;&#x5019;&#x7740;&#x4ED6;&#x4EEC;&#xFF0C;&#x50AC;&#x7740;&#x4ED6;&#x4EEC;&#x8D76;&#x7D27;&#x628A;&#x7535;&#x89C6;&#x673A;&#x9001;&#x8FC7;&#x6765;&#xFF0C;&#x76F4;&#x5230;&#x628A;&#x4F60;&#x5546;&#x5BB6;&#x628A;&#x4F60;&#x548C;&#x7535;&#x89C6;&#x673A;&#x4E00;&#x8D77;&#x9001;&#x56DE;&#x5BB6;&#x3002;&#x8FD9;&#x5C31;&#x662F;<strong>&#x540C;&#x6B65;&#x8C03;&#x7528;</strong>, &#x4F60;&#x4ECA;&#x5929;&#x7684;&#x4E70;&#x7535;&#x89C6;&#x673A;&#x7684;&#x540E;&#x7EED;&#x4E8B;&#x60C5;&#xFF0C;&#x90FD;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x7535;&#x89C6;&#x673A;&#x4E70;&#x5230;&#x4E4B;&#x540E;&#x624D;&#x53EF;&#x4EE5;&#x7EE7;&#x7EED;&#x5B8C;&#x6210;&#x3002;</p>
-<p>&#x4E0D;&#x8FC7;&#xFF0C;&#x73B0;&#x5728;&#x90FD;&#x662F;&#x7F51;&#x8D2D;&#x4E86;&#xFF0C;&#x4F60;&#x8FD8;&#x662F;&#x60F3;&#x8981;&#x4E00;&#x53F0;&#x7535;&#x89C6;&#x673A;&#xFF0C;&#x4F60;&#x770B;&#x4E2D;&#x578B;&#x53F7;&#x548C;&#x6B3E;&#x5F0F;&#xFF0C;&#x4FBF;&#x5728;&#x7F51;&#x4E0A;&#x652F;&#x4ED8;&#x3002;&#x6B64;&#x65F6;&#x4E70;&#x7535;&#x89C6;&#x673A;&#x8FD9;&#x4EF6;&#x4E8B;&#x60C5;&#x5BF9;&#x4F60;&#x6765;&#x8BF4;&#x5DF2;&#x7ECF;&#x7ED3;&#x675F;&#x4E86;&#xFF0C;&#x4E4B;&#x540E;&#x4F60;&#x60F3;&#x505A;&#x4EC0;&#x4E48;&#x5C31;&#x505A;&#x4EC0;&#x4E48;&#x3002;&#x56E0;&#x4E3A;&#x4F60;&#x77E5;&#x9053;&#x5546;&#x5BB6;&#x6B63;&#x5728;&#x52A0;&#x7D27;&#x5B89;&#x6392;&#x9001;&#x8D27;&#xFF0C;&#x5C4A;&#x65F6;&#x4F1A;&#x8054;&#x7CFB;&#x4F60;&#xFF0C;&#x4F60;&#x53EA;&#x9700;&#x8981;&#x56DE;&#x5BB6;&#x6536;&#x7535;&#x89C6;&#x673A;&#x5C31;&#x597D;&#x4E86;.&#x8FD9;&#x5C31;&#x662F;<strong>&#x5F02;&#x6B65;&#x8C03;&#x7528;</strong></p>
-</blockquote>
-<h1 id="&#x4E34;&#x754C;&#x533A;"><a href="#&#x4E34;&#x754C;&#x533A;" class="headerlink" title="&#x4E34;&#x754C;&#x533A;"></a>&#x4E34;&#x754C;&#x533A;</h1><p>&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x5728;&#x8FD9;&#x91CC;&#x89E3;&#x91CA;&#x4E00;&#x4E0B;&#x4E34;&#x754C;&#x533A;&#x7684;&#x6982;&#x5FF5;&#x5462;&#xFF0C;&#x56E0;&#x4E3A;&#x8FD9;&#x5BF9;&#x4E8E;&#x7406;&#x89E3;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x662F;&#x5341;&#x5206;&#x5FC5;&#x8981;&#x7684;&#x3002;&#x4E34;&#x754C;&#x533A;&#x662F;&#x7528;&#x6765;&#x8868;&#x793A;&#x4E00;&#x79CD;<code>&#x516C;&#x5171;&#x8D44;&#x6E90;</code>&#x6216;&#x8005;&#x8BF4;&#x662F;<code>&#x5171;&#x4EAB;&#x6570;&#x636E;</code>,&#x53EF;&#x4EE5;&#x88AB;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x662F;&#x6BCF;&#x4E00;&#x6B21;&#xFF0C;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5B83;&#x3002;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;<code>&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;</code>&#x88AB;&#x5360;&#x7528;&#xFF0C;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x60F3;&#x4F7F;&#x7528;&#xFF0C;&#x5C31;&#x5FC5;&#x987B;&#x7B49;&#x5F85;&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
-<blockquote>
-<p>&#x529E;&#x516C;&#x5BA4;&#x4E2D;&#x7684;&#x4E00;&#x53F0;&#x6253;&#x5370;&#x673A;&#xFF0C;&#x5C31;&#x662F;&#x516C;&#x5171;&#x8D44;&#x6E90;&#xFF0C;&#x4F46;&#x662F;&#x6253;&#x5370;&#x673A;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x53EA;&#x80FD;&#x6709;&#x4E00;&#x4E2A;&#x4EBA;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;,&#x5176;&#x4ED6;&#x4EBA;&#x4F7F;&#x7528;&#x5C31;&#x5FC5;&#x987B;&#x7B49;&#x5230;&#x8FD9;&#x4E2A;&#x4EBA;&#x6253;&#x5370;&#x7ED3;&#x675F;&#x4E4B;&#x540E;&#x624D;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x3002;</p>
-</blockquote>
-<h1 id="&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;"><a href="#&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;" class="headerlink" title="&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;"></a>&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;</h1><p>&#x5728;&#x7406;&#x89E3;&#x4E34;&#x754C;&#x533A;&#x7684;&#x6982;&#x5FF5;&#x4E4B;&#x540E;&#xFF0C;&#x4FBF;&#x53EF;&#x4EE5;&#x6765;&#x8BB2;&#x4E00;&#x4E0B;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x7684;&#x6982;&#x5FF5;&#x4E86;&#x3002;&#x963B;&#x585E;&#x4E0E;&#x975E;&#x963B;&#x585E;&#x901A;&#x5E38;&#x7528;&#x6765;&#x5F62;&#x5BB9;<code>&#x591A;&#x7EBF;&#x7A0B;&#x95F4;&#x7684;&#x76F8;&#x4E92;&#x5F71;&#x54CD;</code>&#x3002;&#x6BD4;&#x5982;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x5360;&#x7528;&#x4E86;&#x4E34;&#x754C;&#x533A;&#x8D44;&#x6E90;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4ED6;&#x6240;&#x6709;&#x9700;&#x8981;&#x8FD9;&#x4E2A;&#x8D44;&#x6E90;&#x7EBF;&#x7A0B;&#x5C31;&#x5FC5;&#x987B;&#x5728;&#x8FD9;&#x4E2A;&#x4E34;&#x754C;&#x53BB;&#x4E2D;&#x7B49;&#x5F85;&#xFF0C;&#x7B49;&#x5F85;&#x4F1A;&#x5BFC;&#x81F4;&#x7EBF;&#x7A0B;&#x6302;&#x8D77;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;<code>&#x963B;&#x585E;</code>&#x3002;&#x800C;<code>&#x975E;&#x963B;&#x585E;</code>&#x6B63;&#x597D;&#x76F8;&#x53CD;&#xFF0C;&#x5B83;&#x5F3A;&#x8C03;&#x6CA1;&#x6709;&#x4E00;&#x4E2A;&#x7EBF;&#x7A0B;&#x53EF;&#x4EE5;&#x59A8;&#x788D;&#x5176;&#x4ED6;&#x7EBF;&#x7A0B;&#x7684;&#x6267;&#x884C;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7EBF;&#x7A0B;&#x90FD;&#x4F1A;&#x5C1D;&#x8BD5;&#x4E0D;&#x65AD;&#x5411;&#x524D;&#x6267;&#x884C;&#x3002;</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -575,7 +588,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">13</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

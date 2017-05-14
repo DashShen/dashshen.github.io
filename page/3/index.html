@@ -242,6 +242,104 @@
             
               
                 
+                <a class="post-title-link" href="/2017/1/18/morphline的tryRules命令的使用/" itemprop="url">
+                  morphline的tryRules命令的使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-18T20:32:08+08:00" content="2017-01-18">
+              2017-01-18
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>&#x5728;&#x4F7F;&#x7528;<code>Flume</code>&#x505A;<code>etl</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x4F7F;&#x7528;<code>morphline interceptor</code>&#x6765;&#x505A;&#x5177;&#x4F53;&#x7684;&#x5DE5;&#x4F5C;&#x3002;&#x5176;&#x4E2D;&#xFF0C;<code>morphline</code>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;<code>if</code>&#x7684;<code>command</code>&#x6765;&#x8FBE;&#x5230;&#x5BF9;&#x4E8E;&#x67D0;&#x4E00;&#x5177;&#x4F53;&#x7684;&#x4E8B;&#x4EF6;&#x6765;&#x505A;&#x89E3;&#x6790;&#x3002;&#x4F46;&#x662F;&#x8FD9;&#x4E2A;<code>if</code>&#x5E76;&#x4E0D;&#x662F;&#x548C;&#x6211;&#x4EEC;&#x5E73;&#x65F6;&#x7801;&#x4EE3;&#x7801;&#x7684;&#x65F6;&#x5019;&#x4E00;&#x6837;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x5E73;&#x65F6;&#x6211;&#x4EEC;&#x4F7F;&#x7528;&#xFF0C;<code>if</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F1A;&#x5199;<strong>&#x536B;&#x8BED;&#x53E5;</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> a == <span class="number">1</span>:</div><div class="line">    do_process_a()</div><div class="line"><span class="keyword">if</span> a == <span class="number">2</span>:</div><div class="line">    do_process_b()</div><div class="line"><span class="keyword">if</span> a == <span class="number">3</span>:</div><div class="line">    do_process_c()</div></pre></td></tr></table></figure>
+<p>&#x53EF;&#x662F;&#xFF0C;<code>morphline</code>&#x7684;<code>if</code>&#x867D;&#x7136;&#x53EF;&#x4EE5;&#x8FD9;&#x4E48;&#x5199;&#xFF0C;&#x4F46;&#x5E76;&#x4E0D;&#x80FD;&#x5F97;&#x5230;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x7684;<strong>&#x536B;&#x8BED;&#x53E5;</strong>&#x7684;&#x6548;&#x679C;&#xFF0C;&#x4E00;&#x5F00;&#x59CB;&#x4F7F;&#x7528;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x8FD9;&#x662F;&#x7531;&#x4E8E;&#x8FD9;&#x4E00;&#x70B9;&#x7136;&#x6211;&#x5728;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x8E29;&#x4E86;&#x5F88;&#x591A;&#x5751;&#xFF0C;&#x4E3A;&#x4E86;&#x8FBE;&#x5230;<strong>&#x536B;&#x8BED;&#x53E5;</strong>&#x6548;&#x679C;&#xFF0C;&#x8981;&#x5199;&#x7684;&#x5C31;&#x9700;&#x8981;&#x8FD9;&#x4E48;&#x5199;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">{</div><div class="line">    if {</div><div class="line">        conditions : [</div><div class="line">            { equals : { key : &quot;condition-a&quot; } }</div><div class="line">        ]</div><div class="line">        then : [</div><div class="line">            { logInfo { format : &quot;process condition a&quot; } }</div><div class="line">        ]</div><div class="line">        else : [</div><div class="line">            {</div><div class="line">                if {</div><div class="line">                    conditions : [</div><div class="line">                        { equals : { key : &quot;condition-b&quot; } }</div><div class="line">                    ]</div><div class="line">                    then : [</div><div class="line">                        { logInfo { format : &quot;process condition b&quot; } }</div><div class="line">                    ]</div><div class="line">                    ...</div><div class="line">                }</div><div class="line">            }</div><div class="line">        ]</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x8FD9;&#x6837;&#x5199;&#x4E0B;&#x53BB;&#xFF0C;&#x5C31;&#x4F1A;&#x5199;&#x6210;&#x4E00;&#x4E2A;&#x5730;&#x72F1;&#x7EA7;&#x7684;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#xFF0C;&#x8FD9;&#x6837;&#x5B50;&#x592A;&#x96BE;&#x770B;&#x4E86;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x53D1;&#x73B0;&#x4E86;<code>morphline</code>&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x53EB;&#x505A;<code>tryRules</code>&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x4ED6;&#x53EF;&#x4EE5;&#x63D0;&#x4F9B;<strong>&#x536B;&#x8BED;&#x53E5;</strong>&#x7684;&#x5199;&#x6CD5;&#xFF0C;<code>tryRules</code>&#x5305;&#x62EC;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x547D;&#x4EE4;&#xFF0C;&#x5982;&#x679C;&#x5176;&#x4E2D;&#x4E00;&#x4E2A;&#x547D;&#x4EE4;&#x6267;&#x884C;&#x6210;&#x529F;&#x4E86;&#xFF0C;&#x5219;&#x5176;&#x4ED6;&#x547D;&#x4EE4;&#x5C31;&#x8DF3;&#x8FC7;&#x4E0D;&#x4F1A;&#x88AB;&#x6267;&#x884C;&#xFF0C;&#x6BD4;&#x5982;&#x8BF4;&#x4E0A;&#x9762;&#x7684;&#x5199;&#x6CD5;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x7528;<code>tryRules</code>&#x8FD9;&#x4E48;&#x5199;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">{</div><div class="line">    tryRules {</div><div class="line">        commands : [</div><div class="line">            { equals : { key : &quot;condition-a&quot; } }</div><div class="line">            { logInfo { format : &quot;process condition a&quot; } }</div><div class="line">        ]</div><div class="line">        commands : [</div><div class="line">            { equals : { key : &quot;condition-b&quot; } }</div><div class="line">            { logInfo { format : &quot;process condition b&quot; } }</div><div class="line">        ]</div><div class="line">        ....</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure></p>
+<p>&#x8FD9;&#x6837;&#x5B50;&#x5199;&#xFF0C;&#x4E00;&#x4E0B;&#x5B50;&#x5C31;&#x4ECE;&#x5730;&#x72F1;&#x6DF1;&#x5EA6;&#x7684;&#x6761;&#x4EF6;&#x5224;&#x65AD;&#xFF0C;&#x4E00;&#x4E0B;&#x5C31;&#x5199;&#x6210;&#x4E86;&#x7B80;&#x6D01;&#x660E;&#x4E86;&#x7684;<strong>&#x536B;&#x8BED;&#x53E5;</strong>&#x7684;&#x5F62;&#x5F0F;&#x3002;</p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/1/9/flume整体架构/" itemprop="url">
                   Flume整体架构
                 </a>
@@ -427,111 +525,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/28/python闭包中的作用域/" itemprop="url">
-                  python闭包中的作用域
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-28T19:43:06+08:00" content="2016-11-28">
-              2016-11-28
-            </time>
-          </span>
-
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>python&#x7684;&#x95ED;&#x5305;&#x5E26;&#x6765;&#x8BB8;&#x591A;&#x8BA9;&#x4EBA;&#x5341;&#x5206;&#x7545;&#x5FEB;&#x7684;&#x7279;&#x6027;&#xFF0C;&#x4F46;&#x5728;&#x4F7F;&#x7528;&#x95ED;&#x5305;&#x7684;&#x65F6;&#x5019;&#x4E5F;&#x6709;&#x8BB8;&#x591A;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x5C24;&#x5176;&#x662F;&#x95ED;&#x5305;&#x7684;<strong>&#x4F5C;&#x7528;&#x57DF;</strong>&#xFF0C;&#x4E0B;&#x9762;&#x5C31;&#x6765;&#x8C08;&#x8C08;Python&#x95ED;&#x5305;&#x4E2D;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x3002;&#x770B;&#x4E0B;&#x9762;&#x4E00;&#x6BB5;&#x4EE3;&#x7801;&#xFF0C;&#x8BD5;&#x60F3;&#x4E00;&#x4E0B;&#x6700;&#x540E;&#x6253;&#x5370;&#x7684;&#x662F;&#x4EC0;&#x4E48;&#x503C;&#x3002;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">outer</span><span class="params">()</span>:</span></div><div class="line">    flag = <span class="keyword">False</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></div><div class="line">        flag = <span class="keyword">True</span></div><div class="line">    inner()</div><div class="line">    <span class="keyword">return</span> flag</div><div class="line"></div><div class="line"><span class="keyword">if</span> __name__ == <span class="string">&apos;__main__&apos;</span>:</div><div class="line">    print(outer())</div></pre></td></tr></table></figure>
-<p>&#x5982;&#x679C;&#x4F60;&#x7684;&#x7B54;&#x6848;&#x662F;<code>True</code>&#x90A3;&#x5C31;&#x8BF4;&#x660E;&#x4F60;&#x8FDB;&#x5751;&#x4E86;&#xFF0C;&#x4E3A;&#x4E86;&#x8BF4;&#x660E;&#x4E3A;&#x4EC0;&#x4E48;&#x7B54;&#x6848;&#x662F;<code>False</code>&#x6211;&#x4EEC;&#x5148;&#x6765;&#x770B;&#x770B;python&#x662F;&#x5982;&#x4F55;&#x6765;&#x5224;&#x65AD;&#x53D8;&#x91CF;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#x7684;&#x3002;python&#x89E3;&#x91CA;&#x5668;&#x4F1A;&#x6309;&#x7167;&#x4E0B;&#x9762;&#x7684;&#x987A;&#x5E8F;&#x6765;&#xFF0C;&#x6765;&#x89E3;&#x6790;&#x53D8;&#x91CF;&#x7684;&#x5F15;&#x7528;&#xFF1A;</p>
-<blockquote>
-<ol>
-<li>&#x5F53;&#x524D;&#x51FD;&#x6570;&#x7684;&#x4F5C;&#x7528;&#x57DF;</li>
-<li>&#x4EFB;&#x4F55;&#x5916;&#x56F4;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x5982;&#x5305;&#x542B;&#x5F53;&#x524D;&#x51FD;&#x6570;&#x7684;&#x5176;&#x4ED6;&#x51FD;&#x6570;&#xFF09;</li>
-<li>&#x5305;&#x542B;&#x5F53;&#x524D;&#x4EE3;&#x7801;&#x7684;&#x90A3;&#x4E2A;&#x6A21;&#x5757;&#x7684;&#x4F5C;&#x7528;&#x57DF;&#xFF08;&#x4E5F;&#x53EB;&#x5168;&#x5C40;&#x4F5C;&#x7528;&#x57DF;&#xFF0C;global scope)</li>
-<li>&#x5185;&#x7F6E;&#x4F5C;&#x7528;&#x57DF;</li>
-</ol>
-</blockquote>
-<p>&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x5728;<code>inner()</code>&#x65B9;&#x6CD5;&#x4E2D;&#x7684;<code>flag = True</code>,&#x5E76;&#x4E0D;&#x662F;&#x5C06;<code>False</code>&#x8D4B;&#x503C;&#x7ED9;&#x4E86;&#x5916;&#x5C42;&#x7684;<code>flag</code>&#x53D8;&#x91CF;&#x3002;&#x800C;&#x662F;&#x8FD9;&#x4E2A;<code>flag</code>&#x662F;&#x4E00;&#x4E2A;&#x65B0;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x56E0;&#x4E3A;&#x7B26;&#x5408;&#x7B2C;&#x4E00;&#x6761;&#x89C4;&#x5219;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x6309;&#x7167;&#x540E;&#x9762;&#x7684;&#x65B9;&#x5F0F;&#x53BB;&#x89E3;&#x6790;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x53EA;&#x5728;&#x5F53;&#x524D;&#x7684;&#x51FD;&#x6570;&#x4F5C;&#x7528;&#x57DF;&#x751F;&#x6548;,&#x6700;&#x540E;&#x6253;&#x5370;&#x51FA;&#x7684;&#x503C;&#x4E5F;&#x5C31;&#x662F;&#x662F;<code>False</code>&#x3002;<br>&#x5F53;&#x7136;&#xFF0C;&#x4ECB;&#x7ECD;&#x4F60;&#x4E00;&#x5B9A;&#x5E0C;&#x671B;&#x5728;&#x5185;&#x5C42;&#x51FD;&#x6570;&#x4E2D;&#x6539;&#x53D8;&#x5916;&#x5C42;&#x7684;&#x53D8;&#x91CF;&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x52A0;&#x4E0A;<code>nonlocal</code>&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5C06;&#x8FD9;&#x4E2A;&#x53D8;&#x91CF;&#x4F5C;&#x7528;&#x57DF;&#x4F5C;&#x7528;&#x5230;&#x5916;&#x5C42;&#x51FD;&#x6570;&#x4E0A;&#x3002;</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -577,7 +570,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

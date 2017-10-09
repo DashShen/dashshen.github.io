@@ -47,6 +47,10 @@ highlight:
 default_category: uncategorized
 category_map:
 tag_map:
+  操作系统: OperatinSystem
+  数据库: Database
+  Java: Java
+  C++: cpp
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date

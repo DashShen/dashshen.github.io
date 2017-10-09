@@ -46,10 +46,12 @@ highlight:
 # Category & Tag
 default_category: uncategorized
 category_map:
+  心得感悟: thinking
+  技术理论: tech
+  实践经验: exp
 tag_map:
   操作系统: OperatinSystem
   数据库: Database
-  Java: Java
   C++: cpp
 
 # Date / Time format

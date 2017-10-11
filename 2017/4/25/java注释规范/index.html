@@ -1,15 +1,22 @@
-<!doctype html>
+<!DOCTYPE html>
 
 
 
   
 
 
-<html class="theme-next mist use-motion">
+<html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
 
 
 
@@ -27,45 +34,38 @@
 
 
 
-  
-  
-  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
 
   
   
-  
-  
-
-  
-    
-    
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-    
-    
-    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
 
 
 
-<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -73,11 +73,6 @@
 
 
 
-
-
-
-
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
 
 
 
@@ -100,83 +95,84 @@
 
 
 
-<script type="text/javascript" id="hexo.configuration">
+<script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
+    root: '/',
     scheme: 'Mist',
-    sidebar: {"position":"left","display":"post"},
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
     fancybox: true,
-    motion: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
-      userId: 0,
+      userId: '0',
       author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
   };
 </script>
 
-  <title> java注释规范 | dashen's blog </title>
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
+  <link rel="canonical" href="http://www.dashen.im/2017/4/25/java注释规范/"/>
+
+
+
+
+
+  <title>java注释规范 | dashen's blog</title>
   
 
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-  ga('create', '86696667-1', 'auto');
-  ga('send', 'pageview');
-</script>
-
-
-  <script type="text/javascript">
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "//hm.baidu.com/hm.js?e790ef7f784af876fb3d08be50d7e79d";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
 
 
 
 
+</head>
 
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
     
   
 
-  <div class="container one-collumn sidebar-position-left page-post-detail ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
-  
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
 
-  <div class="custom-logo-site-title">
-    <a href="/"  class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <span class="site-title">dashen's blog</span>
-      <span class="logo-line-after"><i></i></span>
-    </a>
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">dashen's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
   </div>
-  <p class="site-subtitle"></p>
-</div>
 
-<div class="site-nav-toggle">
-  <button>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-    <span class="btn-bar"></span>
-  </button>
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
 </div>
 
 <nav class="site-nav">
@@ -197,7 +193,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
+          <a href="/archives/" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -213,6 +209,8 @@
   
 </nav>
 
+
+
  </div>
     </header>
 
@@ -226,38 +224,53 @@
     
 
   
-  
 
   
   
   
 
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/4/25/java注释规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da Shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dashen's blog">
+    </span>
 
     
       <header class="post-header">
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                java注释规范
-              
-            
-          </h1>
+          <h1 class="post-title" itemprop="name headline">java注释规范</h1>
         
 
         <div class="post-meta">
           <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-25T20:29:35+08:00" content="2017-04-25">
-              2017-04-25
-            </time>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T20:29:35+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
           </span>
 
           
@@ -267,16 +280,21 @@
           
 
           
-
-          
           
 
           
+
+          
+
+          
+
         </div>
       </header>
     
 
-
+    
+    
+    
     <div class="post-body" itemprop="articleBody">
 
       
@@ -381,21 +399,21 @@
 <h1 id="&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;"><a href="#&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;" class="headerlink" title="&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;"></a>&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Graphics is the abstract base class for all graphics contexts</div><div class="line"> * which allow an application to draw onto components realized on</div><div class="line"> * various devices or onto off-screen images.</div><div class="line"> * A Graphics object encapsulates the state information needed</div><div class="line"> * for the various rendering operations that Java supports. This</div><div class="line"> * state information includes:</div><div class="line"> * &lt;ul&gt;</div><div class="line"> * &lt;li&gt;The Component to draw on</div><div class="line"> * &lt;li&gt;A translation origin for rendering and clipping coordinates</div><div class="line"> * &lt;li&gt;The current clip</div><div class="line"> * &lt;li&gt;The current color</div><div class="line"> * &lt;li&gt;The current font</div><div class="line"> * &lt;li&gt;The current logical pixel operation function (XOR or Paint)</div><div class="line"> * &lt;li&gt;The current XOR alternation color</div><div class="line"> * (see &lt;a href=&quot;#setXORMode&quot;&gt;setXORMode&lt;/a&gt;)</div><div class="line"> * &lt;/ul&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Coordinates are infinitely thin and lie between the pixels of the</div><div class="line"> * output device.</div><div class="line"> * Operations which draw the outline of a figure operate by traversing</div><div class="line"> * along the infinitely thin path with a pixel-sized pen that hangs</div><div class="line"> * down and to the right of the anchor point on the path.</div><div class="line"> * Operations which fill a figure operate by filling the interior</div><div class="line"> * of the infinitely thin path.</div><div class="line"> * Operations which render horizontal text render the ascending</div><div class="line"> * portion of the characters entirely above the baseline coordinate.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Some important points to consider are that drawing a figure that</div><div class="line"> * covers a given rectangle will occupy one extra row of pixels on</div><div class="line"> * the right and bottom edges compared to filling a figure that is</div><div class="line"> * bounded by that same rectangle.</div><div class="line"> * Also, drawing a horizontal line along the same y coordinate as</div><div class="line"> * the baseline of a line of text will draw the line entirely below</div><div class="line"> * the text except for any descenders.</div><div class="line"> * Both of these properties are due to the pen hanging down and to</div><div class="line"> * the right from the path that it traverses.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * All coordinates which appear as arguments to the methods of this</div><div class="line"> * Graphics object are considered relative to the translation origin</div><div class="line"> * of this Graphics object prior to the invocation of the method.</div><div class="line"> * All rendering operations modify only pixels which lie within the</div><div class="line"> * area bounded by both the current clip of the graphics context</div><div class="line"> * and the extents of the Component used to create the Graphics object.</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> Sami Shaio</div><div class="line"> * <span class="doctag">@author</span> Arthur van Hoff</div><div class="line"> * <span class="doctag">@version</span> %I%, %G%</div><div class="line"> * <span class="doctag">@since</span> 1.0</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Graphics</span> </span>{</div><div class="line"></div><div class="line">    <span class="comment">/** </span></div><div class="line">     * Draws as much of the specified image as is currently available</div><div class="line">     * with its northwest corner at the specified coordinate (x, y).</div><div class="line">     * This method will return immediately in all cases, even if the</div><div class="line">     * entire image has not yet been scaled, dithered and converted</div><div class="line">     * for the current output device.</div><div class="line">     * &lt;p&gt;</div><div class="line">     * If the current output representation is not yet complete then</div><div class="line">     * the method will return false and the indicated </div><div class="line">     * {<span class="doctag">@link</span> ImageObserver} object will be notified as the</div><div class="line">     * conversion process progresses.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> img the image to be drawn</div><div class="line">     * <span class="doctag">@param</span> x the x-coordinate of the northwest corner</div><div class="line">     * of the destination rectangle in pixels</div><div class="line">     * <span class="doctag">@param</span> y the y-coordinate of the northwest corner</div><div class="line">     * of the destination rectangle in pixels</div><div class="line">     * <span class="doctag">@param</span> observer the image observer to be notified as more</div><div class="line">     * of the image is converted. May be </div><div class="line">     * &lt;code&gt;null&lt;/code&gt;</div><div class="line">     * <span class="doctag">@return</span> &lt;code&gt;true&lt;/code&gt; if the image is completely </div><div class="line">     * loaded and was painted successfully; </div><div class="line">     * &lt;code&gt;false&lt;/code&gt; otherwise.</div><div class="line">     * <span class="doctag">@see</span> Image</div><div class="line">     * <span class="doctag">@see</span> ImageObserver</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">drawImage</span><span class="params">(Image img, <span class="keyword">int</span> x, <span class="keyword">int</span> y, </span></span></div><div class="line">                                      ImageObserver observer);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Dispose of the system resources used by this graphics context.</div><div class="line">     * The Graphics context cannot be used after being disposed of.</div><div class="line">     * While the finalization process of the garbage collector will</div><div class="line">     * also dispose of the same system resources, due to the number</div><div class="line">     * of Graphics objects that can be created in short time frames</div><div class="line">     * it is preferable to manually free the associated resources</div><div class="line">     * using this method rather than to rely on a finalization</div><div class="line">     * process which may not happen for a long period of time.</div><div class="line">     * &lt;p&gt;</div><div class="line">     * Graphics objects which are provided as arguments to the paint</div><div class="line">     * and update methods of Components are automatically disposed</div><div class="line">     * by the system when those methods return. Programmers should,</div><div class="line">     * for efficiency, call the dispose method when finished using</div><div class="line">     * a Graphics object only if it was created directly from a</div><div class="line">     * Component or another Graphics object.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> #create(int, int, int, int)</div><div class="line">     * <span class="doctag">@see</span> #finalize()</div><div class="line">     * <span class="doctag">@see</span> Component#getGraphics()</div><div class="line">     * <span class="doctag">@see</span> Component#paint(Graphics)</div><div class="line">     * <span class="doctag">@see</span> Component#update(Graphics)</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Disposes of this graphics context once it is no longer </div><div class="line">     * referenced.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> #dispose()</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>{</div><div class="line">        dispose();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
       
     </div>
+    
+    
+    
 
-    <div>
-      
-        
-      
-    </div>
+    
 
-    <div>
-      
-        
+    
 
-      
-    </div>
+    
 
     <footer class="post-footer">
+      
+
+      
+      
       
 
       
@@ -407,6 +425,8 @@
               </a>
             
           </div>
+
+          <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
@@ -421,6 +441,10 @@
       
       
     </footer>
+  </div>
+  
+  
+  
   </article>
 
 
@@ -436,9 +460,9 @@
 
 
           
-  <div class="comments" id="comments">
-    
-  </div>
+
+  
+
 
 
         </div>
@@ -454,86 +478,93 @@
   </div>
 
   <aside id="sidebar" class="sidebar">
+    
     <div class="sidebar-inner">
 
       
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
             站点概览
           </li>
         </ul>
       
 
-      <section class="site-overview sidebar-panel ">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/avatar.png"
-               alt="Da Shen" />
-          <p class="site-author-name" itemprop="name">Da Shen</p>
-          <p class="site-description motion-element" itemprop="description">Da Shen's blog</p>
-        </div>
-        <nav class="site-state motion-element">
-          <div class="site-state-item site-state-posts">
-            <a href="/archives">
-              <span class="site-state-item-count">16</span>
-              <span class="site-state-item-name">日志</span>
-            </a>
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">Da Shen</p>
+              <p class="site-description motion-element" itemprop="description">Da Shen's blog</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
           </div>
 
           
-
-          
-            <div class="site-state-item site-state-tags">
-              
-                <span class="site-state-item-count">1</span>
-                <span class="site-state-item-name">标签</span>
-              
-            </div>
           
 
-        </nav>
-
-        
-
-        <div class="links-of-author motion-element">
           
-            
-              <span class="links-of-author-item">
-                <a href="https://github.com/DashShen" target="_blank" title="Github">
-                  
-                    <i class="fa fa-fw fa-globe"></i>
-                  
-                  Github
-                </a>
-              </span>
-            
           
+
+          
+
         </div>
-
-        
-        
-
-        
-        
-
       </section>
 
       
+      <!--noindex-->
         <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
           <div class="post-toc">
+
             
               
             
+
             
               <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文档组成部分"><span class="nav-number">1.</span> <span class="nav-text">文档组成部分</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#描述部分-Description"><span class="nav-number">2.</span> <span class="nav-text">描述部分(Description)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标记部分-tag"><span class="nav-number">3.</span> <span class="nav-text">标记部分(tag)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复杂注释样例"><span class="nav-number">4.</span> <span class="nav-text">复杂注释样例</span></a></li></ol></div>
             
+
           </div>
         </section>
+      <!--/noindex-->
+      
+
       
 
     </div>
@@ -546,36 +577,50 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
-  
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
-    <i class="fa fa-heart"></i>
+    <i class="fa fa-user"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">Da Shen</span>
+
+  
 </div>
 
-<div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
-</div>
 
-<div class="theme-info">
-  主题 -
-  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
-    NexT.Mist
-  </a>
-</div>
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
 
         
+
+
+
+
+
+
 
         
       </div>
     </footer>
 
-    <div class="back-to-top">
-      <i class="fa fa-arrow-up"></i>
-    </div>
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
   </div>
 
   
@@ -598,61 +643,108 @@
 
 
 
-  
-  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
-
-  
-  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
-
-  
-  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
-  
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
 
 
 
   
-  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
 
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
 
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
 
 
 
   
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
 
 
 
   
 
 
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
 
   
   
+
   
+  
+
 
   
 

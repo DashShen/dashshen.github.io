@@ -231,6 +231,285 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/5/14/nio学习笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da Shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dashen's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/5/14/nio学习笔记/" itemprop="url">nio学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-14T21:33:54+08:00">
+                2017-05-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="&#x6982;&#x8FF0;"><a href="#&#x6982;&#x8FF0;" class="headerlink" title="&#x6982;&#x8FF0;"></a>&#x6982;&#x8FF0;</h1><p>NIO&#x4E2D;&#x6709;&#x4E24;&#x5927;&#x6838;&#x5FC3;&#x7684;&#x6982;&#x5FF5;&#xFF0C;<strong>Channel</strong>&#x548C;<strong>ByteBuffer</strong>&#x3002;Channel&#x5C31;&#x662F;&#x6570;&#x636E;&#x4F20;&#x8F93;&#x7684;&#x7BA1;&#x9053;&#xFF0C;ByteBuffer&#x5C31;&#x662F;&#x8FD0;&#x9001;&#x6570;&#x636E;&#x5BB9;&#x5668;&#x3002;&#x4E3E;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x7C7B;&#x4F3C;&#x4E8E;&#x77FF;&#x573A;&#x6316;&#x77FF;&#xFF0C;&#x65B0;&#x6316;&#x7684;&#x77FF;&#x77F3;&#x4F1A;&#x628A;&#x77FF;&#x77F3;&#x653E;&#x5728;&#x4F20;&#x52A8;&#x5E26;(Channel)&#x4E0A;&#x3002;&#x7136;&#x540E;&#x77FF;&#x77F3;&#x4F1A;&#x88AB;&#x8FD0;&#x8F93;&#x5230;&#x7FFB;&#x6597;&#x8F66;(ByteBuffer)&#x4E2D;,&#x5F53;&#x7FFB;&#x6597;&#x8F66;&#x88C5;&#x6EE1;&#x4E4B;&#x540E;&#x6216;&#x8005;&#x6211;&#x4EEC;&#x60F3;&#x8981;&#x77FF;&#x77F3;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x628A;&#x77FF;&#x77F3;&#x8FD0;&#x51FA;&#x53BB;&#x3002;NIO&#x7684;&#x903B;&#x8F91;&#x4E5F;&#x662F;&#x5982;&#x6B64;&#xFF0C;&#x628A;&#x6570;&#x636E;&#x653E;&#x5230;Channel&#x4E2D;&#xFF0C;Channel&#x4F1A;&#x628A;&#x6570;&#x636E;&#x653E;&#x5230;ByteBuffer&#x4E2D;&#xFF0C;&#x4E4B;&#x540E;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x64CD;&#x4F5C;ByteBuffer&#x6765;&#x64CD;&#x4F5C;&#x6570;&#x636E;&#x4E86;&#x3002;<strong>&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x6700;&#x4E3B;&#x8981;&#x7684;&#x64CD;&#x4F5C;&#x5C31;&#x662F;&#x4E0E;ByteBuffer&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x76F4;&#x63A5;&#x64CD;&#x4F5C;Channel&#x6765;&#x8FDB;&#x884C;IO</strong>&#x3002;</p>
+<h2 id="&#x6267;&#x884C;&#x6D41;&#x7A0B;"><a href="#&#x6267;&#x884C;&#x6D41;&#x7A0B;" class="headerlink" title="&#x6267;&#x884C;&#x6D41;&#x7A0B;"></a>&#x6267;&#x884C;&#x6D41;&#x7A0B;</h2><p><code>Channel</code>&#x548C;<code>Buffer</code>&#x7684;&#x64CD;&#x4F5C;&#x4E8E;&#x6D41;&#x5F0F;IO&#x6709;&#x4E00;&#x5B9A;&#x533A;&#x522B;&#xFF0C;&#x6D41;&#x5F0F;&#x5904;&#x7406;&#x65F6;&#xFF0C;strem&#x53EA;&#x80FD;&#x662F;InputStream&#x6216;&#x8005;&#x662F;OutputStream,&#x4E0D;&#x80FD;&#x540C;&#x65F6;&#x5904;&#x7406;&#x8BFB;&#x5199;&#x3002;&#x800C;Channel&#x5219;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;Buffer&#x540C;&#x65F6;&#x5904;&#x7406;&#x8BFB;&#x5199;&#x64CD;&#x4F5C;&#x3002;</p>
+<h1 id="&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x6837;&#x4F8B;"><a href="#&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x6837;&#x4F8B;" class="headerlink" title="&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x6837;&#x4F8B;"></a>&#x57FA;&#x672C;&#x4F7F;&#x7528;&#x6837;&#x4F8B;</h1><p>&#x4F7F;&#x7528;<code>FileChannel</code>&#x8BFB;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x7136;&#x540E;&#x5199;&#x5230;&#x53E6;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#xFF0C;&#x5B9E;&#x73B0;&#x6587;&#x4EF6;&#x62F7;&#x8D1D;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">// &#x521B;&#x5EFA;&#x6E90;&#x6587;&#x4EF6;&#x7684;Channel&#x548C;&#x76EE;&#x6807;&#x6587;&#x4EF6;&#x7684;Channel</div><div class="line">FileChannel ifc = new FileInputStream(&quot;foo.txt&quot;).getChannel();</div><div class="line">FileChannel ofc = new FileOutputStream(&quot;foo_copy.txt&quot;).getChannel();</div><div class="line"></div><div class="line">// &#x521B;&#x5EFA;ByteBuffer</div><div class="line">ByteBuffer buffer = ByteBuffer.allocate(1024);</div><div class="line"></div><div class="line">while(ifc.read(buffer) != -1){</div><div class="line">    buffer.flip();</div><div class="line">    ofc.write(buffer);</div><div class="line">    buffer.clear();</div><div class="line">}</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x5728;&#x628A;<code>buffer</code>&#x4E2D;&#x6570;&#x636E;&#x5199;&#x5165;&#x6587;&#x4EF6;&#x4E4B;&#x524D;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x8C03;&#x7528;<code>filp()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x5207;&#x6362;<code>buffer</code>&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x4ECE;&#x8BFB;&#x6A21;&#x5F0F;&#x53D8;&#x4E3A;&#x5199;&#x6A21;&#x5F0F;&#xFF0C;&#x901A;&#x77E5;&#x8BE5;ByteBuffer&#x4E4B;&#x540E;&#x4F1A;&#x8FDB;&#x884C;&#x5199;&#x64CD;&#x4F5C;&#x3002;</li>
+<li>&#x6570;&#x636E;&#x5199;&#x5B8C;&#x4E4B;&#x540E;&#xFF0C;&#x8C03;&#x7528;<code>clear()</code>&#x65B9;&#x6CD5;&#xFF0C;&#x6E05;&#x7A7A;<code>buffer</code>&#x4E2D;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x7136;&#x540E;&#x4F9B;&#x4E0B;&#x4E00;&#x6B21;&#x8BFB;&#x6570;&#x636E;&#x64CD;&#x4F5C;&#x3002;</li>
+</ul>
+<h1 id="&#x6570;&#x636E;&#x7F16;&#x7801;"><a href="#&#x6570;&#x636E;&#x7F16;&#x7801;" class="headerlink" title="&#x6570;&#x636E;&#x7F16;&#x7801;"></a>&#x6570;&#x636E;&#x7F16;&#x7801;</h1><p>&#x7531;&#x4E8E;ByteBuffer&#x5BB9;&#x7EB3;&#x7684;&#x662F;&#x5341;&#x5206;&#x4E0D;&#x540C;&#x7684;&#x5B57;&#x8282;&#xFF0C;&#x4E3A;&#x4E86;&#x628A;&#x6570;&#x636E;&#x8F6C;&#x5316;&#x6210;&#x6709;&#x610F;&#x4E49;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5FC5;&#x987B;&#x5BF9;&#x6570;&#x636E;&#x8FDB;&#x884C;&#x7F16;&#x7801;&#x3002;&#x53EF;&#x4EE5;&#x5728;&#x6570;&#x636E;<strong>&#x5199;&#x5165;ByteBuffer&#x662F;&#x8FDB;&#x884C;&#x7F16;&#x7801;</strong>&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x5728;<strong>&#x4ECE;ByteBuffer&#x4E2D;&#x8BFB;&#x6570;&#x636E;&#x65F6;&#x8FDB;&#x884C;&#x89E3;&#x7801;</strong></p>
+<ul>
+<li>&#x5199;&#x7F16;&#x7801;</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">FileChannel channel = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;target/test-classes/data.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>).getChannel();</div><div class="line">channel.write(ByteBuffer.wrap(<span class="string">&quot;&#x54C8;&#x7F57;NIO&quot;</span>.getBytes(<span class="string">&quot;UTF-16BE&quot;</span>)));</div><div class="line">channel.close();</div><div class="line"></div><div class="line"><span class="comment">// &#x6216;&#x8005;&#x4F7F;&#x7528;CharBuffer&#x5199;&#x5165;</span></div><div class="line"></div><div class="line">FileChannel channel = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;target/test-classes/data.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>).getChannel();</div><div class="line">ByteBuffer buff = ByteBuffer.allocate(<span class="number">1024</span>);</div><div class="line">buff.asCharBuffer().put(<span class="string">&quot;&#x54C8;&#x7F57;NIO&quot;</span>);</div></pre></td></tr></table></figure>
+<ul>
+<li>&#x8BFB;&#x89E3;&#x7801;</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">FileChannel finc = <span class="keyword">new</span> FileInputStream(<span class="string">&quot;target/test-classes/data.txt&quot;</span>).getChannel();</div><div class="line">finc.read(buff);</div><div class="line">buff.flip();</div><div class="line">String encode = System.getProperty(<span class="string">&quot;file.encoding&quot;</span>);</div><div class="line">System.out.println(Charset.forName(encode).decode(buff));</div></pre></td></tr></table></figure>
+<h2 id="&#x8BFB;-&#x5199;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x6570;&#x636E;"><a href="#&#x8BFB;-&#x5199;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x6570;&#x636E;" class="headerlink" title="&#x8BFB;/&#x5199;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x6570;&#x636E;"></a>&#x8BFB;/&#x5199;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x6570;&#x636E;</h2><ul>
+<li><p>&#x5199;&#x57FA;&#x7840;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x7684;&#x6700;&#x7B80;&#x5355;&#x7684;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x8C03;&#x7528;<code>asCharBuffer()</code>&#x3001;<code>asIntBuffer()</code>&#x7B49;&#x89C6;&#x56FE;(view),&#x7136;&#x540E;&#x8C03;&#x7528;<code>put()</code>&#x65B9;&#x6CD5;&#x63D2;&#x5165;&#x6570;&#x636E;&#x5373;&#x53EF;</p>
+</li>
+<li><p>&#x8BFB;&#x6570;&#x636E;&#x4F7F;&#x7528;&#x76F8;&#x5E94;&#x7684;<code>getChar()</code>&#x3001;<code>getInt()</code>&#x7B49;&#x65B9;&#x6CD5;</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">ByteBuffer buff = ByteBuffer.allocate(<span class="number">1024</span>);</div><div class="line">buff.asShortBuffer().put((<span class="keyword">short</span>) <span class="number">442</span>);</div><div class="line">System.out.println(buff.getShort());</div></pre></td></tr></table></figure>
+<h1 id="&#x89C6;&#x56FE;&#x7F13;&#x51B2;&#x5668;-view-buffers"><a href="#&#x89C6;&#x56FE;&#x7F13;&#x51B2;&#x5668;-view-buffers" class="headerlink" title="&#x89C6;&#x56FE;&#x7F13;&#x51B2;&#x5668;(view buffers)"></a>&#x89C6;&#x56FE;&#x7F13;&#x51B2;&#x5668;(view buffers)</h1><p>&#x89C6;&#x56FE;&#x7F13;&#x51B2;&#x5668;&#x5C31;&#x662F;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x65B9;&#x4FBF;&#x5730;&#x5728;<code>ByteBuffer</code>&#x4E0A;&#x64CD;&#x4F5C;&#x5404;&#x79CD;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x7A97;&#x53E3;&#xFF0C;<code>ByteBuffer</code>&#x662F;&#x4F9D;&#x65E7;&#x662F;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x7684;&#x5730;&#x65B9;&#x3002;&#x5B9E;&#x9645;&#x4E0A;<code>ByteBuffer</code>&#x662F;&#x901A;&#x8FC7;&#x5305;&#x88C5;&#x4E00;&#x4E2A;8&#x5B57;&#x8282;&#x7684;&#x6570;&#x7EC4;&#x4EA7;&#x751F;&#x7684;&#xFF0C;&#x7136;&#x540E;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x89C6;&#x56FE;&#x6765;&#x64CD;&#x4F5C;&#x4E0D;&#x540C;&#x6570;&#x636E;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x3002;&#x4ECE;&#x4E0B;&#x56FE;&#x53EF;&#x4EE5;&#x770B;&#x5230;&#xFF0C;&#x5728;&#x540C;&#x4E00;&#x4E2A;<code>ByteBuffer</code>&#x4E0A;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x4E0D;&#x540C;&#x7684;&#x89C6;&#x56FE;&#x5C31;&#x4F1A;&#x5F97;&#x5230;&#x4E0D;&#x540C;&#x7C7B;&#x578B;&#x7684;&#x6570;&#x636E;&#x3002;</p>
+<p><img src="/2017/5/14/nio&#x5B66;&#x4E60;&#x7B14;&#x8BB0;/ByteBuffer&#x7ED3;&#x6784;.png" alt="image"></p>
+<h1 id="&#x7F13;&#x51B2;&#x5668;&#x64CD;&#x4F5C;&#x6570;&#x636E;-Data-manipulation-with-buffers"><a href="#&#x7F13;&#x51B2;&#x5668;&#x64CD;&#x4F5C;&#x6570;&#x636E;-Data-manipulation-with-buffers" class="headerlink" title="&#x7F13;&#x51B2;&#x5668;&#x64CD;&#x4F5C;&#x6570;&#x636E;(Data manipulation with buffers)"></a>&#x7F13;&#x51B2;&#x5668;&#x64CD;&#x4F5C;&#x6570;&#x636E;(Data manipulation with buffers)</h1><p><img src="/2017/5/14/nio&#x5B66;&#x4E60;&#x7B14;&#x8BB0;/ByteBuffer&#x64CD;&#x4F5C;&#x6D41;&#x7A0B;.png" alt="image"></p>
+<h2 id="&#x7F13;&#x51B2;&#x5668;&#x7684;&#x7EC6;&#x8282;"><a href="#&#x7F13;&#x51B2;&#x5668;&#x7684;&#x7EC6;&#x8282;" class="headerlink" title="&#x7F13;&#x51B2;&#x5668;&#x7684;&#x7EC6;&#x8282;"></a>&#x7F13;&#x51B2;&#x5668;&#x7684;&#x7EC6;&#x8282;</h2><ul>
+<li><p>buffer&#x662F;&#x6709;&#x6570;&#x636E;&#x548C;&#x8BBF;&#x95EE;&#x56DB;&#x4E2A;&#x8BBF;&#x95EE;&#x6570;&#x636E;&#x7684;&#x7D22;&#x5F15;&#x7EC4;&#x6210;</p>
+<ul>
+<li>position(&#x4F4D;&#x7F6E;)<ul>
+<li>&#x8BFB;&#x6A21;&#x5F0F;&#x4E0B;, position&#x8868;&#x793A;&#x5F53;&#x524D;&#x6570;&#x636E;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x6BCF;&#x6B21;&#x8BFB;&#x53D6;&#x90FD;&#x4F1A;&#x4ECE;postition&#x6307;&#x5411;&#x7684;&#x4F4D;&#x7F6E;&#x8BFB;&#x6570;&#x636E;</li>
+<li>&#x5199;&#x6A21;&#x5F0F;&#x4E0B;, position&#x8868;&#x793A;&#x5F53;&#x524D;&#x53EF;&#x5199;&#x6570;&#x636E;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x6BCF;&#x6B21;&#x5199;&#x6570;&#x636E;&#x90FD;&#x4F1A;&#x5199;&#x5165;&#x5230;position&#x6307;&#x5411;&#x7684;&#x4F4D;&#x7F6E;</li>
+</ul>
+</li>
+<li>limit(&#x754C;&#x9650;)<ul>
+<li>&#x8BFB;&#x6A21;&#x5F0F;&#x4E0B;,limit&#x6807;&#x8BC6;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x8BFB;&#x5230;&#x591A;&#x5C11;&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6BCF;&#x6B21;&#x5728;&#x5207;&#x6362;&#x5230;&#x8BFB;&#x6A21;&#x5F0F;&#x65F6;&#xFF0C;limit&#x4F1A;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;position&#x7684;&#x503C;&#xFF0C;&#x7136;&#x540E;position&#x53C8;&#x88AB;&#x8BBE;&#x7F6E;&#x4E3A;0</li>
+<li>&#x5199;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;limit&#x8868;&#x793A;&#x53EF;&#x4EE5;&#x5199;&#x5165;&#x591A;&#x5C11;&#x6570;&#x636E;&#xFF0C;limit&#x7B49;&#x4E8E;buffer&#x7684;capacity</li>
+</ul>
+</li>
+<li>capacity(&#x5BB9;&#x91CF;)&#x3000;<ul>
+<li>capacity&#x6807;&#x8BC6;buffer&#x7684;&#x5927;&#x5C0F;&#xFF0C;&#x65E0;&#x8BBA;&#x5728;&#x5199;&#x6A21;&#x5F0F;&#x8FD8;&#x662F;&#x5728;&#x8BFB;&#x6A21;&#x5F0F;&#xFF0C;capacity&#x7684;&#x503C;&#x662F;&#x4E0D;&#x4F1A;&#x6539;&#x53D8;&#x7684;</li>
+</ul>
+</li>
+<li>mark(&#x6807;&#x8BB0;)<ul>
+<li>mark&#x662F;&#x5BF9;buffer&#x4E2D;&#x6253;&#x6807;&#x8BB0;&#xFF0C;&#x53EF;&#x4EE5;&#x8C03;&#x7528;reset()&#x65B9;&#x6CD5;&#xFF0C;&#x56DE;&#x5230;mark&#x6807;&#x8BB0;&#x7684;&#x4F4D;&#x7F6E;(position&#x8BBE;&#x7F6E;&#x4E3A;mark&#x7684;&#x503C;)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>&#x4E0B;&#x56FE;&#x53EF;&#x4EE5;&#x5F88;&#x597D;&#x7684;&#x63CF;&#x8FF0;&#xFF0C;&#x5728;&#x8BFB;&#x6A21;&#x5F0F;&#x4E0B;&#x548C;&#x5199;&#x6A21;&#x5F0F;&#x4E0B;&#xFF0C;position,limit,capacity&#x4E09;&#x8005;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;<br><img src="/2017/5/14/nio&#x5B66;&#x4E60;&#x7B14;&#x8BB0;/buffers-modes.png" alt="image"></p>
+</li>
+<li><p>&#x65B9;&#x6CD5;&#x63CF;&#x8FF0;</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6CD5;</th>
+<th>&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>capacity()</td>
+<td>&#x8FD4;&#x56DE;buffer&#x7684;&#x5BB9;&#x91CF;</td>
+</tr>
+<tr>
+<td>clear()</td>
+<td>&#x60C5;&#x51B5;buffer&#x4E2D;&#x7684;&#x6570;&#x636E;</td>
+</tr>
+<tr>
+<td>flip()</td>
+<td>&#x5C06;limit&#x8BBE;&#x7F6E;&#x4E3A;postion&#x7684;&#x503C;&#xFF0C;&#x7136;&#x540E;&#x628A;position&#x8D4B;&#x503C;&#x4E3A;0&#x3002;&#x4E3B;&#x8981;&#x7528;&#x4E8E;&#x4ECE;buffer&#x8BFB;&#x53D6;&#x5199;&#x5165;&#x7684;&#x6570;&#x636E;</td>
+</tr>
+<tr>
+<td>limit()</td>
+<td>&#x83B7;&#x5F97;limit&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td>limit(int limt)</td>
+<td>&#x8BBE;&#x7F6E;limit&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td>mark()</td>
+<td>&#x5C06;mark&#x503C;&#x8BBE;&#x7F6E;&#x4E3A;position</td>
+</tr>
+<tr>
+<td>reset()</td>
+<td>&#x5C06;position&#x8BBE;&#x4E3A;mark&#x6807;&#x8BB0;&#x7684;&#x4F4D;&#x7F6E;</td>
+</tr>
+<tr>
+<td>rewind()</td>
+<td>&#x5C06;&#x7D22;&#x5F15;&#x6307;&#x5411;buffer&#x7684;&#x5F00;&#x59CB;&#x4F4D;&#x7F6E;</td>
+</tr>
+<tr>
+<td>position()</td>
+<td>&#x8FD4;&#x56DE;position&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td>position(int pos)</td>
+<td>&#x8BBE;&#x7F6E;position&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td>remaining()</td>
+<td>&#x8FD4;&#x56DE;(limit - position)&#x7684;&#x503C;</td>
+</tr>
+<tr>
+<td>hasRemaining()</td>
+<td>&#x5982;&#x679C;&#x6709;&#x4ECB;&#x4E8E;position&#x4E0E;limit&#x4E4B;&#x95F4;&#x7684;&#x5143;&#x7D20;&#xFF0C;&#x5219;&#x8FD4;&#x56DE;true</td>
+</tr>
+</tbody>
+</table>
+<h1 id="&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x6620;&#x5C04;-Memory-mapped-files"><a href="#&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x6620;&#x5C04;-Memory-mapped-files" class="headerlink" title="&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x6620;&#x5C04;(Memory-mapped files)"></a>&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x6620;&#x5C04;(Memory-mapped files)</h1><p>&#x5185;&#x5B58;&#x6587;&#x4EF6;&#x6620;&#x5C04;&#x673A;&#x5236;&#x5141;&#x8BB8;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C;&#x4E00;&#x4E9B;&#x56E0;&#x4E3A;&#x6587;&#x4EF6;&#x592A;&#x5927;&#x800C;&#x65E0;&#x6CD5;&#x88AB;&#x653E;&#x5165;&#x5185;&#x5B58;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5728;&#x4F7F;&#x7528;&#x673A;&#x5236;&#x53BB;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x7684;&#x65F6;&#x5019;&#x3002;&#x770B;&#x4F3C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x64CD;&#x4F5C;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x4F46;&#x5176;&#x5B9E;&#x4E0D;&#x662F;&#xFF0C;&#x56E0;&#x4E3A;&#x53EA;&#x6709;&#x4E00;&#x90E8;&#x5206;&#x88AB;&#x653E;&#x5165;&#x4E86;&#x5185;&#x5B58;&#x5F53;&#x4E2D;&#xFF0C;&#x5176;&#x4F59;&#x7684;&#x90E8;&#x5206;&#x90FD;&#x88AB;&#x4EA4;&#x6362;&#x4E86;&#x51FA;&#x53BB;&#x3002;</p>
+<ul>
+<li>&#x8BFB;&#x5199;&#x6570;&#x636E;&#x6837;&#x4F8B;<ul>
+<li>&#x4E3A;&#x4E86;&#x652F;&#x6301;&#x8BFB;&#x5199;&#x529F;&#x80FD;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>RandomAccessFile</code></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// &#x5199;&#x6570;&#x636E;</span></div><div class="line">MappedByteBuffer mpBuff = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;target/test-classes/big_data.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>)</div><div class="line">        .getChannel().map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, length);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; ++i) {</div><div class="line">    mpBuff.put((<span class="keyword">byte</span>) <span class="string">&apos;x&apos;</span>);</div><div class="line">}</div><div class="line"><span class="comment">// &#x8BFB;&#x6570;&#x636E;</span></div><div class="line">System.out.println(<span class="string">&quot;Finishing write...&quot;</span>);</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length / <span class="number">2</span>; ++i) {</div><div class="line">    System.out.println(mpBuff.get(i));</div><div class="line">}</div></pre></td></tr></table></figure>
+<h1 id="&#x6587;&#x4EF6;&#x9501;-File-locking"><a href="#&#x6587;&#x4EF6;&#x9501;-File-locking" class="headerlink" title="&#x6587;&#x4EF6;&#x9501;(File locking)"></a>&#x6587;&#x4EF6;&#x9501;(File locking)</h1><p>&#x6587;&#x4EF6;&#x9501;&#x7684;&#x76EE;&#x7684;&#x5C31;&#x662F;&#x5E2E;&#x52A9;&#x6211;&#x4EEC;&#x628A;&#x6587;&#x4EF6;&#x5F53;&#x4F5C;&#x4E00;&#x4E2A;&#x5171;&#x4EAB;&#x8D44;&#x6E90;&#xFF0C;&#x53EF;&#x4EE5;&#x88AB;&#x4E0D;&#x540C;&#x7684;&#x7EBF;&#x7A0B;(&#x8FDB;&#x7A0B;)&#x8FDB;&#x884C;&#x540C;&#x6B65;&#x4E92;&#x65A5;&#x7684;&#x64CD;&#x4F5C;&#x3002;&#x6587;&#x4EF6;&#x9501;&#x662F;&#x76F4;&#x63A5;&#x6620;&#x5C04;&#x5230;&#x4E86;&#x672C;&#x5730;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x52A0;&#x9501;&#x5DE5;&#x5177;&#x4E0A;&#x7684;&#xFF0C;<strong>&#x56E0;&#x6B64;&#x6587;&#x4EF6;&#x9501;&#x5BF9;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x7684;&#x5176;&#x4ED6;&#x8FDB;&#x7A0B;(&#x975E;jvm&#x8FDB;&#x7A0B;)&#x4E5F;&#x662F;&#x53EF;&#x89C1;&#x7684;&#x3002;</strong></p>
+<ul>
+<li>&#x4F7F;&#x7528;&#x6837;&#x4F8B;</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">FileOutputStream fos = new FileOutputStream(&quot;target/test-classes/lock_data.txt&quot;);</div><div class="line">FileLock fl = fos.getChannel().tryLock();</div><div class="line">if (fl != null) {</div><div class="line">    System.out.println(&quot;Locked file&quot;);</div><div class="line">    Thread.sleep(100);</div><div class="line">    fl.release();</div><div class="line">    System.out.println(&quot;Released Lock&quot;);</div><div class="line">}</div></pre></td></tr></table></figure>
+<ul>
+<li>lock&#x65B9;&#x6CD5;&#x89E3;&#x6790;</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>&#x65B9;&#x6CD5;&#x3000;</th>
+<th>&#x63CF;&#x8FF0;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lock()</td>
+<td>&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;&#x83B7;&#x5F97;&#x7684;&#x9501;&#x4F1A;&#x52A0;&#x5728;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#x4E0A;</td>
+</tr>
+<tr>
+<td>tryLock()</td>
+<td>&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;&#x83B7;&#x5F97;&#x9501;&#x4F1A;&#x52A0;&#x5728;&#x6574;&#x4E2A;&#x6587;&#x4EF6;&#x4E0A;</td>
+</tr>
+<tr>
+<td>lock(long position, long size, boolean shared)</td>
+<td>&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;&#x83B7;&#x5F97;&#x9501;&#x4F1A;&#x5728;&#x52A0;&#x8F7D;&#x6587;&#x4EF6;position&#x5230;position+size&#x7684;&#x533A;&#x57DF;&#x4E0A;</td>
+</tr>
+<tr>
+<td>tryLock(long position, long size, boolean shared)</td>
+<td>&#x975E;&#x963B;&#x585E;&#x8C03;&#x7528;&#xFF0C;&#x83B7;&#x5F97;&#x9501;&#x4F1A;&#x5728;&#x52A0;&#x8F7D;&#x6587;&#x4EF6;position&#x5230;position+size&#x7684;&#x533A;&#x57DF;&#x4E0A;</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x5BF9;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x90E8;&#x5206;&#x52A0;&#x9501;-Locking-portions-of-a-mapped-file"><a href="#&#x5BF9;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x90E8;&#x5206;&#x52A0;&#x9501;-Locking-portions-of-a-mapped-file" class="headerlink" title="&#x5BF9;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x90E8;&#x5206;&#x52A0;&#x9501;(Locking portions of a mapped file)"></a>&#x5BF9;&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x90E8;&#x5206;&#x52A0;&#x9501;(Locking portions of a mapped file)</h2><p>&#x6620;&#x5C04;&#x6587;&#x4EF6;&#x7684;&#x65B9;&#x5F0F;&#x7ECF;&#x5E38;&#x7528;&#x6765;&#x64CD;&#x4F5C;&#x5927;&#x6587;&#x4EF6;&#xFF0C;&#x5E94;&#x6B64;&#x4F1A;&#x9700;&#x8981;&#x6709;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;(&#x8FDB;&#x7A0B;)&#x64CD;&#x4F5C;&#x7EDF;&#x4E00;&#x6587;&#x4EF6;&#x7684;&#x60C5;&#x51B5;&#xFF0C;&#x8FD9;&#x6837;&#x5C31;&#x53EF;&#x4EE5;&#x5BF9;&#x6587;&#x4EF6;&#x7684;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x8FDB;&#x884C;&#x52A0;&#x9501;&#xFF0C;&#x4ECE;&#x800C;&#x53EF;&#x4EE5;&#x4F7F;&#x591A;&#x4E2A;&#x7EBF;&#x7A0B;(&#x8FDB;&#x7A0B;)&#x540C;&#x65F6;&#x64CD;&#x4F5C;&#x540C;&#x4E00;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x4E0D;&#x7528;&#x5168;&#x6587;&#x9501;&#x4F4F;&#x6587;&#x4EF6;&#xFF0C;&#x5BFC;&#x81F4;&#x4E00;&#x4E2A;&#x65F6;&#x95F4;&#x5185;&#x53EA;&#x4E00;&#x4E2A;&#x6709;&#x7EBF;&#x7A0B;(&#x8FDB;&#x7A0B;)&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x64CD;&#x4F5C;&#x6587;&#x4EF6;&#x3002;</p>
+<ul>
+<li>&#x6837;&#x4F8B;</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FLock</span> </span>{</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="keyword">int</span> LENGTH = <span class="number">0x8FFFFFF</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> FileChannel channel;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">lockMMPFile</span><span class="params">()</span> </span>{</div><div class="line">        <span class="keyword">try</span> {</div><div class="line">            channel = <span class="keyword">new</span> RandomAccessFile(<span class="string">&quot;target/test-classes/lock_data.txt&quot;</span>, <span class="string">&quot;rw&quot;</span>).getChannel();</div><div class="line">            MappedByteBuffer buff = channel.map(FileChannel.MapMode.READ_WRITE, <span class="number">0</span>, LENGTH);</div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; LENGTH; ++i) {</div><div class="line">                buff.put((<span class="keyword">byte</span>) <span class="string">&apos;x&apos;</span>);</div><div class="line">            }</div><div class="line">            Thread t1 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> LockAndModify(buff, <span class="number">0</span>, LENGTH / <span class="number">3</span>));</div><div class="line">            Thread t2 = <span class="keyword">new</span> Thread(<span class="keyword">new</span> LockAndModify(buff, LENGTH / <span class="number">2</span>, LENGTH / <span class="number">2</span> + LENGTH / <span class="number">4</span>));</div><div class="line">            t1.start();</div><div class="line">            t2.start();</div><div class="line">        } <span class="keyword">catch</span> (IOException e) {</div><div class="line">            e.printStackTrace();</div><div class="line">        }</div><div class="line">    }</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">LockAndModify</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>{</div><div class="line"></div><div class="line">        <span class="keyword">private</span> ByteBuffer buff;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">int</span> start;</div><div class="line">        <span class="keyword">private</span> <span class="keyword">int</span> end;</div><div class="line"></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="title">LockAndModify</span><span class="params">(ByteBuffer buff, <span class="keyword">int</span> start, <span class="keyword">int</span> end)</span> </span>{</div><div class="line">            <span class="keyword">this</span>.start = start;</div><div class="line">            <span class="keyword">this</span>.end = end;</div><div class="line">            buff.limit(end);</div><div class="line">            buff.position(start);</div><div class="line">            <span class="keyword">this</span>.buff = buff.slice();</div><div class="line">        }</div><div class="line"></div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>{</div><div class="line">            <span class="keyword">try</span> {</div><div class="line">                FileLock fl = channel.lock(start, end, <span class="keyword">false</span>);</div><div class="line">                System.out.println(<span class="string">&quot;Locked: &quot;</span> + start + <span class="string">&quot; to &quot;</span> + end);</div><div class="line">                <span class="keyword">while</span> (buff.position() &lt; buff.limit() - <span class="number">1</span>) {</div><div class="line">                    buff.put((<span class="keyword">byte</span>) (buff.get() + <span class="number">1</span>));</div><div class="line">                }</div><div class="line">                fl.release();</div><div class="line">                System.out.println(<span class="string">&quot;Released: &quot;</span> + start + <span class="string">&quot; to &quot;</span> + end);</div><div class="line">            } <span class="keyword">catch</span> (IOException e) {</div><div class="line">                e.printStackTrace();</div><div class="line">            }</div><div class="line">        }</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/4/25/java注释规范/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -769,166 +1048,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/4/19/搭建私有hdp全家桶yum源及ambari安装部署/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Da Shen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dashen's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/4/19/搭建私有hdp全家桶yum源及ambari安装部署/" itemprop="url">搭建私有hdp全家桶yum源及ambari安装部署</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-19T20:35:29+08:00">
-                2017-04-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="&#x4E0B;&#x8F7D;ambari-hdp-hdp-utils&#x7684;rpm-tarball"><a href="#&#x4E0B;&#x8F7D;ambari-hdp-hdp-utils&#x7684;rpm-tarball" class="headerlink" title="&#x4E0B;&#x8F7D;ambari,hdp,hdp-utils&#x7684;rpm tarball"></a>&#x4E0B;&#x8F7D;ambari,hdp,hdp-utils&#x7684;rpm tarball</h1><ul>
-<li>&#x4E0B;&#x8F7D;hdp</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/HDP/centos7/2.x/updates/2.6.0.3/HDP-2.6.0.3-centos7-rpm.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x4E0B;&#x8F7D;hdp-utils</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/HDP-UTILS-1.1.0.21/repos/centos7/HDP-UTILS-1.1.0.21-centos7.tar.gz</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x4E0B;&#x8F7D;ambari</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget http://public-repo-1.hortonworks.com/ambari/centos7/2.x/updates/2.5.0.3/ambari-2.5.0.3-centos7.tar.gz</div></pre></td></tr></table></figure>
-<h1 id="&#x5728;-var-www-html-&#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;"><a href="#&#x5728;-var-www-html-&#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;" class="headerlink" title="&#x5728; /var/www/html &#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;"></a>&#x5728; /var/www/html &#x76EE;&#x5F55;&#xFF0C;&#x89E3;&#x538B;tar&#x5305;</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">cd /var/www/html</div><div class="line"></div><div class="line">tar -zxvf ambari-2.5.0.3-centos7.tar.gz</div><div class="line"></div><div class="line">mkdir hdp</div><div class="line"></div><div class="line">cd hdp</div><div class="line"></div><div class="line">tar -zxvf  HDP-2.6.0.3-centos7-rpm.tar.gz</div><div class="line"></div><div class="line">tar -zxvf  HDP-UTILS-1.1.0.21-centos7.tar.gz</div><div class="line">``` </div><div class="line"></div><div class="line"># &#x786E;&#x8BA4;&#x65B0;&#x5EFA;&#x7684;&#x4ED3;&#x5E93;</div><div class="line"></div><div class="line">* **Ambari Base URL**</div><div class="line">    * http://&lt;web.server&gt;/Ambari-2.5.0.3/&lt;OS&gt;</div><div class="line"></div><div class="line">* **HDP Base URL**</div><div class="line">    * http://&lt;web.server&gt;/hdp/HDP/&lt;OS&gt;/2.x/updates/&lt;latest.version&gt;</div><div class="line"></div><div class="line">* **HDP-UTILS Base URL**</div><div class="line">    * http://&lt;web.server&gt;/hdp/HDP-UTILS-&lt;version&gt;/repos/&lt;OS&gt;</div><div class="line"></div><div class="line"># &#x51C6;&#x5907;ambari&#x7684;repo&#x6587;&#x4EF6;</div><div class="line"></div><div class="line">* &#x4E0B;&#x8F7D;ambari.repo&#x6A21;&#x677F;</div><div class="line"></div><div class="line">```shell</div><div class="line">wget http://public-repo-1.hortonworks.com/ambari/&lt;OS&gt;/2.x/updates/2.5.0.3/ambari.repo</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x4FEE;&#x6539;ambari.repo&#x6587;&#x4EF6;&#xFF0C;&#x66FF;&#x6362;<code>baseurl</code>&#x4E3A;&#x81EA;&#x5EFA;&#x4ED3;&#x5E93;&#xFF0C;gpgkey&#x53EF;&#x4EE5;&#x6307;&#x5411;&#x81EA;&#x5EFA;&#x4ED3;&#x5E93;GPG-KEY</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">[Updates-Ambari-2.5.0.3]</div><div class="line"></div><div class="line">name=Ambari-2.5.0.3-Updates</div><div class="line"></div><div class="line">baseurl=INSERT-BASE-URL</div><div class="line"></div><div class="line">gpgcheck=1</div><div class="line"></div><div class="line">gpgkey=http://public-repo-1.hortonworks.com/ambari/centos6/RPM-GPG-KEY/RPM-GPG-KEY-Jenkins</div><div class="line"></div><div class="line">enabled=1</div><div class="line"></div><div class="line"></div><div class="line">priority=1</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x628A;ambari.repo&#x6587;&#x4EF6;&#x653E;&#x5728;&#x6BCF;&#x53F0;&#x8282;&#x70B9;&#x4E0A;</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp ambari.repo /etc/yum.repos.d/ambari.repo</div></pre></td></tr></table></figure>
-<h1 id="&#x4E0B;&#x8F7D;repo"><a href="#&#x4E0B;&#x8F7D;repo" class="headerlink" title="&#x4E0B;&#x8F7D;repo"></a>&#x4E0B;&#x8F7D;repo</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">wget http://&lt;web.server&gt;/ambari.repo</div><div class="line"></div><div class="line">cp ambari.repo /etc/yum.repos.d</div><div class="line"></div><div class="line">sudo yum update</div></pre></td></tr></table></figure>
-<h1 id="&#x5B89;&#x88C5;ambari-server"><a href="#&#x5B89;&#x88C5;ambari-server" class="headerlink" title="&#x5B89;&#x88C5;ambari-server"></a>&#x5B89;&#x88C5;ambari-server</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install ambari-server</div></pre></td></tr></table></figure>
-<h2 id="&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql"><a href="#&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql" class="headerlink" title="&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql"></a>&#x914D;&#x7F6E;&#x4F7F;&#x7528;ambari-server&#x4F7F;&#x7528;mysql</h2><ul>
-<li>&#x521B;&#x5EFA;&#x6570;&#x636E;&#x5E93;</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CREATE DATABASE ambari;</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x5728;mysql&#x4E2D;&#x521B;&#x5EFA;&#x7528;&#x6237;</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">CREATE USER &apos;ambari&apos;@&apos;%&apos; IDENTIFIED BY &apos;ambari&apos;;</div><div class="line"></div><div class="line">GRANT ALL ON ambari.* TO &apos;ambari&apos;@&apos;%&apos;;</div></pre></td></tr></table></figure>
-<ul>
-<li>&#x6267;&#x884C;&#x521D;&#x59CB;&#x5316;sql</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">cd /var/lib/ambari-server/resources/</div><div class="line"></div><div class="line"># &#x5728;myusql&#x4E2D;&#x6267;&#x884C;</div><div class="line">source Ambari-DDL-MySQL-CREATE.sql;</div></pre></td></tr></table></figure>
-<h1 id="&#x5B89;&#x88C5;ambari-agent"><a href="#&#x5B89;&#x88C5;ambari-agent" class="headerlink" title="&#x5B89;&#x88C5;ambari-agent"></a>&#x5B89;&#x88C5;ambari-agent</h1><ul>
-<li>&#x53EF;&#x4EE5;&#x5728;server&#x4E0A;,&#x8BA9;ambari&#x81EA;&#x52A8;&#x5B89;&#x88C5;&#xFF08;&#x63A8;&#x8350;&#xFF09;</li>
-<li>&#x624B;&#x52A8;&#x5B89;&#x88C5;&#x7684;&#x65B9;&#x5F0F;<br>&#x4E0B;&#x8F7D;&#x5B89;&#x88C5;ambari-agent,&#x540C;&#x65F6;&#x4FEE;&#x6539;agent&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#xFF0C;&#x5C06;hostname&#x6307;&#x5411;ambari-server&#x6240;&#x5728;&#x8282;&#x70B9;</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo yum install ambari-agent</div></pre></td></tr></table></figure>
-<h1 id="&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;"><a href="#&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;" class="headerlink" title="&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;"></a>&#x4FEE;&#x6539;agent&#x914D;&#x7F6E;&#x7684;hostname&#x4E3A;server&#x7684;&#x5730;&#x5740;</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/etc/ambari-agent/conf</div><div class="line">...</div><div class="line">[server]</div><div class="line">hostname=&lt;SERVER_ADDRESS&gt;</div><div class="line">...</div></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -979,7 +1098,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">17</span>
+                  <span class="site-state-item-count">18</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -53,6 +53,7 @@ tag_map:
   操作系统: OperatinSystem
   数据库: Database
   C++: cpp
+  笔记: note
 
 # Date / Time format
 ## Hexo uses Moment.js to parse and display date

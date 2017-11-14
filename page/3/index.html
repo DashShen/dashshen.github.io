@@ -231,6 +231,220 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/4/25/java注释规范/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Da Shen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="dashen's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/4/25/java注释规范/" itemprop="url">java注释规范</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T20:29:35+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="&#x6587;&#x6863;&#x7EC4;&#x6210;&#x90E8;&#x5206;"><a href="#&#x6587;&#x6863;&#x7EC4;&#x6210;&#x90E8;&#x5206;" class="headerlink" title="&#x6587;&#x6863;&#x7EC4;&#x6210;&#x90E8;&#x5206;"></a>&#x6587;&#x6863;&#x7EC4;&#x6210;&#x90E8;&#x5206;</h1><p>&#x4E00;&#x4E2A;&#x6587;&#x6863;&#x6CE8;&#x91CA;&#x7531;&#x4E24;&#x90E8;&#x5206;&#x7EC4;&#x6210;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* &#x63CF;&#x8FF0;&#x90E8;&#x5206;(description) </div><div class="line">*</div><div class="line">* &#x6807;&#x8BB0;&#x90E8;&#x5206;(block tags)</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>&#x63CF;&#x8FF0;&#x90E8;&#x5206;&#x6307;&#x5177;&#x4F53;&#x63CF;&#x8FF0;&#xFF0C;&#x6240;&#x8C13;&#x7684;&#x6807;&#x8BB0;&#x7B26;&#x53F7;&#x6307;&#x7684;&#x662F;@param, @return, @see&#x4E4B;&#x7C7B;&#x7684;&#x3002;</p>
+<ul>
+<li>&#x6837;&#x4F8B;</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Returns an Image object that can then be painted on the screen. </div><div class="line"> * The url argument must specify an absolute {<span class="doctag">@link</span> URL}. The name</div><div class="line"> * argument is a specifier that is relative to the url argument. </div><div class="line"> * &lt;p&gt;</div><div class="line"> * This method always returns immediately, whether or not the </div><div class="line"> * image exists. When this applet attempts to draw the image on</div><div class="line"> * the screen, the data will be loaded. The graphics primitives </div><div class="line"> * that draw the image will incrementally paint on the screen. </div><div class="line"> *</div><div class="line"> * <span class="doctag">@param</span> url an absolute URL giving the base location of the image</div><div class="line"> * <span class="doctag">@param</span> name the location of the image, relative to the url argument</div><div class="line"> * <span class="doctag">@return</span> the image at the specified URL</div><div class="line"> * <span class="doctag">@see</span> Image</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">public</span> Image <span class="title">getImage</span><span class="params">(URL url, String name)</span> </span>{</div><div class="line">    <span class="keyword">try</span> {</div><div class="line">        <span class="keyword">return</span> getImage(<span class="keyword">new</span> URL(url, name));</div><div class="line">    } <span class="keyword">catch</span> (MalformedURLException e) {</div><div class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+<ul>
+<li><p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x51E0;&#x70B9;&#xFF1A;</p>
+<ul>
+<li><p>&#x7B2C;&#x4E00;&#x884C;&#x4EE5;&#x7279;&#x6B8A;&#x7684;&#x6587;&#x6863;&#x5B9A;&#x754C;&#x7B26; /** &#x5F00;&#x5934;</p>
+</li>
+<li><p>&#x5728;&#x63CF;&#x8FF0;&#x6BB5;&#x843D;&#x548C;&#x6807;&#x8BB0;&#x6BB5;&#x843D;&#x4E4B;&#x95F4;&#x7A7A;&#x4E00;&#x884C;&#xFF0C;&#x63CF;&#x8FF0;&#x6BB5;&#x843D;&#x548C;&#x6807;&#x8BB0;&#x6BB5;&#x843D;&#x5FC5;&#x987B;&#x5206;&#x5F00;&#xFF0C;&#x4E0D;&#x80FD;&#x63C9;&#x5728;&#x4E00;&#x8D77;&#xFF0C;&#x63CF;&#x8FF0;&#x6BB5;&#x843D;&#x5FC5;&#x987B;&#x5728;&#x6807;&#x8BB0;&#x6BB5;&#x843D;&#x4E4B;&#x524D;</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="&#x63CF;&#x8FF0;&#x90E8;&#x5206;-Description"><a href="#&#x63CF;&#x8FF0;&#x90E8;&#x5206;-Description" class="headerlink" title="&#x63CF;&#x8FF0;&#x90E8;&#x5206;(Description)"></a>&#x63CF;&#x8FF0;&#x90E8;&#x5206;(Description)</h1><p>&#x63CF;&#x8FF0;&#x90E8;&#x5206;&#x7684;&#x7B2C;&#x4E00;&#x884C;&#x5E94;&#x8BE5;&#x662F;&#x4E00;&#x53E5;&#x5BF9;&#x7C7B;&#x3001;&#x63A5;&#x53E3;&#x3001;&#x65B9;&#x6CD5;&#x7B49;&#x7684;&#x7B80;&#x5355;&#x63CF;&#x8FF0;&#xFF0C;&#x8FD9;&#x53E5;&#x8BDD;&#x6700;&#x540E;&#x4F1A;&#x88AB;javadoc&#x5DE5;&#x5177;&#x63D0;&#x53D6;&#x5E76;&#x653E;&#x5728;&#x7D22;&#x5F15;&#x76EE;&#x5F55;&#x4E2D;&#x3002;</p>
+<p>&#x600E;&#x4E48;&#x754C;&#x5B9A;&#x7B2C;&#x4E00;&#x53E5;&#x8BDD;&#x5230;&#x54EA;&#x7ED3;&#x675F;&#x4E86;&#x5462;&#xFF1F;&#x7B54;&#x6848;&#x662F;&#x8DDF;&#x5728;&#x7B2C;&#x4E00;&#x4E2A;&#x53E5;&#x53F7;&#xFF08;&#x82F1;&#x6587;&#x6807;&#x70B9;&#xFF09;&#x4E4B;&#x540E;&#x7684;tab&#x3001;&#x7A7A;&#x884C;&#x6216;&#x884C;&#x7EC8;&#x7ED3;&#x7B26;&#x89C4;&#x5B9A;&#x4E86;&#x7B2C;&#x4E00;&#x53E5;&#x7684;&#x7ED3;&#x5C3E;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#x4E0B;&#x9762;&#x8FD9;&#x53E5;&#x6CE8;&#x91CA;&#xFF0C;&#x7B2C;&#x4E00;&#x53E5;&#x7684;&#x7ED3;&#x5C3E;&#x662F;Prof.&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* This is a simulation of Prof. Knuth&apos;s MIX computer.</div><div class="line">*/</div></pre></td></tr></table></figure>
+<ul>
+<li><p>&#x9664;&#x4E86;&#x666E;&#x901A;&#x7684;&#x6587;&#x672C;&#x4E4B;&#x5916;&#xFF0C;&#x63CF;&#x8FF0;&#x90E8;&#x5206;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF1A;</p>
+<ul>
+<li><p>HTML&#x8BED;&#x6CD5;&#x6807;&#x7B7E;&#xFF0C;&#x4F8B;&#x5982; <b>xxx</b> </p>
+</li>
+<li><p>javadoc&#x89C4;&#x5B9A;&#x7684;&#x7279;&#x6B8A;&#x6807;&#x7B7E;&#xFF0C;&#x4F8B;&#x5982; {@link xxx} &#x3002;&#x6807;&#x7B7E;&#x7684;&#x8BED;&#x6CD5;&#x89C4;&#x5219;&#x662F;&#xFF1A;{@&#x6807;&#x7B7E;&#x540D; &#x6807;&#x7B7E;&#x5185;&#x5BB9;}</p>
+</li>
+</ul>
+</li>
+<li><p>&#x9700;&#x8981;&#x6CE8;&#x610F;&#x7684;&#x5730;&#x65B9;&#xFF1A;</p>
+<ul>
+<li><p>&#x6807;&#x7B7E;&#x5728;&#x6709;javadoc&#x5DE5;&#x5177;&#x751F;&#x6210;&#x6587;&#x6863;&#x65F6;&#x4F1A;&#x8F6C;&#x5316;&#x6210;&#x7279;&#x6B8A;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x6BD4;&#x5982; {@link URL} &#x6807;&#x7B7E;&#x4F1A;&#x88AB;&#x8F6C;&#x5316;&#x6210;&#x6307;&#x5411;URL&#x7C7B;&#x7684;&#x8D85;&#x94FE;&#x63A5;</p>
+</li>
+<li><p>&#x5982;&#x679C;&#x6CE8;&#x91CA;&#x5305;&#x542B;&#x591A;&#x6BB5;&#x5185;&#x5BB9;&#xFF0C;&#x6BB5;&#x4E0E;&#x6BB5;&#x4E4B;&#x95F4;&#x9700;&#x8981;&#x7528; </p><p> &#x5206;&#x9694;&#xFF0C;&#x7A7A;&#x884C;&#x662F;&#x6CA1;&#x7528;&#x7684;</p>
+</li>
+<li>&#x6700;&#x540E;&#x7ED3;&#x5C3E;&#x884C; */ &#x548C;&#x8D77;&#x59CB;&#x884C;&#x4E0D;&#x540C;&#xFF0C;&#x8FD9;&#x91CC;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x661F;&#x53F7;</li>
+<li>&#x4E3A;&#x4E86;&#x907F;&#x514D;&#x4E00;&#x884C;&#x8FC7;&#x957F;&#x5F71;&#x54CD;&#x9605;&#x8BFB;&#x6548;&#x679C;&#xFF0C;&#x52A1;&#x5FC5;&#x5C06;&#x6BCF;&#x884C;&#x7684;&#x957F;&#x5EA6;&#x9650;&#x5236;&#x5728;80&#x4E2A;&#x5B57;&#x7B26;&#x4EE5;&#x5185;</li>
+<li>&#x5584;&#x7528;javadoc&#x5DE5;&#x5177;&#x7684;&#x590D;&#x5236;&#x673A;&#x5236;&#x907F;&#x514D;&#x4E0D;&#x5FC5;&#x8981;&#x7684;&#x6CE8;&#x91CA;&#xFF1A;<blockquote>
+<p>&#x5982;&#x679C;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x8986;&#x76D6;&#x4E86;&#x7236;&#x7C7B;&#x7684;&#x65B9;&#x6CD5;&#x6216;&#x5B9E;&#x73B0;&#x4E86;&#x63A5;&#x53E3;&#x79CD;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;&#x90A3;&#x4E48;javadoc&#x5DE5;&#x5177;&#x4F1A;&#x5728;&#x8BE5;&#x6CE8;&#x91CA;&#x91CC;&#x6DFB;&#x52A0;&#x6307;&#x5411;&#x539F;&#x59CB;&#x65B9;&#x6CD5;&#x7684;&#x94FE;&#x63A5;&#xFF0C;&#x6B64;&#x5916;&#x5982;&#x679C;&#x65B0;&#x65B9;&#x6CD5;&#x6CA1;&#x6709;&#x6CE8;&#x91CA;&#xFF0C;&#x90A3;&#x4E48;javadoc&#x4F1A;&#x628A;&#x539F;&#x59CB;&#x65B9;&#x6CD5;&#x7684;&#x6CE8;&#x91CA;&#x590D;&#x5236;&#x4E00;&#x4EFD;&#x4F5C;&#x4E3A;&#x5176;&#x6CE8;&#x91CA;&#xFF0C;&#x4F46;&#x662F;&#x5982;&#x679C;&#x65B0;&#x65B9;&#x6CD5;&#x6709;&#x6CE8;&#x91CA;&#x4E86;&#xFF0C;&#x5C31;&#x4E0D;&#x4F1A;&#x590D;&#x5236;&#x4E86;&#x3002;</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>&#x6CE8;&#x91CA;&#x98CE;&#x683C;</p>
+<ol>
+<li>&#x4F7F;&#x7528; <code>&#x5173;&#x952E;&#x5B57;</code> &#x6765;&#x5F3A;&#x8C03;&#x5173;&#x952E;&#x5B57;&#xFF0C;&#x5EFA;&#x8BAE;&#x5F3A;&#x8C03;&#x7684;&#x5185;&#x5BB9;&#x6709;&#xFF1A;java&#x5173;&#x952E;&#x5B57;&#x3001;&#x5305;&#x540D;&#x3001;&#x7C7B;&#x540D;&#x3001;&#x65B9;&#x6CD5;&#x540D;&#x3001;&#x63A5;&#x53E3;&#x540D;&#x3001;&#x5B57;&#x6BB5;&#x540D;&#x3001;&#x53C2;&#x6570;&#x540D;&#x7B49;</li>
+<li>&#x63A7;&#x5236; {@link xxx} &#x7684;&#x6570;&#x91CF;&#xFF0C;&#x592A;&#x591A;&#x7684;&#x94FE;&#x63A5;&#x4F1A;&#x4F7F;&#x6587;&#x6863;&#x7684;&#x53EF;&#x8BFB;&#x6027;&#x5F88;&#x5DEE;&#xFF0C;&#x56E0;&#x4E3A;&#x8BFB;&#x8005;&#x603B;&#x662F;&#x8DF3;&#x6765;&#x8DF3;&#x53BB;&#x3002;&#x4E0D;&#x8981;&#x51FA;&#x73B0;&#x76F8;&#x540C;&#x7684;&#x94FE;&#x63A5;&#xFF0C;&#x540C;&#x6837;&#x7684;&#x94FE;&#x63A5;&#x53EA;&#x4FDD;&#x7559;&#x7B2C;&#x4E00;&#x4E2A;&#xFF1B;&#x4E0D;&#x8981;&#x4E3A;java&#x81EA;&#x5E26;&#x7684;&#x5185;&#x5BB9;&#x6216;&#x662F;&#x5E38;&#x8BC6;&#x6027;&#x7684;&#x5185;&#x5BB9;&#x63D0;&#x4F9B;&#x94FE;&#x63A5;</li>
+<li>&#x63CF;&#x8FF0;&#x4E00;&#x4E2A;&#x65B9;&#x6CD5;&#x65F6;&#xFF0C;&#x5E94;&#x5F53;&#x53EA;&#x4FDD;&#x7559;&#x65B9;&#x6CD5;&#x540D;&#x5B57;&#xFF0C;&#x4E0D;&#x8981;&#x9644;&#x5E26;&#x65B9;&#x6CD5;&#x7684;&#x53C2;&#x6570;&#x3002;&#x6BD4;&#x5982;&#x6709;&#x4E2A;&#x65B9;&#x6CD5;&#x662F;add(Object obj)&#xFF0C;&#x90A3;&#x4E48;&#x7528;add&#x6307;&#x4EE3;&#x8BE5;&#x65B9;&#x6CD5;&#x5373;&#x53EF;&#xFF0C;&#x800C;&#x4E0D;&#x662F;add(Object obj)</li>
+<li>&#x82F1;&#x6587;&#x6CE8;&#x91CA;&#x53EF;&#x4EE5;&#x662F;&#x77ED;&#x8BED;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x53E5;&#x5B50;&#x3002;&#x5982;&#x679C;&#x662F;&#x53E5;&#x5B50;&#xFF0C;&#x9996;&#x5B57;&#x6BCD;&#x8981;&#x5927;&#x5199;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x77ED;&#x8BED;&#xFF0C;&#x9996;&#x5B57;&#x6BCD;&#x5C0F;&#x5199;&#x3002;</li>
+<li><p>&#x82F1;&#x6587;&#x6CE8;&#x91CA;&#x4F7F;&#x7528;&#x7B2C;&#x4E09;&#x4EBA;&#x79F0;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x7B2C;&#x4E8C;&#x4EBA;&#x79F0;&#x3002;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* Gets the label(&#x5EFA;&#x8BAE;) </div><div class="line">*/</div><div class="line"></div><div class="line">/**</div><div class="line">* Get the label(&#x4E0D;&#x5EFA;&#x8BAE;)</div><div class="line">*/</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x65B9;&#x6CD5;&#x7684;&#x6CE8;&#x91CA;&#x5E94;&#x8BE5;&#x4EE5;&#x52A8;&#x8BCD;&#x6216;&#x52A8;&#x8BCD;&#x8BCD;&#x7EC4;&#x5F00;&#x5934;&#xFF0C;&#x56E0;&#x4E3A;&#x65B9;&#x6CD5;&#x662F;&#x4E00;&#x4E2A;&#x52A8;&#x4F5C;&#x3002;&#x6BD4;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* Gets the label of this button(&#x5EFA;&#x8BAE;)</div><div class="line">*/</div><div class="line"></div><div class="line">/**</div><div class="line">* This method gets the label(&#x4E0D;&#x5EFA;&#x8BAE;)</div><div class="line">*/</div></pre></td></tr></table></figure>
+</li>
+<li><p>&#x5F53;&#x63CF;&#x8FF0;&#x7C7B;&#x3001;&#x63A5;&#x53E3;&#x3001;&#x65B9;&#x6CD5;&#x8FD9;&#x7C7B;&#x7684;&#x6982;&#x5FF5;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#x6307;&#x540D;&#x201D;&#x7C7B;&#x201D;&#x3001;&#x201D;&#x63A5;&#x53E3;&#x201D;&#x3001;&#x201D;&#x65B9;&#x6CD5;&#x201D;&#x8FD9;&#x4E9B;&#x8BCD;&#x8BED;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* A button label (&#x5EFA;&#x8BAE;)</div><div class="line">*/</div><div class="line"></div><div class="line">/**</div><div class="line">* This field is a button label (&#x4E0D;&#x5EFA;&#x8BAE;)</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>8.&#x82F1;&#x6587;&#x4F7F;&#x7528;this&#x800C;&#x4E0D;&#x662F;the&#x6307;&#x4EE3;&#x5F53;&#x524D;&#x7C7B;&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">/**</div><div class="line">* Gets the toolkit for this component (&#x5EFA;&#x8BAE;)</div><div class="line">*/</div><div class="line"></div><div class="line">/**</div><div class="line">* Gets the toolkit for the component (&#x4E0D;&#x5EFA;&#x8BAE;)</div><div class="line">*/</div></pre></td></tr></table></figure>
+</li>
+<li><p>API&#x540D;&#x5E94;&#x8BE5;&#x662F;&#x80FD;&#x591F;&#x7B80;&#x5355;&#x81EA;&#x6211;&#x8BF4;&#x660E;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x6587;&#x6863;&#x6CE8;&#x91CA;&#x53EA;&#x662F;&#x7B80;&#x5355;&#x91CD;&#x590D;API&#x7684;&#x540D;&#x79F0;&#x8FD8;&#x4E0D;&#x5982;&#x6CA1;&#x6709;&#x6587;&#x6863;&#xFF0C;&#x6240;&#x4EE5;&#x6587;&#x6863;&#x6CE8;&#x91CA;&#x5E94;&#x8BE5;&#x81F3;&#x5C11;&#x63D0;&#x4F9B;&#x4E00;&#x4E9B;&#x989D;&#x5916;&#x4FE1;&#x606F;&#xFF0C;&#x5426;&#x5219;&#x5E72;&#x8106;&#x4E0D;&#x8981;&#x6CE8;&#x91CA;</p>
+</li>
+<li>&#x82F1;&#x6587;&#x6CE8;&#x91CA;&#x907F;&#x514D;&#x62C9;&#x4E01;&#x98CE;&#x683C;&#x7684;&#x7F29;&#x5199;&#x3002;&#x6BD4;&#x5982;&#x4F7F;&#x7528;&#x201D;also knwon as&#x201D;&#x800C;&#x4E0D;&#x662F;&#x201D;aka&#x201D;&#xFF0C; &#x4F7F;&#x7528;&#x201D;that is&#x201D;&#x6216;&#x201D;to be specific&#x201D;&#x800C;&#x4E0D;&#x662F;&#x201D;i.e.&#x201D;&#xFF0C;&#x4F7F;&#x7528;&#x201D;for example&#x201D;&#x800C;&#x4E0D;&#x662F;&#x201D;e.g.&#x201D;&#xFF0C;&#x4F7F;&#x7528;&#x201D;in other words&#x201D;&#x6216;&#x201D;namely&#x201D;&#x800C;&#x4E0D;&#x662F;&#x201D;viz.&#x201D;</li>
+</ol>
+</li>
+</ul>
+<h1 id="&#x6807;&#x8BB0;&#x90E8;&#x5206;-tag"><a href="#&#x6807;&#x8BB0;&#x90E8;&#x5206;-tag" class="headerlink" title="&#x6807;&#x8BB0;&#x90E8;&#x5206;(tag)"></a>&#x6807;&#x8BB0;&#x90E8;&#x5206;(tag)</h1><p>&#x6807;&#x8BB0;&#x90E8;&#x5206;&#x8DDF;&#x5728;&#x63CF;&#x8FF0;&#x90E8;&#x5206;&#x4E4B;&#x540E;&#xFF0C;&#x4E14;&#x524D;&#x9762;&#x5FC5;&#x987B;&#x6709;&#x4E00;&#x4E2A;&#x7A7A;&#x884C;&#x95F4;&#x9694;</p>
+<ul>
+<li><p>&#x5E38;&#x89C1;&#x6807;&#x8BB0;</p>
+<ol>
+<li>@author  &#x4F5C;&#x8005;&#xFF0C;&#x6CA1;&#x6709;&#x7279;&#x6B8A;&#x683C;&#x5F0F;&#x8981;&#x6C42;&#xFF0C;&#x540D;&#x5B57;&#x6216;&#x7EC4;&#x7EC7;&#x540D;&#x79F0;&#x90FD;&#x53EF;&#x4EE5;</li>
+<li>@version  &#x8F6F;&#x4EF6;&#x7248;&#x672C;&#x53F7;&#xFF08;&#x6CE8;&#x610F;&#x4E0D;&#x662F;java&#x7248;&#x672C;&#x53F7;&#xFF09;&#xFF0C;&#x6CA1;&#x6709;&#x7279;&#x6B8A;&#x683C;&#x5F0F;&#x8981;&#x6C42;</li>
+<li><p>@param  &#x65B9;&#x6CD5;&#x53C2;&#x6570;&#xFF0C;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A; @param &#x53C2;&#x6570;&#x540D;&#x79F0; &#x53C2;&#x6570;&#x63CF;&#x8FF0; </p>
+<ul>
+<li>&#x53EF;&#x4EE5;&#x5728;&#x53C2;&#x6570;&#x63CF;&#x8FF0;&#x4E2D;&#x8BF4;&#x660E;&#x53C2;&#x6570;&#x7684;&#x7C7B;&#x578B;</li>
+<li>&#x53EF;&#x4EE5;&#x5728;&#x53C2;&#x6570;&#x540D;&#x79F0;&#x548C;&#x53C2;&#x6570;&#x63CF;&#x8FF0;&#x4E4B;&#x95F4;&#x6DFB;&#x52A0;&#x989D;&#x5916;&#x7684;&#x7A7A;&#x683C;&#x6765;&#x5BF9;&#x9F50;</li>
+<li>&#x7834;&#x6298;&#x53F7;&#x6216;&#x5176;&#x4ED6;&#x6807;&#x70B9;&#x7B26;&#x53F7;&#x4E0D;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x53C2;&#x6570;&#x63CF;&#x8FF0;&#x4E4B;&#x5916;&#x7684;&#x5730;&#x65B9;</li>
+</ul>
+</li>
+<li>@return  &#x65B9;&#x6CD5;&#x8FD4;&#x56DE;&#x503C;&#xFF0C;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A; @return &#x8FD4;&#x56DE;&#x503C;&#x63CF;&#x8FF0; &#xFF0C;&#x5982;&#x679C;&#x65B9;&#x6CD5;&#x6CA1;&#x6709;&#x8FD4;&#x56DE;&#x503C;&#x5C31;&#x4E0D;&#x8981;&#x5199;@return</li>
+<li><p>@deprecated &#x5E94;&#x8BE5;&#x544A;&#x8BC9;&#x7528;&#x6237;&#x8FD9;&#x4E2A;API&#x88AB;&#x54EA;&#x4E2A;&#x65B0;&#x65B9;&#x6CD5;&#x66FF;&#x4EE3;&#x4E86;&#xFF0C;&#x968F;&#x540E;&#x7528; @see &#x6807;&#x8BB0;&#x6216; {@link} &#x6807;&#x8BB0;&#x6307;&#x5411;&#x65B0;API&#xFF0C;&#x6BD4;&#x5982;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">* <span class="doctag">@deprecated</span> As of JDK 1.1, replaced by</div><div class="line">* {<span class="doctag">@link</span> #setBounds(int,int,int,int)}</div><div class="line">*/</div></pre></td></tr></table></figure>
+</li>
+<li><p>@exception &#x5305;&#x542B;&#x65B9;&#x6CD5;&#x663E;&#x5F0F;&#x629B;&#x51FA;&#x7684;&#x68C0;&#x67E5;&#x5F02;&#x5E38;(Checked Exception)&#xFF0C;&#x81F3;&#x4E8E;&#x975E;&#x663E;&#x793A;&#x629B;&#x51FA;&#x7684;&#x5176;&#x4ED6;&#x5F02;&#x5E38;(Unchecked Exception)&#xFF0C;&#x9664;&#x975E;&#x7279;&#x522B;&#x6709;&#x5FC5;&#x8981;&#xFF0C;&#x5426;&#x5219;&#x5C31;&#x522B;&#x5199;&#x4E86;&#x3002;&#x4E00;&#x4E2A;&#x539F;&#x5219;&#x5C31;&#x662F;&#xFF0C;&#x53EA;&#x8BB0;&#x5F55;&#x53EF;&#x63A7;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E0D;&#x53EF;&#x63A7;&#x7684;&#x6216;&#x4E0D;&#x53EF;&#x9884;&#x6D4B;&#x7684;&#x95EE;&#x9898;&#xFF0C;&#x4E0D;&#x8981;&#x5F80;&#x4E0A;&#x9762;&#x5199;&#x3002;</p>
+</li>
+</ol>
+</li>
+<li><p>&#x6CE8;&#x91CA;&#x98CE;&#x683C;</p>
+<ol>
+<li>&#x6309;&#x7167;&#x5982;&#x4E0B;&#x987A;&#x5E8F;&#x63D0;&#x4F9B;&#x6807;&#x8BB0;<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">@author&#xFF08;&#x53EA;&#x51FA;&#x73B0;&#x5728;&#x7C7B;&#x548C;&#x63A5;&#x53E3;&#x7684;&#x6587;&#x6863;&#x4E2D;&#xFF09;</div><div class="line">@version&#xFF08;&#x53EA;&#x51FA;&#x73B0;&#x5728;&#x7C7B;&#x548C;&#x63A5;&#x53E3;&#x7684;&#x6587;&#x6863;&#x4E2D;&#xFF09;</div><div class="line">@param&#xFF08;&#x53EA;&#x51FA;&#x73B0;&#x5728;&#x65B9;&#x6CD5;&#x6216;&#x6784;&#x9020;&#x5668;&#x7684;&#x6587;&#x6863;&#x4E2D;&#xFF09;</div><div class="line">@return&#xFF08;&#x53EA;&#x51FA;&#x73B0;&#x5728;&#x65B9;&#x6CD5;&#x4E2D;&#xFF09;</div><div class="line">@exception&#xFF08;&#x4ECE;java1.2&#x4E4B;&#x540E;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;@thrown&#x66FF;&#x4EE3;&#xFF09;</div><div class="line">@see</div><div class="line">@since</div><div class="line">@serial&#xFF08;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;@serialField&#x6216;@serialData&#x66FF;&#x4EE3;&#xFF09;</div><div class="line">@deprecated</div></pre></td></tr></table></figure>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;"><a href="#&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;" class="headerlink" title="&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;"></a>&#x590D;&#x6742;&#x6CE8;&#x91CA;&#x6837;&#x4F8B;</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * Graphics is the abstract base class for all graphics contexts</div><div class="line"> * which allow an application to draw onto components realized on</div><div class="line"> * various devices or onto off-screen images.</div><div class="line"> * A Graphics object encapsulates the state information needed</div><div class="line"> * for the various rendering operations that Java supports. This</div><div class="line"> * state information includes:</div><div class="line"> * &lt;ul&gt;</div><div class="line"> * &lt;li&gt;The Component to draw on</div><div class="line"> * &lt;li&gt;A translation origin for rendering and clipping coordinates</div><div class="line"> * &lt;li&gt;The current clip</div><div class="line"> * &lt;li&gt;The current color</div><div class="line"> * &lt;li&gt;The current font</div><div class="line"> * &lt;li&gt;The current logical pixel operation function (XOR or Paint)</div><div class="line"> * &lt;li&gt;The current XOR alternation color</div><div class="line"> * (see &lt;a href=&quot;#setXORMode&quot;&gt;setXORMode&lt;/a&gt;)</div><div class="line"> * &lt;/ul&gt;</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Coordinates are infinitely thin and lie between the pixels of the</div><div class="line"> * output device.</div><div class="line"> * Operations which draw the outline of a figure operate by traversing</div><div class="line"> * along the infinitely thin path with a pixel-sized pen that hangs</div><div class="line"> * down and to the right of the anchor point on the path.</div><div class="line"> * Operations which fill a figure operate by filling the interior</div><div class="line"> * of the infinitely thin path.</div><div class="line"> * Operations which render horizontal text render the ascending</div><div class="line"> * portion of the characters entirely above the baseline coordinate.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * Some important points to consider are that drawing a figure that</div><div class="line"> * covers a given rectangle will occupy one extra row of pixels on</div><div class="line"> * the right and bottom edges compared to filling a figure that is</div><div class="line"> * bounded by that same rectangle.</div><div class="line"> * Also, drawing a horizontal line along the same y coordinate as</div><div class="line"> * the baseline of a line of text will draw the line entirely below</div><div class="line"> * the text except for any descenders.</div><div class="line"> * Both of these properties are due to the pen hanging down and to</div><div class="line"> * the right from the path that it traverses.</div><div class="line"> * &lt;p&gt;</div><div class="line"> * All coordinates which appear as arguments to the methods of this</div><div class="line"> * Graphics object are considered relative to the translation origin</div><div class="line"> * of this Graphics object prior to the invocation of the method.</div><div class="line"> * All rendering operations modify only pixels which lie within the</div><div class="line"> * area bounded by both the current clip of the graphics context</div><div class="line"> * and the extents of the Component used to create the Graphics object.</div><div class="line"> * </div><div class="line"> * <span class="doctag">@author</span> Sami Shaio</div><div class="line"> * <span class="doctag">@author</span> Arthur van Hoff</div><div class="line"> * <span class="doctag">@version</span> %I%, %G%</div><div class="line"> * <span class="doctag">@since</span> 1.0</div><div class="line"> */</div><div class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Graphics</span> </span>{</div><div class="line"></div><div class="line">    <span class="comment">/** </span></div><div class="line">     * Draws as much of the specified image as is currently available</div><div class="line">     * with its northwest corner at the specified coordinate (x, y).</div><div class="line">     * This method will return immediately in all cases, even if the</div><div class="line">     * entire image has not yet been scaled, dithered and converted</div><div class="line">     * for the current output device.</div><div class="line">     * &lt;p&gt;</div><div class="line">     * If the current output representation is not yet complete then</div><div class="line">     * the method will return false and the indicated </div><div class="line">     * {<span class="doctag">@link</span> ImageObserver} object will be notified as the</div><div class="line">     * conversion process progresses.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@param</span> img the image to be drawn</div><div class="line">     * <span class="doctag">@param</span> x the x-coordinate of the northwest corner</div><div class="line">     * of the destination rectangle in pixels</div><div class="line">     * <span class="doctag">@param</span> y the y-coordinate of the northwest corner</div><div class="line">     * of the destination rectangle in pixels</div><div class="line">     * <span class="doctag">@param</span> observer the image observer to be notified as more</div><div class="line">     * of the image is converted. May be </div><div class="line">     * &lt;code&gt;null&lt;/code&gt;</div><div class="line">     * <span class="doctag">@return</span> &lt;code&gt;true&lt;/code&gt; if the image is completely </div><div class="line">     * loaded and was painted successfully; </div><div class="line">     * &lt;code&gt;false&lt;/code&gt; otherwise.</div><div class="line">     * <span class="doctag">@see</span> Image</div><div class="line">     * <span class="doctag">@see</span> ImageObserver</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">boolean</span> <span class="title">drawImage</span><span class="params">(Image img, <span class="keyword">int</span> x, <span class="keyword">int</span> y, </span></span></div><div class="line">                                      ImageObserver observer);</div><div class="line"></div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Dispose of the system resources used by this graphics context.</div><div class="line">     * The Graphics context cannot be used after being disposed of.</div><div class="line">     * While the finalization process of the garbage collector will</div><div class="line">     * also dispose of the same system resources, due to the number</div><div class="line">     * of Graphics objects that can be created in short time frames</div><div class="line">     * it is preferable to manually free the associated resources</div><div class="line">     * using this method rather than to rely on a finalization</div><div class="line">     * process which may not happen for a long period of time.</div><div class="line">     * &lt;p&gt;</div><div class="line">     * Graphics objects which are provided as arguments to the paint</div><div class="line">     * and update methods of Components are automatically disposed</div><div class="line">     * by the system when those methods return. Programmers should,</div><div class="line">     * for efficiency, call the dispose method when finished using</div><div class="line">     * a Graphics object only if it was created directly from a</div><div class="line">     * Component or another Graphics object.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> #create(int, int, int, int)</div><div class="line">     * <span class="doctag">@see</span> #finalize()</div><div class="line">     * <span class="doctag">@see</span> Component#getGraphics()</div><div class="line">     * <span class="doctag">@see</span> Component#paint(Graphics)</div><div class="line">     * <span class="doctag">@see</span> Component#update(Graphics)</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title">dispose</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * Disposes of this graphics context once it is no longer </div><div class="line">     * referenced.</div><div class="line">     *</div><div class="line">     * <span class="doctag">@see</span> #dispose()</div><div class="line">     * <span class="doctag">@since</span> 1.0</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> </span>{</div><div class="line">        dispose();</div><div class="line">    }</div><div class="line">}</div></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/4/22/morphlne-interceptor使用解析/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -715,143 +929,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.dashen.im/2017/2/26/Airflow飞行指南（二）/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Da Shen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="dashen's blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/2/26/Airflow飞行指南（二）/" itemprop="url">Airflow飞行指南（二）</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-26T12:38:31+08:00">
-                2017-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="Airflow&#x7684;&#x57FA;&#x7840;&#x4F7F;&#x7528;"><a href="#Airflow&#x7684;&#x57FA;&#x7840;&#x4F7F;&#x7528;" class="headerlink" title="Airflow&#x7684;&#x57FA;&#x7840;&#x4F7F;&#x7528;"></a>Airflow&#x7684;&#x57FA;&#x7840;&#x4F7F;&#x7528;</h1><p>&#x4E0B;&#x9762;&#x4F1A;&#x4E3E;&#x4E00;&#x4E2A;airflow&#x7684;&#x57FA;&#x7840;&#x4F7F;&#x7528;&#x7684;&#x4F8B;&#x5B50;&#xFF0C;&#x53EF;&#x80FD;&#x4E00;&#x4E0A;&#x6765;&#x770B;&#x4E00;&#x5927;&#x4E32;&#x4EE3;&#x7801;&#x4F1A;&#x8BA9;&#x4EBA;&#x61F5;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x5173;&#x7CFB;&#x540E;&#x9762;&#x4F1A;&#x4E00;&#x884C;&#x884C;&#x7684;&#x89E3;&#x91CA;&#x7684;&#x3002;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> airflow <span class="keyword">import</span> DAG</div><div class="line"><span class="keyword">from</span> airflow.operators.bash_operator <span class="keyword">import</span> BashOperator</div><div class="line"><span class="keyword">from</span> datetime <span class="keyword">import</span> datetime, timedelta</div><div class="line"></div><div class="line"></div><div class="line">default_args = {</div><div class="line">    <span class="string">&apos;owner&apos;</span>: <span class="string">&apos;airflow&apos;</span>,</div><div class="line">    <span class="string">&apos;depends_on_past&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;start_date&apos;</span>: datetime(<span class="number">2015</span>, <span class="number">6</span>, <span class="number">1</span>),</div><div class="line">    <span class="string">&apos;email&apos;</span>: [<span class="string">&apos;airflow@airflow.com&apos;</span>],</div><div class="line">    <span class="string">&apos;email_on_failure&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;email_on_retry&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;retries&apos;</span>: <span class="number">1</span>,</div><div class="line">    <span class="string">&apos;retry_delay&apos;</span>: timedelta(minutes=<span class="number">5</span>),</div><div class="line">    <span class="comment"># &apos;queue&apos;: &apos;bash_queue&apos;,</span></div><div class="line">    <span class="comment"># &apos;pool&apos;: &apos;backfill&apos;,</span></div><div class="line">    <span class="comment"># &apos;priority_weight&apos;: 10,</span></div><div class="line">    <span class="comment"># &apos;end_date&apos;: datetime(2016, 1, 1),</span></div><div class="line">}</div><div class="line"></div><div class="line">dag = DAG(<span class="string">&apos;tutorial&apos;</span>, default_args=default_args)</div><div class="line"></div><div class="line"><span class="comment"># t1, t2 and t3 are examples of tasks created by instantiating operators</span></div><div class="line">t1 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;print_date&apos;</span>,</div><div class="line">    bash_command=<span class="string">&apos;date&apos;</span>,</div><div class="line">    dag=dag)</div><div class="line"></div><div class="line">t2 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;sleep&apos;</span>,</div><div class="line">    bash_command=<span class="string">&apos;sleep 5&apos;</span>,</div><div class="line">    retries=<span class="number">3</span>,</div><div class="line">    dag=dag)</div><div class="line"></div><div class="line">templated_command = <span class="string">&quot;&quot;&quot;</span></div><div class="line">    {% for i in range(5) %}</div><div class="line">        echo &quot;{{ ds }}&quot;</div><div class="line">        echo &quot;{{ macros.ds_add(ds, 7)}}&quot;</div><div class="line">        echo &quot;{{ params.my_param }}&quot;</div><div class="line">    {% endfor %}</div><div class="line">&quot;&quot;&quot;</div><div class="line"></div><div class="line">t3 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;templated&apos;</span>,</div><div class="line">    bash_command=templated_command,</div><div class="line">    params={<span class="string">&apos;my_param&apos;</span>: <span class="string">&apos;Parameter I passed in&apos;</span>},</div><div class="line">    dag=dag)</div><div class="line"></div><div class="line">t2.set_upstream(t1)</div><div class="line">t3.set_upstream(t1)</div></pre></td></tr></table></figure></p>
-<h2 id="&#x9ED8;&#x8BA4;&#x53C2;&#x6570;"><a href="#&#x9ED8;&#x8BA4;&#x53C2;&#x6570;" class="headerlink" title="&#x9ED8;&#x8BA4;&#x53C2;&#x6570;"></a>&#x9ED8;&#x8BA4;&#x53C2;&#x6570;</h2><p>&#x5F53;&#x6211;&#x4EEC;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x5177;&#x4F53;&#x7684;&#x4EFB;&#x52A1;&#xFF08;operator)&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x90FD;&#x4F1A;&#x9700;&#x8981;&#x4F20;&#x5165;&#x4E00;&#x4E9B;&#x53C2;&#x6570;&#xFF0C;&#x800C;&#x4E14;&#x4F1A;&#x6709;&#x4E9B;&#x53C2;&#x6570;&#x662F;&#x5171;&#x6709;&#x7684;&#x3002;&#x56E0;&#x6B64;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E00;&#x4E2A;&#x8BBE;&#x7F6E;&#x4E86;&#x516C;&#x6709;&#x53C2;&#x6570;&#x7684;<code>dict</code>,&#x7136;&#x540E;&#x8FD9;&#x4E9B;&#x53C2;&#x6570;&#x4F1A;&#x5728;&#x6784;&#x5EFA;&#x4EFB;&#x52A1;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4F20;&#x9012;&#x7ED9;&#x6BCF;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">default_args = {</div><div class="line">    <span class="string">&apos;owner&apos;</span>: <span class="string">&apos;airflow&apos;</span>,</div><div class="line">    <span class="string">&apos;depends_on_past&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;start_date&apos;</span>: datetime(<span class="number">2015</span>, <span class="number">6</span>, <span class="number">1</span>),</div><div class="line">    <span class="string">&apos;email&apos;</span>: [<span class="string">&apos;airflow@airflow.com&apos;</span>],</div><div class="line">    <span class="string">&apos;email_on_failure&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;email_on_retry&apos;</span>: <span class="keyword">False</span>,</div><div class="line">    <span class="string">&apos;retries&apos;</span>: <span class="number">1</span>,</div><div class="line">    <span class="string">&apos;retry_delay&apos;</span>: timedelta(minutes=<span class="number">5</span>),</div><div class="line">    <span class="comment"># &apos;queue&apos;: &apos;bash_queue&apos;,</span></div><div class="line">    <span class="comment"># &apos;pool&apos;: &apos;backfill&apos;,</span></div><div class="line">    <span class="comment"># &apos;priority_weight&apos;: 10,</span></div><div class="line">    <span class="comment"># &apos;end_date&apos;: datetime(2016, 1, 1),</span></div><div class="line">}</div></pre></td></tr></table></figure></p>
-<h2 id="&#x5B9E;&#x4F8B;&#x5316;DAG"><a href="#&#x5B9E;&#x4F8B;&#x5316;DAG" class="headerlink" title="&#x5B9E;&#x4F8B;&#x5316;DAG"></a>&#x5B9E;&#x4F8B;&#x5316;DAG</h2><p>&#x6211;&#x4EEC;&#x9700;&#x8981;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;(DAG)&#x6765;&#x5BB9;&#x7EB3;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x7684;&#x4EFB;&#x52A1;&#xFF0C;&#x6307;&#x5B9A;&#x4ED6;&#x4EEC;&#x7684;&#x8FD0;&#x884C;&#x987A;&#x5E8F;&#x3002;&#x5B9E;&#x4F8B;&#x5316;DAG&#x65F6;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x7ED9;&#x4ED6;&#x4E00;&#x4E2A;&#x552F;&#x4E00;&#x6807;&#x8BC6;&#x7684;<code>dag_id</code>,&#x540C;&#x65F6;&#x628A;&#x6211;&#x4EEC;&#x521A;&#x624D;&#x5B9A;&#x4E49;&#x7684;&#x9ED8;&#x8BA4;&#x53C2;&#x6570;&#x4F20;&#x9012;&#x7ED9;DAG&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dag = DAG(&apos;tutorial&apos;, default_args=default_args)</div></pre></td></tr></table></figure></p>
-<h2 id="&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;"><a href="#&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;" class="headerlink" title="&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;"></a>&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;</h2><p>&#x4EFB;&#x52A1;&#x7684;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;<code>operator</code>&#x6765;&#x5B9A;&#x4E49;&#xFF0C;airflow&#x63D0;&#x4F9B;&#x4E86;&#x5F88;&#x591A;&#x79CD;<code>operator</code>,&#x5728;&#x8FD9;&#x91CC;&#x6211;&#x4EEC;&#x4F7F;&#x7528;<code>bash_operator</code>&#x6765;&#x5B9A;&#x4E49;&#x4EFB;&#x52A1;&#x3002;&#x9996;&#x5148;&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x4EFB;&#x52A1;&#x4E5F;&#x5FC5;&#x987B;&#x6709;&#x4E00;&#x4E2A;&#x67D0;&#x4E00;&#x6807;&#x8BC6;&#x7684;&#x4EFB;&#x52A1;ID(<code>task_id</code>),&#x56E0;&#x6B64;&#x7B2C;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#x6211;&#x4EEC;&#x586B;&#x7684;&#x5C31;&#x662F;&#x4EFB;&#x52A1;ID</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">t1 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;print_date&apos;</span>,</div><div class="line">    bash_command=<span class="string">&apos;date&apos;</span>,</div><div class="line">    dag=dag)</div><div class="line"></div><div class="line">t2 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;sleep&apos;</span>,</div><div class="line">    bash_command=<span class="string">&apos;sleep 5&apos;</span>,</div><div class="line">    retries=<span class="number">3</span>,</div><div class="line">    dag=dag)</div></pre></td></tr></table></figure>
-<p>&#x6211;&#x4EEC;&#x770B;&#x5230;&#x5F53;&#x6211;&#x4EEC;&#x5728;&#x5B9E;&#x4F8B;&#x5316;&#x4E00;&#x4E2A;t2&#x8FD9;&#x4E2A;<code>bash_operator</code>&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x4E0D;&#x4EC5;&#x4F20;&#x5165;&#x4E86;&#x9700;&#x8981;&#x6267;&#x884C;&#x7684;bash&#x547D;&#x4EE4;&#xFF0C;&#x8FD8;&#x4F20;&#x5165;&#x4E86;<code>retries=3</code>&#x8FD9;&#x6837;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x56E0;&#x6B64;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;t2&#x8FD9;&#x4E2A;&#x5931;&#x8D25;&#x91CD;&#x8BD5;&#x6B21;&#x6570;&#x5C31;&#x53D8;&#x6210;&#x4E86;3&#x6B21;&#x3002;</p>
-<p>&#x53C2;&#x6570;&#x5904;&#x7406;&#x7684;&#x4F18;&#x5148;&#x7EA7;&#xFF1A;</p>
-<ol>
-<li>&#x663E;&#x793A;&#x4F20;&#x5165;&#x7684;&#x53C2;&#x6570;</li>
-<li>&#x9ED8;&#x8BA4;&#x53C2;&#x6570;</li>
-<li><code>operator</code>&#x672C;&#x8EAB;&#x7684;&#x9ED8;&#x8BA4;&#x53C2;&#x6570;</li>
-</ol>
-<h2 id="Jinja&#x6A21;&#x677F;&#x7684;&#x4F7F;&#x7528;"><a href="#Jinja&#x6A21;&#x677F;&#x7684;&#x4F7F;&#x7528;" class="headerlink" title="Jinja&#x6A21;&#x677F;&#x7684;&#x4F7F;&#x7528;"></a>Jinja&#x6A21;&#x677F;&#x7684;&#x4F7F;&#x7528;</h2><p>airflow&#x4F7F;&#x7528;&#x4E86;Jinja&#x6A21;&#x677F;&#x5F15;&#x64CE;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x7CFB;&#x5217;&#x5B8F;&#x548C;&#x5185;&#x5EFA;&#x53C2;&#x6570;&#x7684;&#x547D;&#x4EE4;&#x6A21;&#x677F;&#xFF0C;&#x4E0D;&#x4EC5;&#x5982;&#x6B64;&#x7528;&#x6237;&#x8FD8;&#x53EF;&#x4EE5;&#x4F20;&#x5165;&#x81EA;&#x5DF1;&#x7684;&#x53C2;&#x6570;&#x4EE5;&#x53CA;&#x5B9A;&#x4E49;&#x81EA;&#x5DF1;&#x7684;&#x5B8F;&#x3002;&#x5176;&#x4E2D;<code>ds</code>&#x5C31;&#x662F;&#x5185;&#x5EFA;&#x53C2;&#x6570;&#xFF0C;<code>macros.ds_add(ds,7)</code>&#x5C31;&#x662F;&#x5B8F;&#xFF0C;&#x540E;&#x9762;&#x7684;<code>params.my_param</code>&#x5C31;&#x662F;&#x7528;&#x6237;&#x81EA;&#x5B9A;&#x4E49;&#x7684;&#x53C2;&#x6570;,&#x53EA;&#x9700;&#x8981;&#x5728;&#x5B9E;&#x4F8B;&#x5316;<code>operator</code>&#x65F6;&#x4F20;&#x5165;&#x4E00;&#x4E2A;params&#x7684;<code>dict</code>&#x5373;&#x53EF;&#x3002;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">templated_command = <span class="string">&quot;&quot;&quot;</span></div><div class="line">    {% for i in range(5) %}</div><div class="line">        echo &quot;{{ ds }}&quot;</div><div class="line">        echo &quot;{{ macros.ds_add(ds, 7)}}&quot;</div><div class="line">        echo &quot;{{ params.my_param }}&quot;</div><div class="line">    {% endfor %}</div><div class="line">&quot;&quot;&quot;</div><div class="line"></div><div class="line">t3 = BashOperator(</div><div class="line">    task_id=<span class="string">&apos;templated&apos;</span>,</div><div class="line">    bash_command=templated_command,</div><div class="line">    params={<span class="string">&apos;my_param&apos;</span>: <span class="string">&apos;Parameter I passed in&apos;</span>},</div><div class="line">    dag=dag)</div></pre></td></tr></table></figure>
-<h2 id="&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x95F4;&#x7684;&#x4F9D;&#x8D56;"><a href="#&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x95F4;&#x7684;&#x4F9D;&#x8D56;" class="headerlink" title="&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x95F4;&#x7684;&#x4F9D;&#x8D56;"></a>&#x914D;&#x7F6E;&#x4EFB;&#x52A1;&#x95F4;&#x7684;&#x4F9D;&#x8D56;</h2><p>&#x6700;&#x540E;&#x5C31;&#x662F;&#x8BBE;&#x7F6E;&#x4EFB;&#x52A1;&#x95F4;&#x524D;&#x540E;&#x6267;&#x884C;&#x5173;&#x7CFB;,&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x8BBE;&#x7F6E;&#x7684;<code>upstream</code>(&#x6216;&#x8005;<code>downstream</code>)&#x5373;&#x53EF;</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">t2.set_upstream(t1)</div><div class="line">t3.set_upstream(t1)</div><div class="line"></div><div class="line"><span class="comment"># &#x6216;&#x8005;</span></div><div class="line"><span class="comment"># t1.set_downstream(t2)</span></div><div class="line"><span class="comment"># t1.set_downstream(t2)</span></div></pre></td></tr></table></figure>
-<h1 id="&#x6267;&#x884C;&#x4EFB;&#x52A1;"><a href="#&#x6267;&#x884C;&#x4EFB;&#x52A1;" class="headerlink" title="&#x6267;&#x884C;&#x4EFB;&#x52A1;"></a>&#x6267;&#x884C;&#x4EFB;&#x52A1;</h1><p>&#x79E9;&#x5E8F;&#x4EFB;&#x52A1;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x5F00;&#x542F;<code>scheduler</code>&#x548C;<code>webserver</code>,&#x7528;&#x4E0B;&#x9762;&#x7684;&#x547D;&#x4EE4;&#x5F00;&#x542F;&#x3002;<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"># &#x542F;&#x52A8;&#x4EFB;&#x52A1;&#x8C03;&#x5EA6;&#x5668;</div><div class="line">airflow scheduler -D</div><div class="line"></div><div class="line"># &#x542F;&#x52A8;&#x76D1;&#x63A7;&#x9875;&#x9762;</div><div class="line">airflow webserver -D -p 9090</div></pre></td></tr></table></figure></p>
-<p>&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#x5C31;&#x4F1A;&#x5728;<a href="http://localhost:9090" target="_blank" rel="external">localhost:9090</a>&#x770B;&#x5230;&#x6211;&#x4EEC;&#x7684;airflow&#x7684;&#x76D1;&#x63A7;&#x9875;&#x9762;&#xFF0C;&#x4E4B;&#x540E;&#x9700;&#x8981;&#x70B9;&#x51FB;&#x4EFB;&#x52A1;&#x7684;&#x6253;&#x5F00;&#x6309;&#x94AE;&#x5C31;&#x53EF;&#x4EE5;&#x542F;&#x52A8;&#x5B9A;&#x65F6;&#x4EFB;&#x52A1;&#x4E86;&#x3002;</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -902,7 +979,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -915,7 +992,7 @@
               
               <div class="site-state-item site-state-tags">
                 
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">4</span>
                   <span class="site-state-item-name">标签</span>
                 
               </div>

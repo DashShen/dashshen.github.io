@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>在ECS上配置Nanobot并接入飞书 | Dash | 技术 | 投资 | 思考</title>
+
+  
+  <meta name="author" content="DashShen">
+  
+
+  
+  <meta name="description" content="个人技术博客，记录学习与成长">
+  
+
+  
+  <meta name="keywords" content="技术,投资,思考">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="在ECS上配置Nanobot并接入飞书"/>
+
+  <meta property="og:site_name" content="Dash"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Dash" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Dash</a>
+    </h1>
+    <p class="site-description">技术 | 投资 | 思考</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>在ECS上配置Nanobot并接入飞书</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2026/02/18/在ECS上配置Nanobot并接入飞书/" rel="bookmark">
+        <time class="entry-date published" datetime="2026-02-18T14:00:00.000Z">
+          2026-02-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本文将介绍如何在阿里云ECS上安装配置Nanobot，并将其接入飞书机器人，实现AI助手与飞书的打通。</p>
+<span id="more"></span>
+
+<h2 id="什么是-Nanobot？"><a href="#什么是-Nanobot？" class="headerlink" title="什么是 Nanobot？"></a>什么是 Nanobot？</h2><p>Nanobot 是一个轻量级的 AI 助手框架，支持：</p>
+<ul>
+<li>多种大语言模型（Claude、智谱、OpenAI 等）</li>
+<li>多平台消息接入（飞书、Discord、Telegram 等）</li>
+<li>技能系统（Skills）扩展</li>
+<li>定时任务和自动化</li>
+</ul>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><h3 id="1-系统要求"><a href="#1-系统要求" class="headerlink" title="1. 系统要求"></a>1. 系统要求</h3><ul>
+<li>操作系统：Linux（推荐 Ubuntu 20.04+ 或 CentOS 7+）</li>
+<li>Python：3.10+</li>
+<li>内存：至少 1GB</li>
+</ul>
+<h3 id="2-安装-Python-依赖"><a href="#2-安装-Python-依赖" class="headerlink" title="2. 安装 Python 依赖"></a>2. 安装 Python 依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 更新系统包</span></span><br><span class="line"><span class="built_in">sudo</span> apt update &amp;&amp; <span class="built_in">sudo</span> apt upgrade -y</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 Python 和 pip（如果没有）</span></span><br><span class="line"><span class="built_in">sudo</span> apt install python3 python3-pip -y</span><br></pre></td></tr></table></figure>
+
+<h2 id="安装-Nanobot"><a href="#安装-Nanobot" class="headerlink" title="安装 Nanobot"></a>安装 Nanobot</h2><h3 id="方法一：使用-pip-安装（推荐）"><a href="#方法一：使用-pip-安装（推荐）" class="headerlink" title="方法一：使用 pip 安装（推荐）"></a>方法一：使用 pip 安装（推荐）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install nanobot-ai</span><br></pre></td></tr></table></figure>
+
+<h3 id="方法二：从源码安装"><a href="#方法二：从源码安装" class="headerlink" title="方法二：从源码安装"></a>方法二：从源码安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/nanobot-ai/nanobot.git</span><br><span class="line"><span class="built_in">cd</span> nanobot</span><br><span class="line">pip install -e .</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证安装"><a href="#验证安装" class="headerlink" title="验证安装"></a>验证安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nanobot --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置飞书机器人"><a href="#配置飞书机器人" class="headerlink" title="配置飞书机器人"></a>配置飞书机器人</h2><h3 id="1-创建飞书应用"><a href="#1-创建飞书应用" class="headerlink" title="1. 创建飞书应用"></a>1. 创建飞书应用</h3><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://open.feishu.cn/">飞书开放平台</a></li>
+<li>进入「开发者后台」→「创建企业自建应用」</li>
+<li>填写应用名称和描述</li>
+</ol>
+<h3 id="2-配置应用权限"><a href="#2-配置应用权限" class="headerlink" title="2. 配置应用权限"></a>2. 配置应用权限</h3><p>在「权限管理」中开通以下权限：</p>
+<table>
+<thead>
+<tr>
+<th>权限名称</th>
+<th>权限标识</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>获取用户信息</td>
+<td><code>contact:user.base:readonly</code></td>
+</tr>
+<tr>
+<td>接收消息</td>
+<td><code>im:message</code></td>
+</tr>
+<tr>
+<td>发送消息</td>
+<td><code>im:message:send_as_bot</code></td>
+</tr>
+<tr>
+<td>获取群组信息</td>
+<td><code>im:chat:readonly</code></td>
+</tr>
+</tbody></table>
+<h3 id="3-获取凭证"><a href="#3-获取凭证" class="headerlink" title="3. 获取凭证"></a>3. 获取凭证</h3><p>在「凭证与基础信息」页面获取：</p>
+<ul>
+<li><strong>App ID</strong></li>
+<li><strong>App Secret</strong></li>
+</ul>
+<h3 id="4-配置事件订阅"><a href="#4-配置事件订阅" class="headerlink" title="4. 配置事件订阅"></a>4. 配置事件订阅</h3><ol>
+<li>在「事件订阅」页面启用事件订阅</li>
+<li>设置请求网址：<code>http://你的ECS公网IP:8080/feishu/webhook</code></li>
+<li>订阅以下事件：<ul>
+<li><code>im.message.receive_v1</code> - 接收消息</li>
+</ul>
+</li>
+</ol>
+<h2 id="配置-Nanobot"><a href="#配置-Nanobot" class="headerlink" title="配置 Nanobot"></a>配置 Nanobot</h2><h3 id="1-创建配置文件"><a href="#1-创建配置文件" class="headerlink" title="1. 创建配置文件"></a>1. 创建配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> -p ~/.nanobot</span><br><span class="line">nano ~/.nanobot/config.yaml</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-配置内容"><a href="#2-配置内容" class="headerlink" title="2. 配置内容"></a>2. 配置内容</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># AI 模型配置</span></span><br><span class="line"><span class="attr">model:</span></span><br><span class="line">  <span class="attr">provider:</span> <span class="string">zhipu</span>  <span class="comment"># 或 anthropic、openai</span></span><br><span class="line">  <span class="attr">api_key:</span> <span class="string">你的智谱API密钥</span></span><br><span class="line">  <span class="attr">model:</span> <span class="string">glm-4</span>  <span class="comment"># 或 claude-3-opus、gpt-4</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 飞书配置</span></span><br><span class="line"><span class="attr">feishu:</span></span><br><span class="line">  <span class="attr">app_id:</span> <span class="string">你的飞书App</span> <span class="string">ID</span></span><br><span class="line">  <span class="attr">app_secret:</span> <span class="string">你的飞书App</span> <span class="string">Secret</span></span><br><span class="line">  <span class="attr">encrypt_key:</span> <span class="string">你的加密密钥（可选）</span></span><br><span class="line">  <span class="attr">verification_token:</span> <span class="string">你的验证令牌（可选）</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 服务配置</span></span><br><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8080</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 日志配置</span></span><br><span class="line"><span class="attr">logging:</span></span><br><span class="line">  <span class="attr">level:</span> <span class="string">INFO</span></span><br><span class="line">  <span class="attr">file:</span> <span class="string">~/.nanobot/nanobot.log</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-获取智谱-API-Key"><a href="#3-获取智谱-API-Key" class="headerlink" title="3. 获取智谱 API Key"></a>3. 获取智谱 API Key</h3><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱AI开放平台</a></li>
+<li>注册并登录</li>
+<li>在「API密钥」页面创建密钥</li>
+</ol>
+<h2 id="启动-Nanobot"><a href="#启动-Nanobot" class="headerlink" title="启动 Nanobot"></a>启动 Nanobot</h2><h3 id="直接启动"><a href="#直接启动" class="headerlink" title="直接启动"></a>直接启动</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nanobot start</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-systemd-托管（推荐）"><a href="#使用-systemd-托管（推荐）" class="headerlink" title="使用 systemd 托管（推荐）"></a>使用 systemd 托管（推荐）</h3><p>创建服务文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/systemd/system/nanobot.service</span><br></pre></td></tr></table></figure>
+
+<p>内容如下：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Nanobot AI Assistant</span><br><span class="line"><span class="attr">After</span>=network.target</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">Type</span>=simple</span><br><span class="line"><span class="attr">User</span>=root</span><br><span class="line"><span class="attr">WorkingDirectory</span>=/root</span><br><span class="line"><span class="attr">ExecStart</span>=/usr/local/bin/nanobot start</span><br><span class="line"><span class="attr">Restart</span>=always</span><br><span class="line"><span class="attr">RestartSec</span>=<span class="number">10</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=multi-user.target</span><br></pre></td></tr></table></figure>
+
+<p>启用并启动服务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl daemon-reload</span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> nanobot</span><br><span class="line"><span class="built_in">sudo</span> systemctl start nanobot</span><br></pre></td></tr></table></figure>
+
+<p>查看状态：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status nanobot</span><br></pre></td></tr></table></figure>
+
+<h2 id="测试机器人"><a href="#测试机器人" class="headerlink" title="测试机器人"></a>测试机器人</h2><h3 id="1-发布飞书应用"><a href="#1-发布飞书应用" class="headerlink" title="1. 发布飞书应用"></a>1. 发布飞书应用</h3><p>在飞书开发者后台点击「发布版本」，提交审核。</p>
+<h3 id="2-添加到群聊"><a href="#2-添加到群聊" class="headerlink" title="2. 添加到群聊"></a>2. 添加到群聊</h3><ol>
+<li>在飞书中创建一个群聊</li>
+<li>点击群设置 → 添加机器人</li>
+<li>选择你创建的应用</li>
+</ol>
+<h3 id="3-发送消息测试"><a href="#3-发送消息测试" class="headerlink" title="3. 发送消息测试"></a>3. 发送消息测试</h3><p>在群聊中 @机器人 发送消息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@你的机器人 你好，请介绍一下自己</span><br></pre></td></tr></table></figure>
+
+<p>如果配置正确，机器人会回复消息。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="Q1-消息没有响应？"><a href="#Q1-消息没有响应？" class="headerlink" title="Q1: 消息没有响应？"></a>Q1: 消息没有响应？</h3><p><strong>检查清单：</strong></p>
+<ol>
+<li>确认 ECS 安全组开放了 8080 端口</li>
+<li>确认飞书事件订阅配置正确</li>
+<li>查看日志：<code>tail -f ~/.nanobot/nanobot.log</code></li>
+</ol>
+<h3 id="Q2-API-调用失败？"><a href="#Q2-API-调用失败？" class="headerlink" title="Q2: API 调用失败？"></a>Q2: API 调用失败？</h3><ol>
+<li>检查 API Key 是否正确</li>
+<li>确认账户余额充足</li>
+<li>检查网络是否能访问 API 端点</li>
+</ol>
+<h3 id="Q3-如何更新-Nanobot？"><a href="#Q3-如何更新-Nanobot？" class="headerlink" title="Q3: 如何更新 Nanobot？"></a>Q3: 如何更新 Nanobot？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install --upgrade nanobot-ai</span><br><span class="line"><span class="built_in">sudo</span> systemctl restart nanobot</span><br></pre></td></tr></table></figure>
+
+<h2 id="进阶配置"><a href="#进阶配置" class="headerlink" title="进阶配置"></a>进阶配置</h2><h3 id="安装技能（Skills）"><a href="#安装技能（Skills）" class="headerlink" title="安装技能（Skills）"></a>安装技能（Skills）</h3><p>Nanobot 支持通过技能系统扩展功能：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搜索技能</span></span><br><span class="line">nanobot skill search tushare</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装技能</span></span><br><span class="line">nanobot skill install tushare-finance</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置定时任务"><a href="#配置定时任务" class="headerlink" title="配置定时任务"></a>配置定时任务</h3><p>编辑 <code>~/.nanobot/config.yaml</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">cron:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">daily_report</span></span><br><span class="line">    <span class="attr">schedule:</span> <span class="string">&quot;0 9 * * *&quot;</span></span><br><span class="line">    <span class="attr">task:</span> <span class="string">&quot;每天早上9点发送日报&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过以上步骤，你已经成功：</p>
+<ol>
+<li>✅ 在 ECS 上安装了 Nanobot</li>
+<li>✅ 创建并配置了飞书机器人</li>
+<li>✅ 接入了智谱 AI 模型</li>
+<li>✅ 实现了飞书与 AI 的打通</li>
+</ol>
+<p>现在你可以在飞书中与 AI 助手对话，享受智能办公体验！</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://nanobot.ai/docs">Nanobot 官方文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://open.feishu.cn/">飞书开放平台</a></li>
+<li><a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱AI 开放平台</a></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/技术/">技术</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/nanobot/">nanobot</a><a href="/tags/AI/">AI</a><a href="/tags/飞书/">飞书</a><a href="/tags/自动化/">自动化</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2026 DashShen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default'
+  });
+</script>
+</body>
+</html>

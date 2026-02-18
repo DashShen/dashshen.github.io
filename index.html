@@ -1,0 +1,318 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dash | 技术 | 投资 | 思考</title>
+
+  
+  <meta name="author" content="DashShen">
+  
+
+  
+  <meta name="description" content="个人技术博客，记录学习与成长">
+  
+
+  
+  <meta name="keywords" content="技术,投资,思考">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  
+
+  <meta property="og:site_name" content="Dash"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="Dash" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">Dash</a>
+    </h1>
+    <p class="site-description">技术 | 投资 | 思考</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2026/02/18/Nanobot架构原理详解/"><span>Nanobot架构原理详解</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2026/02/18/Nanobot架构原理详解/" rel="bookmark">
+        <time class="entry-date published" datetime="2026-02-18T15:45:00.000Z">
+          2026-02-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本文将深入解析 Nanobot 的架构设计和工作原理，帮助你理解这个轻量级 AI 助手框架的核心机制。</p>
+        
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/技术/">技术</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/nanobot/">nanobot</a><a href="/tags/AI/">AI</a><a href="/tags/架构/">架构</a><a href="/tags/原理/">原理</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2026/02/18/Claude-Code安装与智谱模型配置指南/"><span>Claude Code安装与智谱模型配置指南</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2026/02/18/Claude-Code安装与智谱模型配置指南/" rel="bookmark">
+        <time class="entry-date published" datetime="2026-02-18T15:10:00.000Z">
+          2026-02-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Claude Code 是 Anthropic 推出的 AI 编程助手，可以集成到终端中使用。在国内网络环境下，我们可以通过配置智谱的 GLM-5 模型来使用 Claude Code，既解决了网络问题，又能享受到优秀的 AI 编程能力。</p>
+<p>本文将详细介绍安装和配置过程。</p>
+<h2 id="安装-Claude-Code"><a href="#安装-Claude-Code" class="headerlink" title="安装 Claude Code"></a>安装 Claude Code</h2><h3 id="前置要求"><a href="#前置要求" class="headerlink" title="前置要求"></a>前置要求</h3><ul>
+<li>Node.js 18+ </li>
+<li>npm 或 yarn</li>
+</ul>
+<h3 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 全局安装 Claude Code</span></span><br><span class="line">npm install -g @anthropic-ai/claude-code</span><br></pre></td></tr></table></figure>
+
+<p>安装完成后，可以通过以下命令验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude --version</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置智谱模型"><a href="#配置智谱模型" class="headerlink" title="配置智谱模型"></a>配置智谱模型</h2><h3 id="获取-API-Key"><a href="#获取-API-Key" class="headerlink" title="获取 API Key"></a>获取 API Key</h3><ol>
+<li>访问 <a target="_blank" rel="noopener" href="https://open.bigmodel.cn/">智谱开放平台</a></li>
+<li>注册&#x2F;登录账号</li>
+<li>在控制台获取 API Key</li>
+</ol>
+<h3 id="配置-Claude-Code"><a href="#配置-Claude-Code" class="headerlink" title="配置 Claude Code"></a>配置 Claude Code</h3><p>创建或编辑配置文件 <code>~/.claude/settings.json</code>：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span><span class="punctuation">:</span> <span class="string">&quot;your_api_key_here&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>⚠️ <strong>重要提示</strong>：请将 <code>your_api_key_here</code> 替换为你从智谱平台获取的真实 API Key。</p>
+</blockquote>
+<h3 id="解决网络问题"><a href="#解决网络问题" class="headerlink" title="解决网络问题"></a>解决网络问题</h3><p>如果在国内使用时遇到网络超时问题，可以添加以下配置：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;env&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_AUTH_TOKEN&quot;</span><span class="punctuation">:</span> <span class="string">&quot;your_api_key_here&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;ANTHROPIC_BASE_URL&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://open.bigmodel.cn/api/anthropic&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;API_TIMEOUT_MS&quot;</span><span class="punctuation">:</span> <span class="string">&quot;3000000&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC&quot;</span><span class="punctuation">:</span> <span class="string">&quot;1&quot;</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>同时，创建 <code>~/.claude.json</code> 文件：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;hasCompletedOnboarding&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>这些配置可以：</p>
+<ul>
+<li>延长超时时间</li>
+<li>禁用非必要网络请求</li>
+<li>跳过新手引导流程</li>
+</ul>
+<h2 id="验证配置"><a href="#验证配置" class="headerlink" title="验证配置"></a>验证配置</h2><p>运行以下命令启动 Claude Code：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">claude</span><br></pre></td></tr></table></figure>
+
+<p>如果配置正确，你应该能看到 Claude Code 的欢迎界面，并可以开始对话。</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><h3 id="1-连接超时"><a href="#1-连接超时" class="headerlink" title="1. 连接超时"></a>1. 连接超时</h3><p>检查网络配置，确保 <code>CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC</code> 已设置。</p>
+<h3 id="2-API-Key-无效"><a href="#2-API-Key-无效" class="headerlink" title="2. API Key 无效"></a>2. API Key 无效</h3><p>确认 API Key 正确，且智谱账户余额充足。</p>
+<h3 id="3-模型选择"><a href="#3-模型选择" class="headerlink" title="3. 模型选择"></a>3. 模型选择</h3><p>智谱支持多种模型，Claude Code 会自动使用 GLM-5 模型。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>通过配置智谱模型，我们可以在国内网络环境下顺利使用 Claude Code。这种方式不仅解决了网络访问问题，还能享受到智谱 GLM-5 模型的强大能力。</p>
+<p>如果你在配置过程中遇到其他问题，欢迎在评论区讨论！</p>
+<hr>
+<p><strong>相关文章</strong>：</p>
+<ul>
+<li><a href="/2026/02/18/%E5%9C%A8ECS%E4%B8%8A%E9%85%8D%E7%BD%AENanobot%E5%B9%B6%E6%8E%A5%E5%85%A5%E9%A3%9E%E4%B9%A6/">在ECS上配置nanobot并接入飞书</a></li>
+</ul>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/工具配置/">工具配置</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/Claude-Code/">Claude Code</a><a href="/tags/智谱/">智谱</a><a href="/tags/AI编程/">AI编程</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+  <article>
+
+  
+    
+    <h3 class="article-title"><a href="/2026/02/18/在ECS上配置Nanobot并接入飞书/"><span>在ECS上配置Nanobot并接入飞书</span></a></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2026/02/18/在ECS上配置Nanobot并接入飞书/" rel="bookmark">
+        <time class="entry-date published" datetime="2026-02-18T14:00:00.000Z">
+          2026-02-18
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <p>本文将介绍如何在阿里云ECS上安装配置Nanobot，并将其接入飞书机器人，实现AI助手与飞书的打通。</p>
+        
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/技术/">技术</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/nanobot/">nanobot</a><a href="/tags/AI/">AI</a><a href="/tags/飞书/">飞书</a><a href="/tags/自动化/">自动化</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+
+
+
+<nav class="pagination">
+  
+  
+</nav>
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2026 DashShen
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'default'
+  });
+</script>
+</body>
+</html>
